@@ -1,7 +1,7 @@
 ---
 title: "Introduction to Statistics"
 subtitle: "Part I: Introduction to Statistical Inference"
-author: "Stéphane Guerrier 🤓 & Yuming Zhang 😝"
+author: "Stéphane Guerrier & Yuming Zhang"
 date: "18 December 2020"
 output:
   xaringan::moon_reader:
@@ -11,6 +11,8 @@ output:
       highlightLines: true
       countIncrementalSlides: false
 ---
+
+
 
 ```{R, setup, include = F}
 # devtools::install_github("dill/emoGG")
@@ -155,6 +157,38 @@ tidy_table <- function(x, terms, highlight_row = 1, highlight_color = "black", h
   }
 }
 ```
+
+
+
+# Introduction
+
+Welcome to the class "Introduction to Statistics"! We hope that you all will enjoy this class!
+
+Throughout this class, we will use a platform called .hi-pink[Piazza] for the share of all the teaching materials and Q&A. 
+
+```{R, out.width = "40%", echo = F}
+include_graphics("pics/piazza.png")
+```
+
+- Signup Link: [https://piazza.com/configure-classes/winter2020/sisu](https://piazza.com/configure-classes/winter2020/sisu)
+- Access Code: .hi-purple[statisfun]
+
+---
+
+# Introduction 
+
+In this class, we will also use some statistical softwares .hi-pink[R] and .hi-pink[R Studio], which you can download with the following: 
+
+- Latest version of R: [https://cran.r-project.org/](https://cran.r-project.org/)
+- Latest version of R Studio: [https://www.rstudio.com/](https://www.rstudio.com/)
+
+.hi-purple[Note:] You cannot use RStudio without having installed R on your computer.
+
+--- 
+
+# What is statistics?
+
+--- 
 
 # What is statistics?
 
