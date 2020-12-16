@@ -171,7 +171,7 @@ include_graphics("pics/piazza.png")
 ```
 
 - Signup Link: [https://piazza.com/configure-classes/winter2020/sisu](https://piazza.com/configure-classes/winter2020/sisu)
-- Access Code: .hi-purple[statisfun]
+- Access Code: .purple[statisfun]
 
 ---
 
@@ -186,10 +186,18 @@ In this class, we will also use some statistical softwares .hi-pink[R] and .hi-p
 
 ---
 
+# Introduction
+
+```{R, out.width = "60%", echo = F}
+include_graphics("pics/r_first_then.png")
+```
+
+---
+
 # What is statistics?
 
 .pull-left[
-.smaller[.hi-pink[Statistics] is a science that uses mathematics and computer science to deal with the collection, analysis, interpretation, and presentation of masses of numerical data. Informally, it is the .pink[science of learning from data]. 🧐]
+.smaller[.hi-pink[Statistics] is a science that uses mathematics and computer science to deal with the collection, analysis, interpretation, and presentation of masses of numerical data. Informally, it is the .pink[science of learning from data].]
 ```{R, stat, out.width = "90%", echo = F}
 include_graphics("pics/stat.jpeg")
 ```
@@ -197,79 +205,56 @@ include_graphics("pics/stat.jpeg")
 ]
 
 .pull-right[
-.smaller[.hi-purple[Statistics] is a crucial part of our life. However, .purple[statistical methods are often consciously (or not) misused] (but how? 🤔). This can lead to contradictory studies and conclusions (as seen during the current COVID-19 pandemic).]
+.smaller[.hi-purple[Statistics] is a crucial part of our life. However, .purple[statistical methods are often consciously (or not) misused]. This can lead to contradictory studies and conclusions (as seen during the current COVID-19 pandemic).]
 
 ```{R, torture, out.width = "80%", echo = F}
 include_graphics("pics/data-torture.png")
 ```
 
 .tiny[Source: [Atoz Markets](https://atozmarkets.com/news/untold-reality-of-p-hacking-in-finance/)]
-
 ]
-
----
-
-# What is statistical literacy?
-
-(TO KEEP? MAYBE CHANGE statistical literacy to stat and adapt... MINGMING WHAT DO YOU THINK?)
-
-.smallest[.hi-pink[Statistical Literacy] can be defined as follows:]
-- .smallest[The ability to .pink[understand data], or arguments that use data.]
-- .smallest[Being able to apply .pink[critical thinking] about numbers and about .pink[statistics used as evidence in arguments].]
-- .smallest[Understanding how statistical associations are used to assess causal connections.]  
-
-.pull-left[
-```{R, correlation, out.width = "100%", echo = F}
-include_graphics("pics/correlation.png")
-```
-]
-
-.pull-right[
-.tiny[Source: [xkcd](xkcd.com/552)]
-
-👋 .smallest[If you want to know more about these comic strips take a look [here](https://www.explainxkcd.com/wiki/index.php/552:_Correlation).]
-]
-
-.smallest[.hi-purple[Statistical literacy is now becoming an essential skill]. It is, for example, needed by .purple[anyone who tries to learn new information from data]. .turquoise[Scientists also need to develop statistical literacy so that they can produce both rigorous and reproducible research.]]
-
----
-
-# (Mis)Understanding statistical results
-
-(KEEP?)
-
-```{R, correaltion, out.width = "65%", echo = F}
-include_graphics("pics/conditional_risk.png")
-```
-
-.tiny[Source: [xkcd](xkcd.com/795)]
-
-👋 .smaller[If you want to know more about these comic strips take a look [here](https://www.explainxkcd.com/wiki/index.php/795:_Conditional_Risk).]
-
----
-
-# Simpsons Paradox
-
-TO DO (mingming?) Should that stat can be tricky...
 
 ---
 
 # How can statistics be useful?
 
-(MAYBE KEEP THIS SLIDE BUT ADAPT)
+As mentioned previously, statistics is the .pink[science of learning from data]. It can be used (among others) to
 
-As mentioned previously, statistics is the .pink[science of learning from data]. It can be used (among others) to:
 1. .purple[Visualize data] (e.g. propagation of COVID-19 in different countries).
 2. .purple[Understand and interpret data] (e.g. main causes of cancer). 
-3. .purple[Make predictions] (e.g. predicting unemployment or risk indices).
-4. .hi-pink[Assess the validity of a hypothesis].
+3. .purple[Assess the validity of a hypothesis].
+4. .purple[Make predictions] (e.g. predicting unemployment or risk indices).
 
-In this class, we will focus on the last point:
-''.pink[*how to assess the validity of a hypothesis using statistics?*]''. More precisely, we will discuss how statistical methods can be used to evaluate claims (hypotheses) such as:
+Learning statistics allows us to 
 
-1. Coffee consumption increases blood pressure (really 🙄 ☕?).
-2. Republican politicians are bad/good for the American Economy.
-3. A glass of red wine is as good as an hour at the gym (🍷 🏃 😆).
+1. .smallest[.pink[Understand data], or arguments that use data.]
+2. .smallest[Be able to apply .pink[critical thinking] about numbers and about .pink[statistics used as evidence in arguments].]
+3. .smallest[Understand how statistical associations are used to .pink[evaluate claims (hypotheses)] and .pink[assess causal connections.] (e.g. Coffee consumption increases blood pressure? 🧐)]  
+
+
+---
+
+# Simpson's Paradox
+
+.pull-left[.smallest[.pink[Statistical analysis can be tricky.] Here we give an example of a study of gender bias among graduate school admissions to University of California, Berkeley, for the fall of 1973.]
+
+```{R, out.width = "100%", echo = F}
+include_graphics("pics/berkeley1.png")
+```
+
+```{R, out.width = "100%", echo = F}
+include_graphics("pics/berkeley2.png")
+```
+
+]
+
+.pull-right[
+
+1. .smallest[The table of total admission shows that men applying were more likely than women to be admitted, and the difference was so large (9%) that it was unlikely to be due to chance.]
+2. .smallest[However, when we look into the admission data by department basis, it turned out that most of the departments actually had a slightly higher success rate for female applicants than for male applicants.]
+3. .smallest[This phenomenon is known as .hi-purple[Simpson's Paradox]. ]
+]
+
 
 ---
 
