@@ -100,7 +100,7 @@ In this class, we will use the statistical software .hi-pink[R] together with th
 
 # Simpson's Paradox
 
-.pull-left[.smallest[.pink[Statistical analysis can be tricky.] Here we give an example of a study of gender bias among graduate school admissions to University of California, Berkeley, for the fall of 1973.]
+.pull-left[.smallest[.hi-pink[Statistical analysis can be tricky.] Here we give an example of a study of gender bias among graduate school admissions to University of California, Berkeley, for the fall of 1973.]
 
 &lt;img src="lecture1_files/figure-html/unnamed-chunk-4-1.svg" width="100%" style="display: block; margin: auto;" /&gt;
 
@@ -108,9 +108,9 @@ In this class, we will use the statistical software .hi-pink[R] together with th
 
 .pull-right[
 .smallest[
-The data show that among .purple[8,442 men applicants 44%] were admitted while among the .pink[4,321 women applicants only 35%] were admitted. The overall admission rate was around 41%. Therefore, the data suggest that men applying were more likely than women to be admitted. The difference is quite large (9%) and based on a large sample of 12,763 applicants so it is unlikely that it is due to chance.
+The data show that .purple[among 8,442 men applicants 44% were admitted] while .pink[among 4,321 women applicants only 35% were admitted]. The overall admission rate was around 41%. The difference is quite large (9%) and it is a large sample with 12,763 applicants, so it is unlikely that this is due to chance. Therefore, the data suggest that .purple[men applying were more likely to be admitted than women].
 
-However, this conclusion is completely incorrect and a correct analysis showed a "small but statisticall significant bias in favor of women". But why? EMOJI
+However, when people looked more into the data, they found that this conclusion is actually completely incorrect. In fact, a correct analysis showed that .pink["small but statisticall significant bias in favor of women"]. But why? 😮
 ]
 ]
 
@@ -118,32 +118,22 @@ However, this conclusion is completely incorrect and a correct analysis showed a
 
 # Simpson's Paradox
 
-.pull-left[.smallest[.pink[Let us consider the individuals departments where the students are applying]
-
-ADD GRAPH BY DEPT
+.pull-left[
 
 &lt;img src="lecture1_files/figure-html/unnamed-chunk-5-1.svg" width="100%" style="display: block; margin: auto;" /&gt;
-
-
-ADD LINK TO WIKI
-
-]
-
----
-
-# xfdbh
-
-&lt;img src="pics/berkeley2.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 ]
 
 .pull-right[
 
-1. .smallest[The table of total admission shows that men applying were more likely than women to be admitted, and the difference was so large (9%) that it was unlikely to be due to chance.]
-2. .smallest[However, when we look into the admission data by department basis, it turned out that most of the departments actually had a slightly higher success rate for female applicants than for male applicants.]
-3. .smallest[This phenomenon is known as .hi-purple[Simpson's Paradox]. ]
+&lt;img src="lecture1_files/figure-html/unnamed-chunk-6-1.svg" width="100%" style="display: block; margin: auto;" /&gt;
+
 ]
 
+- .smallest[Men applicants tended to apply for "easy" departments, i.e. departments that had high admission rates.] 
+- .smallest[Women applicants tended to apply to "hard" departments, i.e. departments that had low admission rates.]  
+- .smallest[So it turns out that most of the departments actually had a slightly higher success rate for women.]
+- .smallest[This phenomenon is known as .hi-purple[Simpson's Paradox]. ]
 
 ---
 
@@ -205,7 +195,7 @@ In this class, we plan to cover the following topics:
 
 # Proportion Estimation
 
-Suppose we ask `\(n\)` voters for which candidate (Biden, Trump or independent) they intend to vote in order to estimate the proportion of voters for Biden. For tWine the .hi.purple[random variables] `\(X_1, ..., X_n\)` where `\(X_i\)` is defined as:
+Suppose we ask `\(n\)` voters for which candidate (Biden, Trump or independent) they intend to vote in order to estimate the proportion of voters for Biden. For that we define the .hi.purple[random variables] `\(X_1, ..., X_n\)` where `\(X_i\)` is defined as:
 
 .saller[
 .center[
@@ -221,7 +211,7 @@ X_i = \left\{
 ]
 
 
-The random variables `\(X_1, ..., X_n\)` are called a (random) .hi.purple[sample] and we refer to `\(n\)` as the .hi.purple[sample size]. Let denote the (true) proportion of voters for Biden (which in this case is 51.3%), we then write
+The random variables `\(X_1, ..., X_n\)` are called a (random) .hi.purple[sample] and we refer to `\(n\)` as the .hi.purple[sample size]. Let `\(p\)` denote the (true) proportion of voters for Biden (which in this case is 51.3%), we then write
 
 
 $$
@@ -231,7 +221,7 @@ $$
 $$
 
 
-where `\(\color{#e64173}{\Pr (} A \color{#e64173}{)}\)` denote the .pink[probability] of the .purple[event] `\(A\)`.
+where `\(\color{#e64173}{\Pr (} A \color{#e64173}{)}\)` denotes the .pink[probability] of the .purple[event] `\(A\)`.
 
 ---
 
