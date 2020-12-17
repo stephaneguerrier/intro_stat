@@ -160,12 +160,21 @@ tidy_table <- function(x, terms, highlight_row = 1, highlight_color = "black", h
 
 # Hypothesis Testing
 - An alternative summary measure of uncertainty is provided by .hi-pink[p-value] that takes value between 0% and 100%. It is associated to .hi-purple[hypothesis testing] about the phenomenon under investigation. 
-- A hypothesis testing is designed to assess the strength of evidence against a baseline hypothesis that is called
+- A hypothesis testing is designed to assess the strength of evidence against a baseline hypothesis that is called .turquoise[null hypothesis] $\color{"#20B2AA"}{H_0}$ and in favor of another hypothesis that is called .turquoise[alternative hypothesis] $\color{"#20B2AA"}{H_a}$. 
+- In the Biden-Trump example, we can write
+.center[
+$H_0: p \leq 0.5$ and $H_a: p > 0.5$.
 
-a (couple of) .purple[hypotheses] about the phenomenon under investigation. For example, for the voting proposal, one hypothesis is that the majority is against the proposal, and the other one is that there is no majority (the YES and NO are both at 50%)]
-- .smaller[Each hypothesis .purple[excludes the other], so that one can .purple[exclude one in favor of the other] using the data.]
-- .smaller[The .purple[null hypothesis] is the one that one will never be able to prove because the data is random (i.e. the most precise hypothesis that the votes are 50%-50%.)]
-- .smaller[The .purple[alternative hypothesis] is the one that offers more choice of values and hence has a chance to be favored with respect to the null hypothesis (e.g. proportion of NO is smaller than 50%).]
-- .smaller[Informally, .hi-pink[a p-value can be understood as a measure of plausibility of the null hypothesis given the data]. The smaller the p-value the greater the incompatibility of the null hypothesis with the data.]
+]
+- Each hypothesis .turquoise[should exclude the other], so that one can .turquoise[exclude one in favor of the other] using the data.
+- There are two types of errors in hypothesis testing: .pink[Type I error] (False Positive), which refers to the rejection of a true $H_0$, and .pink[Type II error] (False Negative), which refers to the failure to reject a false $H_0$. 
+
+
+---
+
+# Hypothesis Testing
+
+- Informally, .hi-pink[a p-value can be understood as a measure of plausibility of the null hypothesis given the data]. The smaller the p-value the greater the incompatibility of the null hypothesis with the data.
+
 
 
