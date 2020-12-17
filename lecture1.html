@@ -29,10 +29,9 @@ class: center, middle, inverse, title-slide
 
 
 
-
 # Introduction
 
-Welcome to the class "Introduction to Statistics"! We hope that you all will enjoy this class!
+Welcome to the class ".hi-purple[Introduction to Statistics]"!
 
 Throughout this class, we will use a platform called .hi-pink[Piazza] for the share of all the teaching materials and Q&amp;A. 
 
@@ -43,20 +42,22 @@ Throughout this class, we will use a platform called .hi-pink[Piazza] for the sh
 
 ---
 
-# Introduction 
+# R and RStudio
 
-In this class, we will also use some statistical softwares .hi-pink[R] and .hi-pink[R Studio], which you can download with the following: 
+.pull-left[
+In this class, we will use the statistical software .hi-pink[R] together with the integrated development environment .hi-pink[R Studio], which you can download with the following: 
 
 - Latest version of R: [https://cran.r-project.org/](https://cran.r-project.org/)
 - Latest version of R Studio: [https://www.rstudio.com/](https://www.rstudio.com/)
 
 .hi-purple[Note:] You cannot use RStudio without having installed R on your computer.
+]
 
----
+.pull-right[
 
-# Introduction
+&lt;img src="pics/r_first_then.png" width="100%" style="display: block; margin: auto;" /&gt;
 
-&lt;img src="pics/r_first_then.png" width="60%" style="display: block; margin: auto;" /&gt;
+]
 
 ---
 
@@ -80,20 +81,20 @@ In this class, we will also use some statistical softwares .hi-pink[R] and .hi-p
 
 # How can statistics be useful?
 
-.smallest[As mentioned previously, statistics is the .pink[science of learning from data]. It can be used (among others) to
+.smallest[Statistics can be used (among others) to
 
 1. .purple[Visualize data] (e.g. propagation of COVID-19 in different countries).
 2. .purple[Understand and interpret data] (e.g. main causes of cancer). 
-3. .purple[Assess the validity of a hypothesis].
+3. .purple[Assess the validity of a hypothesis] (e.g. is a drug working?).
 4. .purple[Make predictions] (e.g. predicting unemployment or risk indices).]
 
-.smallest[Learning statistics allows us to ]
+.smallest[Learning more about statistics allows to ]
 
-1. .smallest[.pink[Understand data], or arguments that use data.]
-2. .smallest[Be able to apply .pink[critical thinking] about numbers and about .pink[statistics used as evidence in arguments].]
-3. .smallest[Understand how statistical associations are used to .pink[evaluate claims (hypotheses)] and .pink[assess causal connections.] (e.g. Coffee consumption increases blood pressure?)]  
+1. .smallest[Better understand .pink[arguments based on data.]]
+2. .smallest[Be able to apply .pink[critical thinking] about .pink[statistics used as evidence].]
+3. .smallest[Understand how statistical associations are used to .pink[evaluate claims (hypotheses)] and .pink[assess causal connections.]]  
 
-.smallest[.purple[To summarize, understanding and knowing how to interpret statistical analyses is therefore becoming an increasingly vital skill.]]
+.smallest[.purple[Understanding and knowing how to interpret statistical analyses is therefore becoming an increasingly vital skill.]]
 
 ---
 
@@ -101,7 +102,36 @@ In this class, we will also use some statistical softwares .hi-pink[R] and .hi-p
 
 .pull-left[.smallest[.pink[Statistical analysis can be tricky.] Here we give an example of a study of gender bias among graduate school admissions to University of California, Berkeley, for the fall of 1973.]
 
-&lt;img src="pics/berkeley1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="lecture1_files/figure-html/unnamed-chunk-4-1.svg" width="100%" style="display: block; margin: auto;" /&gt;
+
+]
+
+.pull-right[
+.smallest[
+The data show that among .purple[8,442 men applicants 44%] were admitted while among the .pink[4,321 women applicants only 35%] were admitted. The overall admission rate was around 41%. Therefore, the data suggest that men applying were more likely than women to be admitted. The difference is quite large (9%) and based on a large sample of 12,763 applicants so it is unlikely that it is due to chance.
+
+However, this conclusion is completely incorrect and a correct analysis showed a "small but statisticall significant bias in favor of women". But why? EMOJI
+]
+]
+
+---
+
+# Simpson's Paradox
+
+.pull-left[.smallest[.pink[Let us consider the individuals departments where the students are applying]
+
+ADD GRAPH BY DEPT
+
+&lt;img src="lecture1_files/figure-html/unnamed-chunk-5-1.svg" width="100%" style="display: block; margin: auto;" /&gt;
+
+
+ADD LINK TO WIKI
+
+]
+
+---
+
+# xfdbh
 
 &lt;img src="pics/berkeley2.png" width="100%" style="display: block; margin: auto;" /&gt;
 
@@ -120,26 +150,14 @@ In this class, we will also use some statistical softwares .hi-pink[R] and .hi-p
 # How does it work?
 
 .smallest[
-- Statistical methods are based on several fundamental concepts, the most central of which is to consider the information available (in the form of data) resulting from a .hi-pink[random process]. 🙉
-- As such, the data represent a .hi-turquoise[random sample] of a totally or conceptually accessible .hi-turquoise[population].
-- We can then provide .hi-purple[statistical inference] which infers properties of a population based on the observed sample. This includes deriving estimates and testing hypotheses.
-- However, understanding statistical results is not intuitive. There exist many pitfalls such as .purple[p-hacking] or .purple[HARKing]. ]
+- Statistical methods are based on several fundamental concepts, the most central of which is to consider the information available (in the form of data) resulting from a .purple[random process].
+- As such, the data represent a .hi-pink[random sample] of a totally or conceptually accessible .hi-pink[population].
+- Then, .purple[statistical inference] allows to infer the properties of a population based on the observed sample. This includes deriving estimates and testing hypotheses.
+]
 
-&lt;img src="pics/sampling.png" width="30%" style="display: block; margin: auto;" /&gt;
+&lt;img src="pics/sampling.png" width="45%" style="display: block; margin: auto;" /&gt;
 .tiny[Source: [luminousmen](luminousmen.com)]
 
----
-
-# How does it work?
-
-(TO REMOVE)
-
-- Statistics allows to determine the .hi-pink[decision-making risks] (in the form of probabilities) associated with learning (decisions) based on the analysis of data extracted from samples. .slate[This allows to evaluate the validity of a claim] (such as the ones we discussed previously). 
-- .purple[Understanding and knowing how to interpret statistical analyses is therefore becoming an increasingly vital skill].
-- In some sense, .hi-pink[statistics plays a crucial role in our life] as new discoveries (obtained using statistical methods) directly impact us&lt;sup&gt;.smallest[👋]&lt;/sup&gt;.
-- However, understanding statistical results is not intuitive. There exist many pitfalls such as .purple[p-hacking] or .purple[HARKing] (e.g. why are there so many contradictory studies? Is Hydroxychloroquine working or not?).
-
-.footnote[.smallest[👋] This is essentially true in the area of .hi-purple[Big Data] where the discovery of patterns and/or signals hidden in massive amounts of data is increasingly becoming one of the major challenges faced by modern scientific research.]
 
 ---
 
@@ -150,7 +168,7 @@ In this class, we plan to cover the following topics:
 - Introduction to .pink[statistical inference] (concepts of random variables, confidence interval and p-values).
 - Introduction to the .purple[statistical software R].
 - .pink[Tests for comparing the mean of two groups] (descriptive analysis, t-test, rank-based methods).
-- .purple[Tests for comparing the mean of multiple groups] (descriptive analysis, ANOVA and non-parametric counterpart, discussion on multiple testing).
+- .purple[Tests for comparing the mean of multiple groups] (descriptive analysis, ANOVA and non-parametric counterparts, discussion on multiple testing).
 - Introduction to .pink[regression] (correlation vs causality, descriptive analysis, linear regression and going beyond linear regression).
 - .purple[Pitfalls] for statistical analysis and remedies (p-hacking/HARKing and how to avoid it, replicability crisis).
 
