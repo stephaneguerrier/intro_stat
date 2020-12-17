@@ -452,12 +452,93 @@ Loosely speaking, we can translate the CLT as $$\bar{X} \overset{\cdot}{\sim} N(
 
 ---
 
-# Should we measure uncertainty?
+# Central Limit Theorem
 
-(mingming: to improve)
+add CLT gif here
 
-- In our example, we are interested in knowing if $p$ is bigger or smaller than 50% but, unfortunately, $p$ is unknown (in general) and we use $\hat{p}$ instead.
-- Our estimator $\hat{p}$ is not perfect and it is different from $p$. Also, we see that depending on $n$ we can get different answers (see $n = 200$ and $n = 600$).
-- To address this issue we can try to assess the uncertainty of $\hat{p}$ (i.e. assess how different $\hat{p}$ and $p$ can be).
-- .pink[Uncertainty can be measured in many different ways]. A common approach (in statistics) is to use .hi-purple[confidence intervals]. 
-- In order to understand how such intervals can obtained, we will first present the .hi.purple[Central Limit Theorem], which states that: .turquoise[the sampling distribution of the sample means approaches a normal distribution as the sample size gets larger]. So, what does this means? 😟
+---
+
+# Confidence Interval
+
+(UPDATE GRAPH)
+
+Now that we learn about CLT, how can we use it to construct .hi-purple[confidence intervals]? 
+
+- .smaller[Confidence intervals correspond to .pink[a range of values that are likely to include the population value with a certain level of confidence]. The level of confidence is a probability expressed as a percentage (%).] 
+- .smaller[In our example, we are interested in the true (population) proportion of voters in favor of Biden (51.3%). Using our sample of $n=200$, we could construct the following 95% confidence interval]:
+
+.pull-left[
+```{R, CI, out.width = "90%", echo = F}
+include_graphics("pics/CI.jpeg")
+```
+]
+
+.smaller[.pull-right[
+So what does it mean? 🤔 It means that with a .hi-purple[probability of 95%], the true proportion of voters for Biden (51.3% in this case) is between say ? and ?.]
+]
+
+
+---
+
+# Confidence Interval
+
+How is this confidence interval computed? We recall that by CLT, $$\hat{p} \overset{\cdot}{\sim} N(p, \frac{p(1-p)}{n}).$$ However, as we do not know the true value of $p$ in practice, we replace it with the best guess we have, which is $\hat{p}$. We then can write 
+$$\hat{p} \overset{\cdot}{\sim} N\Bigg(\color{#e64173}{\hat{p}}, \color{#6A5ACD}{\frac{\hat{p}(1-\hat{p})}{n}}\Bigg).$$
+
+The $1-\alpha$ confidence interval for $p$ is then given by $$\color{#e64173}{\hat{p}} \pm Z_{1-\alpha/2}\color{#6A5ACD}{\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}}.$$
+
+But what is $Z_{1-\alpha/2}$? 🤓
+
+---
+
+# Confidence Interval
+
+$Z_{1-\alpha/2}$ corresponds to the $1-\alpha/2$ quantile of a standard normal distribution $N(0,1)$, that is, 
+
+.center[ 
+$Z_{1-\alpha/2}$ is such that $\Pr(Z \leq Z_{1-\alpha/2}) = 1-\alpha/2$ where $Z \sim N(0,1)$.
+]
+
+.pull-left[
+
+```{R, out.width = "70%", echo = F}
+include_graphics("pics/standard_normal.png")
+```
+
+]
+
+.pull-right[
+- For 90% confidence interval, $Z_{0.95} \approx 1.64$. 
+- For 95% confidence interval, $Z_{0.975} \approx 1.96$. 
+- For 99% confidence interval, $Z_{0.995} \approx 2.58$. 
+]
+---
+
+# Confidence Interval - Example 1
+
+add the biden-trump example
+
+---
+
+# Confidence Interval - Example 2
+
+add an interdisciplinary example
+
+---
+
+# ⚠️ Take home message
+
+- Since the data is available through sampling, it is .hi-purple[random]. .pink[Therefore, a decision or prediction can never be made with certainty!]
+- The only certainty one can have is that, for example, a proportion will always be included in the interval from 0% to 100%. .hi-purple[However, this is neither informative nor useful] and it does not even depend on the data.
+- There exists a trade-off between .hi-pink[risk] as measured by  $1-\alpha$ (typically 95%) the confidence level, and the .hi-pink[precision of the conclusion] as measured, for example, by the confidence interval length.
+- Moreover, the larger the sample size, the more precise the conclusion, for the same confidence level.
+- Therefore, .purple[every decision based on statistical methods has a risk and how much risk is acceptable depends on the context] (e.g. safety in airplanes vs which soft drink tastes better).
+
+
+
+
+
+
+
+
+

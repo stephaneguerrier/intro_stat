@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Introduction to Statistics</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Stéphane Guerrier &amp; Yuming Zhang" />
+    <meta name="date" content="2020-12-18" />
+    <link href="mingming_files/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="mingming_files/remark-css-0.0.1/metropolis.css" rel="stylesheet" />
+    <link href="mingming_files/remark-css-0.0.1/metropolis-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="my-css.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Introduction to Statistics
+## Part I: Introduction to Statistical Inference
+### Stéphane Guerrier &amp; Yuming Zhang
+### 18 December 2020
+
+---
+
+
+
+
+
+
+
+
+# How to measure uncertainty?
+
+(UPDATE GRAPH)
+
+Now that we learn about CLT, how can we use it to construct .hi-purple[confidence intervals]? 
+
+- .smaller[Confidence intervals correspond to .pink[a range of values that are likely to include the population value with a certain level of confidence]. The level of confidence is a probability expressed as a percentage (%).] 
+- .smaller[In our example, we are interested in the true (population) proportion of voters in favor of Biden (51.3%). Using our sample of `\(n=200\)`, we could construct the following 95% confidence interval]:
+
+.pull-left[
+&lt;img src="pics/CI.jpeg" width="90%" style="display: block; margin: auto;" /&gt;
+]
+
+.smaller[.pull-right[
+So what does it mean? 🤔 It means that with a .hi-purple[probability of 95%], the true proportion of voters for Biden (51.3% in this case) is between say ? and ?.]
+]
+
+
+---
+
+# How to measure uncertainty?
+
+How is this confidence interval computed? We recall that by CLT, `$$\hat{p} \overset{\cdot}{\sim} N(p, \frac{p(1-p)}{n}).$$` However, as we do not know the true value of `\(p\)` in practice, we replace it with the best guess we have, which is `\(\hat{p}\)`. We then can write 
+`$$\hat{p} \overset{\cdot}{\sim} N\Bigg(\color{#e64173}{\hat{p}}, \color{#6A5ACD}{\frac{\hat{p}(1-\hat{p})}{n}}\Bigg).$$`
+
+The `\(1-\alpha\)` confidence interval for `\(p\)` is then given by `$$\color{#e64173}{\hat{p}} \pm Z_{1-\alpha/2}\color{#6A5ACD}{\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}}.$$`
+
+But what is `\(Z_{1-\alpha/2}\)`? 🤓
+
+---
+
+# How to measure uncertainty?
+
+`\(Z_{1-\alpha/2}\)` corresponds to the `\(1-\alpha/2\)` quantile of a standard normal distribution `\(N(0,1)\)`, that is, 
+
+.center[ 
+`\(Z_{1-\alpha/2}\)` is such that `\(\Pr(Z \leq Z_{1-\alpha/2}) = 1-\alpha/2\)` where `\(Z \sim N(0,1)\)`.
+]
+
+.pull-left[
+add graph here
+]
+
+.pull-right[
+- For 90% confidence interval, `\(Z_{0.95} = 1.64\)`. 
+- For 95% confidence interval, `\(Z_{0.975} = 1.96\)`. 
+- For 99% confidence interval, `\(Z_{0.995} = 2.58\)`. 
+]
+
+---
+
+# Confidence Interval - Example 1
+
+add the biden-trump example
+
+---
+
+# Confidence Interval - Example 2
+
+add an interdisciplinary example
+
+---
+
+# ⚠️ Take home message
+
+- Since the data is available through sampling, it is .hi-purple[random]. .pink[Therefore, a decision or prediction can never be made with certainty!]
+- The only certainty one can have is that, for example, a proportion will always be included in the interval from 0% to 100%. .hi-purple[However, this is neither informative nor useful] and it does not even depend on the data.
+- There exists a trade-off between .hi-pink[risk] as measured by  `\(1-\alpha\)` (typically 95%) the confidence level, and the .hi-pink[precision of the conclusion] as measured, for example, by the confidence interval length.
+- Moreover, the larger the sample size, the more precise the conclusion, for the same confidence level.
+- Therefore, .purple[every decision based on statistical methods has a risk and how much risk is acceptable depends on the context] (e.g. safety in airplanes vs which soft drink tastes better).
+
+---
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
