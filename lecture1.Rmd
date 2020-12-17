@@ -157,7 +157,11 @@ tidy_table <- function(x, terms, highlight_row = 1, highlight_color = "black", h
 }
 ```
 
-
+```{r xaringan-tile-view, echo=FALSE}
+xaringanExtra::use_tile_view()
+xaringanExtra::use_panelset()
+xaringanExtra::use_clipboard()
+```
 
 # Introduction
 
@@ -467,70 +471,142 @@ include_graphics("pics/sample_n.jpg")
 
 # Population and Sample - Example
 
-- In our example, we are interested in knowing if $p$, a .pink[population-level quantity] is bigger or smaller than 50%. Unfortunately, $p$ is generally unknown as we cannot access the whole population. Therefore, we use $\hat{p}$ instead, a .purple[sample-dependent quantity].
-- However, as we can see, $\hat{p}$ is .hi.turquoise[random] in the sense that it can change depending on the collected sample (e.g. we get different answers when $n = 200$ and when $n = 600$). 
+- In our example, we are interested in knowing if $p$, a .pink[population-level quantity], is bigger or smaller than 50%. Unfortunately, $p$ is generally unknown as we cannot access the whole population (otherwise let's not bother with Statistics! EMOJI). Therefore, we use $\hat{p}$ instead, a .purple[sample-dependent quantity].
+- However, as we can see, $\hat{p}$ is .turquoise[random] in the sense that it can change depending on the collected sample (e.g. we get different answers when $n = 200$, where Trump is leading, and when $n = 600$, where Biden is leading). 
 - To address this issue, we need to assess the .hi.pink[uncertainty] of $\hat{p}$ (i.e. assess how different $\hat{p}$ and $p$ can be).
+- Statistics can provides us many tools allowing to determine uncertainty as well as the associated .pink[decision-making risks].
 
 ---
 
 # How to measure uncertainty?
 
-.pink[Uncertainty can be measured in many different ways]. A common approach (in statistics) is to use .hi-purple[confidence intervals], which rely on the Central Limit Theorem (CLT) that states:
+Uncertainty can be measured in many different ways. A common approach (in statistics) is to use .hi-purple[confidence intervals], which rely on the .hi.pink[Central Limit Theorem (CLT)] that states:
 
 .center[.turquoise["The sampling distribution of the sample mean approaches to a normal distribution as the sample size gets larger."]]
 
-Loosely speaking, we can translate the CLT as $$\bar{X} \overset{\cdot}{\sim} N(\mu, \sigma^2),$$ with some $\mu$ and $\sigma^2$<sup>.smallest[👋]</sup>. Here $\bar{X}$ denotes the sample mean and $\overset{\cdot}{\sim}$ represents "approximately distributed as". In our example, we have $$\hat{p} \overset{\cdot}{\sim} N(p, \frac{p(1-p)}{n})$$. 
+Loosely speaking, we can translate the CLT as 
 
-.footnote[.smallest[👋] More precisely, $\mu$ is the expected value (also called expectation) of $\hat{p}$ and $\sigma^2$ is the variance of $\hat{p}$. Check out [expected value](https://en.wikipedia.org/wiki/Expected_value) and [variance](https://en.wikipedia.org/wiki/Variance).]
+$$\bar{X} = \frac{1}{n} \sum_{i = 1}^n X_i \color{#e64173}{\overset{\cdot}{\sim}} \color{#6A5ACD}{\mathcal{N}(\mu, \sigma^2)},$$ 
 
+where $\color{#6A5ACD}{\mathcal{N}(\mu, \sigma^2)}$ denotes a normal distribution with mean $\mu$ and variance $\sigma^2$ (typically computed using our data)<sup>.smallest[👋]</sup>. Here $\bar{X}$ denotes the sample mean and $\color{#e64173}{\overset{\cdot}{\sim}}$ represents ".pink[approximately distributed as]". 
 
----
-
-# Central Limit Theorem
-
-add CLT gif here
+.footnote[.smallest[👋] Check out [expected value](https://en.wikipedia.org/wiki/Expected_value) and [variance](https://en.wikipedia.org/wiki/Variance).]
 
 ---
 
-# Confidence Interval
+# How to measure uncertainty?
 
-(UPDATE GRAPH)
+In our example, we have $$\hat{p} \overset{\cdot}{\sim} N(p, \frac{p(1-p)}{n})$$. 
+
+SO WHAT DOES IT MEAN... WHEN SOMETHING IS ANAVERAGE OF LOTS OF STUFF THE DISTRBUTION GOES TO A NORMAL
+
+HOW DOES A NORMAL LOOK LIKE ... ADD AN IMAGE
+
+---
+
+# Distribution of heights
+
+```{R, out.width = "100%", echo = F}
+include_graphics("pics/distribution-1.png")
+```
+
+---
+
+# Central Limit Theorem - Example
+
+```{R, out.width = "100%", echo = F}
+include_graphics("pics/sample_clt1.jpg")
+```
+
+---
+
+# Central Limit Theorem - Example
+
+```{R, out.width = "100%", echo = F}
+include_graphics("pics/sample_clt2.jpg")
+```
+
+---
+
+# Central Limit Theorem - Example
+
+```{R, out.width = "100%", echo = F}
+include_graphics("pics/sample_clt3.jpg")
+```
+
+---
+
+# Central Limit Theorem - Example
+
+.center[![](GIF/sample_clt.gif)]
+
+---
+
+# Central Limit Theorem - Example
+
+```{R, out.width = "100%", echo = F}
+include_graphics("pics/sample_clt_n.jpg")
+```
+
+---
+
+# Central Limit Theorem - Example
+
+.center[![](GIF/sample_clt2.gif)]
+
+---
+
+# Central Limit Theorem - Example
+
+```{R, out.width = "100%", echo = F}
+include_graphics("pics/sample_clt_n2.jpg")
+```
+
+---
+
+# Confidence Intervals
 
 Now that we learn about CLT, how can we use it to construct .hi-purple[confidence intervals]? 
 
 - .smaller[Confidence intervals correspond to .pink[a range of values that are likely to include the population value with a certain level of confidence]. The level of confidence is a probability expressed as a percentage (%).] 
-- .smaller[In our example, we are interested in the true (population) proportion of voters in favor of Biden (51.3%). Using our sample of $n=200$, we could construct the following 95% confidence interval]:
+- .smaller[In our example, we are interested in the true (population) proportion of voters in favor of Biden (51.3%). Using our sample of *n*=200, we had *m* = 95 and we can construct the following 95% confidence interval]:
 
 .pull-left[
 ```{R, CI, out.width = "90%", echo = F}
-include_graphics("pics/CI.jpeg")
+include_graphics("pics/ci.jpg")
 ```
 ]
 
 .smaller[.pull-right[
-So what does it mean? 🤔 It means that with a .hi-purple[probability of 95%], the true proportion of voters for Biden (51.3% in this case) is between say ? and ?.]
+So what does it mean? 🤔 It means that with a .hi-purple[probability of 95%], the true proportion of voters for Biden (51.3% in this case) is between 40.45% and 54.65%.]
 ]
 
 
 ---
 
-# Confidence Interval
+# Confidence Intervals
 
-How is this confidence interval computed? We recall that by CLT, $$\hat{p} \overset{\cdot}{\sim} N(p, \frac{p(1-p)}{n}).$$ However, as we do not know the true value of $p$ in practice, we replace it with the best guess we have, which is $\hat{p}$. We then can write 
-$$\hat{p} \overset{\cdot}{\sim} N\Bigg(\color{#e64173}{\hat{p}}, \color{#6A5ACD}{\frac{\hat{p}(1-\hat{p})}{n}}\Bigg).$$
+How is this confidence interval computed? We recall that by CLT, 
 
-The $1-\alpha$ confidence interval for $p$ is then given by $$\color{#e64173}{\hat{p}} \pm Z_{1-\alpha/2}\color{#6A5ACD}{\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}}.$$
+$$\hat{p} \overset{\cdot}{\sim} \mathcal{N}\Bigg(p, \frac{p(1-p)}{n}\Bigg).$$
+However, as we .hi.purple[do not know] the true value of $p$ in practice, we replace it with the .hi.purple[best guess] we have, which is $\hat{p}$. We then can write
+
+$$\hat{p} \overset{\cdot}{\sim} \mathcal{N}\Bigg(\color{#e64173}{\hat{p}}, \color{#6A5ACD}{\frac{\hat{p}(1-\hat{p})}{n}}\Bigg).$$
+
+The $1-\alpha$ confidence interval for $p$ is then given by
+
+$$\color{#e64173}{\hat{p}} \pm Z_{1-\alpha/2}\color{#6A5ACD}{\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}}.$$
 
 But what is $Z_{1-\alpha/2}$? 🤓
 
 ---
 
-# Confidence Interval
+# Confidence Intervals
 
-$Z_{1-\alpha/2}$ corresponds to the $1-\alpha/2$ quantile of a standard normal distribution $N(0,1)$, that is, 
+$Z_{1-\alpha/2}$ corresponds to the $1-\alpha/2$ quantile of a standard normal distribution $\mathcal{N}(0,1)$, that is, 
 
 .center[ 
-$Z_{1-\alpha/2}$ is such that $\Pr(Z \leq Z_{1-\alpha/2}) = 1-\alpha/2$ where $Z \sim N(0,1)$.
+$Z_{1-\alpha/2}$ is such that $\Pr(Z \leq Z_{1-\alpha/2}) = 1-\alpha/2$ where $Z \sim \mathcal{N}(0,1)$.
 ]
 
 .pull-left[
@@ -543,16 +619,81 @@ include_graphics("pics/standard_normal.png")
 
 .pull-right[
 - For 90% confidence interval, $Z_{0.95} \approx 1.64$. 
-- For 95% confidence interval, $Z_{0.975} \approx 1.96$. 
+- .purple[For 95% confidence interval,] $\color{#6A5ACD}{Z_{0.975} \approx 1.96}$.purple[.]
 - For 99% confidence interval, $Z_{0.995} \approx 2.58$. 
 ]
 ---
 
-# Confidence Interval - Example 1
+# Confidence Intervals
 
-add the biden-trump example
+Therefore, a confidence intervals corresponds to a range of values that contains the true unknown population level quantity we are considering with a probability of approximately $1-\alpha$ (typically 95%).
+
+Basically, we have
+
+$$\Pr \left(p \in \color{#e64173}{\hat{p}} \pm Z_{1-\alpha/2}\color{#6A5ACD}{\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}} \right) \approx 1-\alpha.$$
+
+⚠️ This means that a fraction of $100\times\alpha$% of confidence intervals .hi.pink[don't include] $p$. 
 
 ---
+
+# Confidence Intervals
+
+.center[![](GIF/sample_clt3.gif)]
+
+---
+
+# Confidence Intervals
+
+```{R, CI, out.width = "90%", echo = F}
+include_graphics("pics/ci2.jpg")
+```
+
+---
+
+# How to compute confidence intervals
+
+.panelset[
+.panel[.panel-name[Example]
+.smallest[Previously, we said that in a sample of] $n$=200, we had *m* = 95. In this case, we mentioned that (40.45%, 54.65%) was a 95% confidence interval. But how are these numbers computed?
+
+.smallest[Therefore, we have]
+
+$$ \small \color{#e64173}{\hat{p}} = \frac{m}{n} = \frac{13173}{25468} \approx \color{#e64173}{51.728\%}.$$
+.smallest[Then, we have]
+
+$$\small\color{#6A5ACD}{\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}} \approx \color{#6A5ACD}{0.003131}.$$
+.smallest[To obtain a 95\% confidence interval we used] $\small Z_{1-\alpha/2} = Z_{0.975} \approx 1.96$ .smallest[ and we get]
+
+$$\small \color{#e64173}{\hat{p}} \pm Z_{1-\alpha/2}\color{#6A5ACD}{\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}} \approx \color{#e64173}{51.728} \pm 1.96 \times \color{#6A5ACD}{0.003131} = (51.11\%, 52.34\%).$$
+
+]
+.panel[.panel-name[`R` Code - 💪]
+```{r}
+n = 25468                  # Sample size
+m = 13173                  # Number of boys
+alpha = 0.05               # Confidence level (1-alpha)
+p_hat = m/n                # Estimated proportion
+
+# Compute CI
+Z = qnorm(1 - alpha/2)
+delta = sqrt(p_hat*(1 - p_hat)/n)
+CI = p_hat + c(-1, +1)*Z*delta
+print(paste("The estimated proportion is ", round(100*p_hat, 2), "%", sep = ""))
+print(paste("A ", (1 - alpha)*100, "% confidence interval is given by (",
+            round(100*CI[1], 2), "%, ", round(100*CI[2], 2), "%)", sep = ""))
+```
+]
+
+.panel[.panel-name[`R` Code - 🤖]
+
+```{r}
+n = 25468                  # Sample size
+m = 13173                  # Number of boys
+prop.test(x = m, n = n)
+```
+]
+]
+
 
 # Confidence Interval - Example 2
 
@@ -568,6 +709,47 @@ add an interdisciplinary example
 - Moreover, the larger the sample size, the more precise the conclusion, for the same confidence level.
 - Therefore, .purple[every decision based on statistical methods has a risk and how much risk is acceptable depends on the context] (e.g. safety in airplanes vs which soft drink tastes better).
 
+# Are there more 👦 than 👧?
+
+.panelset[
+.panel[.panel-name[Animation]
+.smallest[An American found 13,173 boys were born among 25,468 newborn children. Is this sample an evidence that the birth of boys may be more common than the birth of girls in the entire population?] .smallest[So, we have] $\small n = 25,468$ .smallest[and] $\small m = 13,173$. .smallest[Therefore, we have]
+
+$$ \small \color{#e64173}{\hat{p}} = \frac{m}{n} = \frac{13173}{25468} \approx \color{#e64173}{51.728\%}.$$
+.smallest[Then, we have]
+
+$$\small\color{#6A5ACD}{\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}} \approx \color{#6A5ACD}{0.003131}.$$
+.smallest[To obtain a 95\% confidence interval we used] $\small Z_{1-\alpha/2} = Z_{0.975} \approx 1.96$ .smallest[ and we get]
+
+$$\small \color{#e64173}{\hat{p}} \pm Z_{1-\alpha/2}\color{#6A5ACD}{\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}} \approx \color{#e64173}{51.728} \pm 1.96 \times \color{#6A5ACD}{0.003131} = (51.11\%, 52.34\%).$$
+
+]
+.panel[.panel-name[`R` Code - 💪]
+```{r}
+n = 25468                  # Sample size
+m = 13173                  # Number of boys
+alpha = 0.05               # Confidence level (1-alpha)
+p_hat = m/n                # Estimated proportion
+
+# Compute CI
+Z = qnorm(1 - alpha/2)
+delta = sqrt(p_hat*(1 - p_hat)/n)
+CI = p_hat + c(-1, +1)*Z*delta
+print(paste("The estimated proportion is ", round(100*p_hat, 2), "%", sep = ""))
+print(paste("A ", (1 - alpha)*100, "% confidence interval is given by (",
+            round(100*CI[1], 2), "%, ", round(100*CI[2], 2), "%)", sep = ""))
+```
+]
+
+.panel[.panel-name[`R` Code - 🤖]
+
+```{r}
+n = 25468                  # Sample size
+m = 13173                  # Number of boys
+prop.test(x = m, n = n)
+```
+]
+]
 
 
 
