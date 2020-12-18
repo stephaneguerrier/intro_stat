@@ -767,7 +767,7 @@ $$ \small \color{#e64173}{\hat{p}} = \frac{m}{n} = \frac{13173}{25468} \approx \
 $$\small\color{#6A5ACD}{\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}} \approx \color{#6A5ACD}{0.003131}.$$
 .smallest[To obtain a 95\% confidence interval we used] $\small Z_{1-\alpha/2} = Z_{0.975} \approx 1.96$ .smallest[ and we get]
 
-$$\small \color{#e64173}{\hat{p}} \pm Z_{1-\alpha/2}\color{#6A5ACD}{\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}} \approx \color{#e64173}{51.728} \pm 1.96 \times \color{#6A5ACD}{0.003131} = (51.11\%, 52.34\%).$$
+$$\small \color{#e64173}{\hat{p}} \pm Z_{1-\alpha/2}\color{#6A5ACD}{\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}} \approx \color{#e64173}{\frac{51.728}{100}} \pm 1.96 \times \color{#6A5ACD}{0.003131} = (51.11\%, 52.34\%).$$
 
 ]
 .panel[.panel-name[`R` Code - 💪]
