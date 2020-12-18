@@ -181,7 +181,7 @@ include_graphics("pics/piazza.png")
 # R and RStudio
 
 .pull-left[
-In this class, we will use the statistical software .hi-pink[R] together with the integrated development environment .hi-pink[R Studio], which you can download with the following: 
+In this class, we will use the statistical software .hi-pink[R] together with the integrated development environment .hi-pink[R Studio], which can be downloaded with the following: 
 
 - Latest version of R: [https://cran.r-project.org/](https://cran.r-project.org/)
 - Latest version of R Studio: [https://www.rstudio.com/](https://www.rstudio.com/)
@@ -230,11 +230,11 @@ include_graphics("pics/data-torture.png")
 3. .purple[Assess the validity of a hypothesis] (e.g. is a drug working?).
 4. .purple[Make predictions] (e.g. predicting unemployment or risk indices).]
 
-.smallest[Learning more about statistics allows to ]
+.smallest[Learning more about statistics allows to 
 
-1. .smallest[Better understand .pink[arguments based on data.]]
-2. .smallest[Be able to apply .pink[critical thinking] about .pink[statistics used as evidence].]
-3. .smallest[Understand how statistical associations are used to .pink[evaluate claims (hypotheses)] and .pink[assess causal connections.]]  
+1. Better understand .pink[arguments based on data.]
+2. Be able to apply .pink[critical thinking] about .pink[statistics used as evidence].
+3. Understand how statistical associations are used to .pink[evaluate claims (hypotheses)] and .pink[assess causal connections.]] 
 
 .smallest[.purple[Understanding and knowing how to interpret statistical analyses is therefore becoming an increasingly vital skill.]]
 
@@ -322,7 +322,7 @@ legend("topright", legend = c("men", "women"),
 - .smallest[Men applicants tended to apply for "easy" departments, i.e. departments that had high admission rates.] 
 - .smallest[Women applicants tended to apply to "hard" departments, i.e. departments that had low admission rates.]  
 - .smallest[So it turns out that most of the departments actually had a slightly higher success rate for women.]
-- .smallest[This phenomenon is known as .hi-purple[Simpson's Paradox]. ]
+- .smallest[This phenomenon is actually very common and known as .hi-purple[Simpson's Paradox]. ]
 
 ---
 
@@ -513,21 +513,16 @@ where $\color{#6A5ACD}{\mathcal{N}(\mu, \sigma^2)}$ denotes a normal distributio
 
 # How to measure uncertainty?
 
-.smallest[In our example, we have] $\small \hat{p} \overset{\cdot}{\sim} \mathcal{N}\Bigg(p, \frac{p(1-p)}{n}\Bigg).$
+In our example, we have 
 
-- .smallest[How to understand the practical implications of the CLT?]
-- .smallest[It essentially implies that when a measure is the average (or the sum) of various measures, then its distribution goes to a normal distribution provided sufficient data collected. (e.g. the height of an adult can be thought of as the sum of genetics, nutrients, life style ...)]
-- .smallest[A normal distribution looks like:]
-
-```{R, out.width = "50%", echo = F}
-include_graphics("pics/normal.png")
-```
+$$\hat{p} \overset{\cdot}{\sim} \mathcal{N}\Bigg(p, \frac{p(1-p)}{n}\Bigg).$$
+.pink[How to understand the practical implications of the CLT?] Informally, it means that when a measurement can be thought of as the sum (or the average) of .hi.purple[numerous] factors, its distribution tends to go to a normal distribution. For example, the height of adults can be thought of as the sum of their genetic information, diet, life style, ...
 
 ---
 
 # Distribution of heights
 
-```{R, out.width = "100%", echo = F}
+```{R, out.width = "90%", echo = F}
 include_graphics("pics/distribution-1.png")
 ```
 
@@ -590,7 +585,7 @@ include_graphics("pics/sample_clt_n2.jpg")
 People have used .pink[the Galton Board] as a practical device to demonstrate the CLT, in particular that with sufficient sample size the binomial distribution approximates a normal distribution.
 
 <div align="center">
-<iframe width="684" height="381" src="https://www.youtube.com/watch?v=Vo9Esp1yaC8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="684" height="381" src="https://www.youtube.com/embed/Vo9Esp1yaC8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
 ---
@@ -815,15 +810,14 @@ prop.test(x = m, n = n)
 
 # How to test a (scientific) hypothesis?
 
-- .smaller[An alternative summary measure of uncertainty is provided  by .hi-pink[p-values] that take values between 0% and 100%.]
-- .smaller[However, .hi-purple[p-values have been misused] many times because understanding what they mean is not intuitive.]
+- .smallest[An alternative summary measure of uncertainty is provided  by .hi-pink[p-values] that take values between 0% and 100%.]
+- .smallest[However, .hi-purple[p-values have been misused] many times because understanding what they mean is not intuitive.]
 
 <div align="center">
-   <iframe width="560" height="315" src="https://fivethirtyeight.abcnews.go.com/video/embed/56150342" frameborder="0" allowfullscreen>
-   </iframe>
-</div>
+<iframe src="https://fivethirtyeight.abcnews.go.com/video/embed/56150342" width="512" height="288" scrolling="no" style="border:none;" allowfullscreen></iframe>
+</div> 
 
-👋 .smallest[If you want to know more have a look [here](https://fivethirtyeight.com/features/statisticians-found-one-thing-they-can-agree-on-its-time-to-stop-misusing-p-values/).]
+👋 .tiny[If you want to know more have a look [here](https://fivethirtyeight.com/features/statisticians-found-one-thing-they-can-agree-on-its-time-to-stop-misusing-p-values/).]
 
 ---
 
@@ -855,7 +849,7 @@ $H_0: p = 0.5$ and $H_a: p > 0.5$.
 
 .panelset[
 .panel[.panel-name[Problem]
-.smallest[Returning to our Biden-Trump example, suppose we believe (or hope to show that) .pink[Biden will have more than 50% of the votes]. We collect data with $n = 600$ and $m = 322$. We will consider the following steps to set up the test:]
+.smallest[Returning to our Biden-Trump example, suppose we believe (or hope to show that) .pink[Biden will have more than 50% of the votes]. We collect data with] $\small n = 600$ .smallest[and] $\small m = 322$.smallest[. We will consider the following steps to set up the test:]
 1. .smallest[.purple[Define hypotheses:]] $\small H_0: p = 0.5$ .smallest[and] $\small H_a: p \color{#e64173}{>} 0.5$.
 2. .smallest[.purple[Define]] $\small \color{#6A5ACD}{\alpha}$.smallest[: We consider] $\small \alpha = 5\%$.smallest[.]
 3. .smallest[.purple[Compute p-value]: p-value = ] $\small 3.959\%$ .smallest[(see computation tab for details).]
@@ -892,7 +886,7 @@ prop.test(x = 322, n = 600, p = 0.5, alternative = "less")
 # Example: Breastfeeding and income
 .panelset[
 .panel[.panel-name[Problem]
-.smallest[A researcher who is studying the effects of income levels on breastfeeding of infants hypothesizes that countries where the income level is lower have a higher rate of infant breastfeeding than higher income countries. It is .hi.purple[known] that in Germany (high-income country), 22% of all babies are breastfeed. In Tajikistan (low-income country) researchers found that in a random sample of 500 new mothers that 125 were breastfeeding their infant. What can we conclude?]
+.smallest[A researcher who is studying the effects of income levels on breastfeeding of infants hypothesizes that countries where the income level is lower have a higher rate of infant breastfeeding than higher income countries. It is .hi.purple[known] that in Germany (high-income country), 22% of all babies are breastfeed. In Tajikistan (low-income country) researchers found that in a random sample of 500 new mothers that 125 were breastfeeding their infants. What can we conclude?]
 1. .smallest[.purple[Define hypotheses:]] $\small H_0: p = 0.22$ .smallest[and] $\small H_a: p \color{#e64173}{>} 0.22$.
 2. .smallest[.purple[Define]] $\small \color{#6A5ACD}{\alpha}$.smallest[: We consider] $\small \alpha = 5\%$.smallest[.]
 3. .smallest[.purple[Compute p-value]: p-value = ] $\small 5.874\%$ .smallest[(see computation tab for details).]
@@ -904,9 +898,3 @@ prop.test(x = 125, n = 500, p = 0.22, alternative = "greater")
 ```
 ]
 ]
-
----
-
-# Thank you very much!
-
-.center[All material is available on Piazza.]
