@@ -10,8 +10,10 @@ The linked slides (below) are `.html` files that will only work properly if you 
 
 *Note:* The slides were created with [`xaringan`](https://github.com/yihui/xaringan/wiki) in [R](cran.r-project.org) and the [template](https://github.com/edrubin/EC607S20) is based on the work of [Ed Rubin](https://edrub.in)
 
-**[Part I: Introduction to Statistical Inference](https://raw.githack.com/stephaneguerrier/intro_stat/master/lecture1.html)**
- 
-**Note formats:** [.html](https://raw.githack.com/stephaneguerrier/intro_stat/master/lecture1.html) |
+**[Part I: Introduction to Statistical Inference](https://raw.githack.com/stephaneguerrier/intro_stat/master/lecture1.html)**  (note formats: [.html](https://raw.githack.com/stephaneguerrier/intro_stat/master/lecture1.html) |
 [.pdf](https://raw.githack.com/stephaneguerrier/intro_stat/master/lecture1.pdf) |
-[.Rmd](https://raw.githack.com/stephaneguerrier/intro_stat/master/lecture1.Rmd)
+[.Rmd](https://raw.githack.com/stephaneguerrier/intro_stat/master/lecture1.Rmd))
+
+**Part II: Statistical Hypothesis Testing** (coming soon 🚧)
+
+**Part III: Linear Regression** (coming soon 🚧)

@@ -18,10 +18,13 @@ show up.
 
 **[Part I: Introduction to Statistical
 Inference](https://raw.githack.com/stephaneguerrier/intro_stat/master/lecture1.html)**
-
-**Note formats:**
+(note formats:
 [.html](https://raw.githack.com/stephaneguerrier/intro_stat/master/lecture1.html)
 |
 [.pdf](https://raw.githack.com/stephaneguerrier/intro_stat/master/lecture1.pdf)
 |
-[.Rmd](https://raw.githack.com/stephaneguerrier/intro_stat/master/lecture1.Rmd)
+[.Rmd](https://raw.githack.com/stephaneguerrier/intro_stat/master/lecture1.Rmd))
+
+**Part II: Statistical Hypothesis Testing** (coming soon 🚧)
+
+**Part III: Linear Regression** (coming soon 🚧)
