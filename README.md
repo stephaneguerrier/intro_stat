@@ -14,14 +14,14 @@ show up.
 [`xaringan`](https://github.com/yihui/xaringan/wiki) in
 [R](cran.r-project.org) and the
 [template](https://github.com/edrubin/EC607S20) is based on the work of
-Dr. [Ed Rubin](https://edrub.in)
+[Ed Rubin](https://edrub.in)
 
 **[Part I: Introduction to Statistical
-Inference](https://raw.githack.com/stephaneguerrier/StatLiteracy/main/slides.html)**
+Inference](https://raw.githack.com/stephaneguerrier/intro_stat/master/lecture1.html)**
 
 **Note formats:**
-[.html](https://raw.githack.com/stephaneguerrier/StatLiteracy/main/slides.html)
+[.html](https://raw.githack.com/stephaneguerrier/intro_stat/master/lecture1.html)
 |
-[.pdf](https://raw.githack.com/stephaneguerrier/StatLiteracy/main/slides.pdf)
+[.pdf](https://raw.githack.com/stephaneguerrier/intro_stat/master/lecture1.pdf)
 |
-[.Rmd](https://raw.githack.com/stephaneguerrier/StatLiteracy/main/slides.Rmd)
+[.Rmd](https://raw.githack.com/stephaneguerrier/intro_stat/master/lecture1.Rmd)
