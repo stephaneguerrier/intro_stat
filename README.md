@@ -1,14 +1,14 @@
 
-Welcome to the course on **Introduction to Statistics** taught by
-[Stéphane Guerrier](https://stephaneguerrier.com/) and [Yuming
+Welcome to the course **Introduction to Statistics** taught by [Stéphane
+Guerrier](https://stephaneguerrier.com/) and [Yuming
 Zhang](https://github.com/Yuming-Zhang).
 
-# Course material
+# Course materials
 
 The linked slides (below) are `.html` files that will only work properly
 if you are connected to the internet. If you’re going off grid, grab the
-PDFs. You’ll miss out on gifs and videos, but the rest will actually
-show up.
+PDFs. You’ll miss out on gifs and videos, but the rest will still show
+up.
 
 *Note:* The slides were created with
 [`xaringan`](https://github.com/yihui/xaringan/wiki) in
