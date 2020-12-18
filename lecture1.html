@@ -462,7 +462,7 @@ Basically, we have
 
 # Confidence Intervals
 
-&lt;img src="pics/ci2.jpg" width="90%" style="display: block; margin: auto;" /&gt;
+&lt;img src="pics/ci2.jpg" width="100%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -470,24 +470,22 @@ Basically, we have
 
 .panelset[
 .panel[.panel-name[Example]
-.smallest[Previously, we said that in a sample of] `\(n\)`=200, we had *m* = 95. In this case, we mentioned that (40.45%, 54.65%) was a 95% confidence interval. But how are these numbers computed?
+.smallest[Previously, we said that in a sample of] `\(\small n=200\)`.smallest[, we had] `\(\small m = 95\)`.smallest[. In this case, we mentioned that (40.58%, 54.42%) was a 95% confidence interval. But how are these numbers computed? We have]
 
-.smallest[Therefore, we have]
-
-$$ \small \color{#e64173}{\hat{p}} = \frac{m}{n} = \frac{13173}{25468} \approx \color{#e64173}{51.728\%}.$$
+$$ \small \color{#e64173}{\hat{p}} = \frac{m}{n} = \frac{95}{200} = \color{#e64173}{47.5\%}.$$
 .smallest[Then, we have]
 
-`$$\small\color{#6A5ACD}{\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}} \approx \color{#6A5ACD}{0.003131}.$$`
-.smallest[To obtain a 95\% confidence interval we used] `\(\small Z_{1-\alpha/2} = Z_{0.975} \approx 1.96\)` .smallest[ and we get]
+`$$\small\color{#6A5ACD}{\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}} \approx \color{#6A5ACD}{0.0353}.$$`
+.smallest[To obtain a 95% confidence interval we used] `\(\small Z_{1-\alpha/2} = Z_{0.975} \approx 1.96\)` .smallest[ and we get]
 
-`$$\small \color{#e64173}{\hat{p}} \pm Z_{1-\alpha/2}\color{#6A5ACD}{\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}} \approx \color{#e64173}{51.728} \pm 1.96 \times \color{#6A5ACD}{0.003131} = (51.11\%, 52.34\%).$$`
+`$$\small \color{#e64173}{\hat{p}} \pm Z_{1-\alpha/2}\color{#6A5ACD}{\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}} \approx \color{#e64173}{\frac{51.728}{100}} \pm 1.96 \times \color{#6A5ACD}{0.0353} = (40.58\%, 54.42\%).$$`
 
 ]
 .panel[.panel-name[`R` Code - 💪]
 
 ```r
-n = 25468                  # Sample size
-m = 13173                  # Number of boys
+n = 200                    # Sample size
+m = 95                     # Number of boys
 alpha = 0.05               # Confidence level (1-alpha)
 p_hat = m/n                # Estimated proportion
 
@@ -499,7 +497,7 @@ print(paste("The estimated proportion is ", round(100*p_hat, 2), "%", sep = ""))
 ```
 
 ```
-#&gt; [1] "The estimated proportion is 51.72%"
+#&gt; [1] "The estimated proportion is 47.5%"
 ```
 
 ```r
@@ -508,41 +506,49 @@ print(paste("A ", (1 - alpha)*100, "% confidence interval is given by (",
 ```
 
 ```
-#&gt; [1] "A 95% confidence interval is given by (51.11%, 52.34%)"
-```
-]
-
-.panel[.panel-name[`R` Code - 🤖]
-
-
-```r
-n = 25468                  # Sample size
-m = 13173                  # Number of boys
-prop.test(x = m, n = n)
-```
-
-```
-#&gt; 
-#&gt; 	1-sample proportions test with continuity correction
-#&gt; 
-#&gt; data:  m out of n, null probability 0.5
-#&gt; X-squared = 30.2, df = 1, p-value = 3.897e-08
-#&gt; alternative hypothesis: true p is not equal to 0.5
-#&gt; 95 percent confidence interval:
-#&gt;  0.5110785 0.5233910
-#&gt; sample estimates:
-#&gt;         p 
-#&gt; 0.5172373
+#&gt; [1] "A 95% confidence interval is given by (40.58%, 54.42%)"
 ```
 ]
 ]
-
-
-# Confidence Interval - Example 2
-
-add an interdisciplinary example
 
 ---
+
+# Confidence Interval with `\(\alpha = 20\%\)`
+
+&lt;img src="pics/sample_ci_trump1.jpeg" width="100%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Confidence Interval with `\(\alpha = 20\%\)`
+
+&lt;img src="pics/sample_ci_trump2.jpeg" width="100%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Confidence Interval with `\(\alpha = 20\%\)`
+
+&lt;img src="pics/sample_ci_trump3.jpeg" width="100%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Confidence Intervals with `\(\alpha = 20\%\)`
+
+.center[![](GIF/sample_ci.gif)]
+
+---
+
+# Why is 20%? Why not 5%?
+
+.center[![](GIF/sample_ci5.gif)]
+
+---
+
+# What if I want to be certain? 😳
+
+.center[![](GIF/sample_ci0.gif)]
+
+---
+
 
 # ⚠️ Take home message
 
@@ -552,10 +558,12 @@ add an interdisciplinary example
 - Moreover, the larger the sample size, the more precise the conclusion, for the same confidence level.
 - Therefore, .purple[every decision based on statistical methods has a risk and how much risk is acceptable depends on the context] (e.g. safety in airplanes vs which soft drink tastes better).
 
-# Are there more 👦 than 👧?
+---
+
+# Example: Are there more 👦 than 👧?
 
 .panelset[
-.panel[.panel-name[Animation]
+.panel[.panel-name[Problem]
 .smallest[An American found 13,173 boys were born among 25,468 newborn children. Is this sample an evidence that the birth of boys may be more common than the birth of girls in the entire population?] .smallest[So, we have] `\(\small n = 25,468\)` .smallest[and] `\(\small m = 13,173\)`. .smallest[Therefore, we have]
 
 $$ \small \color{#e64173}{\hat{p}} = \frac{m}{n} = \frac{13173}{25468} \approx \color{#e64173}{51.728\%}.$$
@@ -564,7 +572,7 @@ $$ \small \color{#e64173}{\hat{p}} = \frac{m}{n} = \frac{13173}{25468} \approx \
 `$$\small\color{#6A5ACD}{\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}} \approx \color{#6A5ACD}{0.003131}.$$`
 .smallest[To obtain a 95\% confidence interval we used] `\(\small Z_{1-\alpha/2} = Z_{0.975} \approx 1.96\)` .smallest[ and we get]
 
-`$$\small \color{#e64173}{\hat{p}} \pm Z_{1-\alpha/2}\color{#6A5ACD}{\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}} \approx \color{#e64173}{51.728} \pm 1.96 \times \color{#6A5ACD}{0.003131} = (51.11\%, 52.34\%).$$`
+`$$\small \color{#e64173}{\hat{p}} \pm Z_{1-\alpha/2}\color{#6A5ACD}{\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}} \approx \color{#e64173}{\frac{51.728}{100}} \pm 1.96 \times \color{#6A5ACD}{0.003131} = (51.11\%, 52.34\%).$$`
 
 ]
 .panel[.panel-name[`R` Code - 💪]
@@ -620,6 +628,151 @@ prop.test(x = m, n = n)
 ```
 ]
 ]
+
+---
+
+# How to test a (scientific) hypothesis?
+
+- .smaller[An alternative summary measure of uncertainty is provided  by .hi-pink[p-values] that take values between 0% and 100%.]
+- .smaller[However, .hi-purple[p-values have been misused] many times because understanding what they mean is not intuitive.]
+
+&lt;div align="center"&gt;
+   &lt;iframe width="560" height="315" src="https://fivethirtyeight.abcnews.go.com/video/embed/56150342" frameborder="0" allowfullscreen&gt;
+   &lt;/iframe&gt;
+&lt;/div&gt;
+
+👋 .smallest[If you want to know more have a look [here](https://fivethirtyeight.com/features/statisticians-found-one-thing-they-can-agree-on-its-time-to-stop-misusing-p-values/).]
+
+---
+
+# How to test a (scientific) hypothesis?
+
+- .smaller[A p-value is associated to a (couple of) .purple[hypotheses] about the phenomenon under investigation.
+A hypothesis testing is designed to assess the strength of evidence against a baseline hypothesis that is called .pink[null hypothesis] `\(\color{#e64173}{H_0}\)` and in favor of another hypothesis that is called .pink[alternative hypothesis] `\(\color{#e64173}{H_a}\)`.] 
+- In the Biden-Trump example, we can write
+.center[
+`\(H_0: p = 0.5\)` and `\(H_a: p &gt; 0.5\)`.
+]
+- .smaller[Each hypothesis .purple[excludes the other], so that one can .purple[exclude one in favor of the other] using the data.]
+- .smaller[The .pink[null hypothesis] is the one that one will never be able to prove because the data is random.]
+- .smaller[The .pink[alternative hypothesis] is the one that offers more choice of values and hence has a chance to be favored with respect to the null hypothesis.]
+
+---
+
+# Testing
+
+- .smallest[Informally, .hi-pink[a p-value can be understood as a measure of plausibility of the null hypothesis given the data]. The smaller the p-value the greater the incompatibility of the null hypothesis with the data.]
+- .smallest[When the p-value is small enough (typically smaller than 5%), one says that the test based on the null and alternative hypotheses is .hi-pink[significant] or that the null hypothesis is rejected in favor of the alternative. .purple[This is generally what we want because it "verifies" our (research) hypothesis].]
+- .smallest[When the p-value is not small enough (typically larger than 5%), with the available data, we cannot reject the null hypothesis and then .hi-pink[nothing] can be concluded. 🤔]
+- .smallest[With a sample of data, the obtained p-value (associated to a couple of hypotheses) summarizes somehow the .hi-pink[incompatibility between the data and the model] (random process) constructed under the set of assumptions.]
+- .smallest[The p-value is usually compared to a .purple[threshold value] that sets the (subjective) risk level of decision in favor of the incompatibility. The risk level is called the .purple[significance level] and is a small value, usually 5%, but this depends on the context.]
+
+---
+
+# Example: Biden-Trump
+
+.panelset[
+.panel[.panel-name[Problem]
+.smallest[Returning to our Biden-Trump example, suppose we believe (or hope to show that) .pink[Biden will have more than 50% of the votes]. We collect data with `\(n = 600\)` and `\(m = 322\)`. We will consider the following steps to set up the test:]
+1. .smallest[.purple[Define hypotheses:]] `\(\small H_0: p = 0.5\)` .smallest[and] `\(\small H_a: p \color{#e64173}{&gt;} 0.5\)`.
+2. .smallest[.purple[Define]] `\(\small \color{#6A5ACD}{\alpha}\)`.smallest[: We consider] `\(\small \alpha = 5\%\)`.smallest[.]
+3. .smallest[.purple[Compute p-value]: p-value = ] `\(\small 3.959\%\)` .smallest[(see computation tab for details).]
+4. .smallest[.purple[Conclusion:] We have p-value &lt;] `\(\small \alpha\)` .smallest[so we can reject the null hypothesis and conclude that the proportion of voters for Biden is greater than 50%.]
+]
+.panel[.panel-name[`R` Code ]
+
+```r
+prop.test(x = 322, n = 600, p = 0.5, alternative = "greater")
+```
+
+```
+#&gt; 
+#&gt; 	1-sample proportions test with continuity correction
+#&gt; 
+#&gt; data:  322 out of 600, null probability 0.5
+#&gt; X-squared = 3.0817, df = 1, p-value = 0.03959
+#&gt; alternative hypothesis: true p is greater than 0.5
+#&gt; 95 percent confidence interval:
+#&gt;  0.5022582 1.0000000
+#&gt; sample estimates:
+#&gt;         p 
+#&gt; 0.5366667
+```
+]
+]
+
+---
+
+# Example: Biden-Trump
+
+.panelset[
+.panel[.panel-name[Problem]
+.smallest[What if we want to check if .pink[Trump will have more than 50% of the votes]. Using the same data, we set up the test as follows:]
+1. .smallest[.purple[Define hypotheses:]] `\(\small H_0: p = 0.5\)` .smallest[and] `\(\small H_a: p \color{#e64173}{&lt;} 0.5\)`.
+2. .smallest[.purple[Define]] `\(\small \color{#6A5ACD}{\alpha}\)`.smallest[: We consider] `\(\small \alpha = 5\%\)`.smallest[.]
+3. .smallest[.purple[Compute p-value]: p-value = ] `\(\small 96.04\%\)` .smallest[(see computation tab for details).]
+4. .smallest[.purple[Conclusion:] We have p-value &gt;] `\(\small \alpha\)` .smallest[and we cannot reject the null hypothesis. We don't have enough evidence to conclude that Trump will have more than 50% of the votes.]
+]
+.panel[.panel-name[`R` Code ]
+
+```r
+prop.test(x = 322, n = 600, p = 0.5, alternative = "less")
+```
+
+```
+#&gt; 
+#&gt; 	1-sample proportions test with continuity correction
+#&gt; 
+#&gt; data:  322 out of 600, null probability 0.5
+#&gt; X-squared = 3.0817, df = 1, p-value = 0.9604
+#&gt; alternative hypothesis: true p is less than 0.5
+#&gt; 95 percent confidence interval:
+#&gt;  0.0000000 0.5707377
+#&gt; sample estimates:
+#&gt;         p 
+#&gt; 0.5366667
+```
+]
+]
+
+---
+
+# Example: Breastfeeding and income
+.panelset[
+.panel[.panel-name[Problem]
+.smallest[A researcher who is studying the effects of income levels on breastfeeding of infants hypothesizes that countries where the income level is lower have a higher rate of infant breastfeeding than higher income countries. It is .hi.purple[known] that in Germany (high-income country), 22% of all babies are breastfeed. In Tajikistan (low-income country) researchers found that in a random sample of 500 new mothers that 125 were breastfeeding their infant. What can we conclude?]
+1. .smallest[.purple[Define hypotheses:]] `\(\small H_0: p = 0.22\)` .smallest[and] `\(\small H_a: p \color{#e64173}{&gt;} 0.22\)`.
+2. .smallest[.purple[Define]] `\(\small \color{#6A5ACD}{\alpha}\)`.smallest[: We consider] `\(\small \alpha = 5\%\)`.smallest[.]
+3. .smallest[.purple[Compute p-value]: p-value = ] `\(\small 5.874\%\)` .smallest[(see computation tab for details).]
+4. .smallest[.purple[Conclusion:] We have p-value &gt;] `\(\small \alpha\)` .smallest[and we cannot reject the null hypothesis. We don't have enough evidence to conclude that countries where the income level is lower have a higher rate of infant breastfeeding than higher income countries.]
+]
+.panel[.panel-name[`R` Code ]
+
+```r
+prop.test(x = 125, n = 500, p = 0.22, alternative = "greater")
+```
+
+```
+#&gt; 
+#&gt; 	1-sample proportions test with continuity correction
+#&gt; 
+#&gt; data:  125 out of 500, null probability 0.22
+#&gt; X-squared = 2.4505, df = 1, p-value = 0.05874
+#&gt; alternative hypothesis: true p is greater than 0.22
+#&gt; 95 percent confidence interval:
+#&gt;  0.218598 1.000000
+#&gt; sample estimates:
+#&gt;    p 
+#&gt; 0.25
+```
+]
+]
+
+---
+
+# Thank you very much!
+
+.center[All material is available on Piazza.]
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

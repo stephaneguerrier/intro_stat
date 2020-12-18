@@ -811,10 +811,102 @@ prop.test(x = m, n = n)
 ]
 ]
 
+---
 
+# How to test a (scientific) hypothesis?
 
+- .smaller[An alternative summary measure of uncertainty is provided  by .hi-pink[p-values] that take values between 0% and 100%.]
+- .smaller[However, .hi-purple[p-values have been misused] many times because understanding what they mean is not intuitive.]
 
+<div align="center">
+   <iframe width="560" height="315" src="https://fivethirtyeight.abcnews.go.com/video/embed/56150342" frameborder="0" allowfullscreen>
+   </iframe>
+</div>
 
+👋 .smallest[If you want to know more have a look [here](https://fivethirtyeight.com/features/statisticians-found-one-thing-they-can-agree-on-its-time-to-stop-misusing-p-values/).]
 
+---
 
+# How to test a (scientific) hypothesis?
 
+- .smaller[A p-value is associated to a (couple of) .purple[hypotheses] about the phenomenon under investigation.
+A hypothesis testing is designed to assess the strength of evidence against a baseline hypothesis that is called .pink[null hypothesis] $\color{#e64173}{H_0}$ and in favor of another hypothesis that is called .pink[alternative hypothesis] $\color{#e64173}{H_a}$.] 
+- In the Biden-Trump example, we can write
+.center[
+$H_0: p = 0.5$ and $H_a: p > 0.5$.
+]
+- .smaller[Each hypothesis .purple[excludes the other], so that one can .purple[exclude one in favor of the other] using the data.]
+- .smaller[The .pink[null hypothesis] is the one that one will never be able to prove because the data is random.]
+- .smaller[The .pink[alternative hypothesis] is the one that offers more choice of values and hence has a chance to be favored with respect to the null hypothesis.]
+
+---
+
+# Testing
+
+- .smallest[Informally, .hi-pink[a p-value can be understood as a measure of plausibility of the null hypothesis given the data]. The smaller the p-value the greater the incompatibility of the null hypothesis with the data.]
+- .smallest[When the p-value is small enough (typically smaller than 5%), one says that the test based on the null and alternative hypotheses is .hi-pink[significant] or that the null hypothesis is rejected in favor of the alternative. .purple[This is generally what we want because it "verifies" our (research) hypothesis].]
+- .smallest[When the p-value is not small enough (typically larger than 5%), with the available data, we cannot reject the null hypothesis and then .hi-pink[nothing] can be concluded. 🤔]
+- .smallest[With a sample of data, the obtained p-value (associated to a couple of hypotheses) summarizes somehow the .hi-pink[incompatibility between the data and the model] (random process) constructed under the set of assumptions.]
+- .smallest[The p-value is usually compared to a .purple[threshold value] that sets the (subjective) risk level of decision in favor of the incompatibility. The risk level is called the .purple[significance level] and is a small value, usually 5%, but this depends on the context.]
+
+---
+
+# Example: Biden-Trump
+
+.panelset[
+.panel[.panel-name[Problem]
+.smallest[Returning to our Biden-Trump example, suppose we believe (or hope to show that) .pink[Biden will have more than 50% of the votes]. We collect data with $n = 600$ and $m = 322$. We will consider the following steps to set up the test:]
+1. .smallest[.purple[Define hypotheses:]] $\small H_0: p = 0.5$ .smallest[and] $\small H_a: p \color{#e64173}{>} 0.5$.
+2. .smallest[.purple[Define]] $\small \color{#6A5ACD}{\alpha}$.smallest[: We consider] $\small \alpha = 5\%$.smallest[.]
+3. .smallest[.purple[Compute p-value]: p-value = ] $\small 3.959\%$ .smallest[(see computation tab for details).]
+4. .smallest[.purple[Conclusion:] We have p-value <] $\small \alpha$ .smallest[so we can reject the null hypothesis and conclude that the proportion of voters for Biden is greater than 50%.]
+]
+.panel[.panel-name[`R` Code ]
+```{r}
+prop.test(x = 322, n = 600, p = 0.5, alternative = "greater")
+```
+]
+]
+
+---
+
+# Example: Biden-Trump
+
+.panelset[
+.panel[.panel-name[Problem]
+.smallest[What if we want to check if .pink[Trump will have more than 50% of the votes]. Using the same data, we set up the test as follows:]
+1. .smallest[.purple[Define hypotheses:]] $\small H_0: p = 0.5$ .smallest[and] $\small H_a: p \color{#e64173}{<} 0.5$.
+2. .smallest[.purple[Define]] $\small \color{#6A5ACD}{\alpha}$.smallest[: We consider] $\small \alpha = 5\%$.smallest[.]
+3. .smallest[.purple[Compute p-value]: p-value = ] $\small 96.04\%$ .smallest[(see computation tab for details).]
+4. .smallest[.purple[Conclusion:] We have p-value >] $\small \alpha$ .smallest[and we cannot reject the null hypothesis. We don't have enough evidence to conclude that Trump will have more than 50% of the votes.]
+]
+.panel[.panel-name[`R` Code ]
+```{r}
+prop.test(x = 322, n = 600, p = 0.5, alternative = "less")
+```
+]
+]
+
+---
+
+# Example: Breastfeeding and income
+.panelset[
+.panel[.panel-name[Problem]
+.smallest[A researcher who is studying the effects of income levels on breastfeeding of infants hypothesizes that countries where the income level is lower have a higher rate of infant breastfeeding than higher income countries. It is .hi.purple[known] that in Germany (high-income country), 22% of all babies are breastfeed. In Tajikistan (low-income country) researchers found that in a random sample of 500 new mothers that 125 were breastfeeding their infant. What can we conclude?]
+1. .smallest[.purple[Define hypotheses:]] $\small H_0: p = 0.22$ .smallest[and] $\small H_a: p \color{#e64173}{>} 0.22$.
+2. .smallest[.purple[Define]] $\small \color{#6A5ACD}{\alpha}$.smallest[: We consider] $\small \alpha = 5\%$.smallest[.]
+3. .smallest[.purple[Compute p-value]: p-value = ] $\small 5.874\%$ .smallest[(see computation tab for details).]
+4. .smallest[.purple[Conclusion:] We have p-value >] $\small \alpha$ .smallest[and we cannot reject the null hypothesis. We don't have enough evidence to conclude that countries where the income level is lower have a higher rate of infant breastfeeding than higher income countries.]
+]
+.panel[.panel-name[`R` Code ]
+```{r}
+prop.test(x = 125, n = 500, p = 0.22, alternative = "greater")
+```
+]
+]
+
+---
+
+# Thank you very much!
+
+.center[All material is available on Piazza.]
