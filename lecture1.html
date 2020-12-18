@@ -8,6 +8,14 @@
     <link href="lecture1_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="lecture1_files/remark-css-0.0.1/metropolis.css" rel="stylesheet" />
     <link href="lecture1_files/remark-css-0.0.1/metropolis-fonts.css" rel="stylesheet" />
+    <link href="lecture1_files/tile-view-0.2.4/tile-view.css" rel="stylesheet" />
+    <script src="lecture1_files/tile-view-0.2.4/tile-view.js"></script>
+    <link href="lecture1_files/panelset-0.2.4/panelset.css" rel="stylesheet" />
+    <script src="lecture1_files/panelset-0.2.4/panelset.js"></script>
+    <script src="lecture1_files/clipboard-2.0.6/clipboard.min.js"></script>
+    <link href="lecture1_files/xaringanExtra-clipboard-0.2.4/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="lecture1_files/xaringanExtra-clipboard-0.2.4/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
     <link rel="stylesheet" href="my-css.css" type="text/css" />
   </head>
   <body>
@@ -285,7 +293,7 @@ We can now compute our estimator on the observed data (i.e. the realizations) an
 
 # Population and Sample - Example
 
-- In our example, we are interested in knowing if `\(p\)`, a .pink[population-level quantity], is bigger or smaller than 50%. Unfortunately, `\(p\)` is generally unknown as we cannot access the whole population (otherwise let's not bother with Statistics! EMOJI). Therefore, we use `\(\hat{p}\)` instead, a .purple[sample-dependent quantity].
+- In our example, we are interested in knowing if `\(p\)`, a .pink[population-level quantity], is bigger or smaller than 50%. Unfortunately, `\(p\)` is generally unknown as we cannot access the whole population (otherwise let's not bother with Statistics! 🤪). Therefore, we use `\(\hat{p}\)` instead, a .purple[sample-dependent quantity].
 - However, as we can see, `\(\hat{p}\)` is .turquoise[random] in the sense that it can change depending on the collected sample (e.g. we get different answers when `\(n = 200\)`, where Trump is leading, and when `\(n = 600\)`, where Biden is leading). 
 - To address this issue, we need to assess the .hi.pink[uncertainty] of `\(\hat{p}\)` (i.e. assess how different `\(\hat{p}\)` and `\(p\)` can be).
 - Statistics can provides us many tools allowing to determine uncertainty as well as the associated .pink[decision-making risks].
@@ -302,7 +310,7 @@ Loosely speaking, we can translate the CLT as
 
 `$$\bar{X} = \frac{1}{n} \sum_{i = 1}^n X_i \color{#e64173}{\overset{\cdot}{\sim}} \color{#6A5ACD}{\mathcal{N}(\mu, \sigma^2)},$$` 
 
-where `\(\color{#6A5ACD}{\mathcal{N}(\mu, \sigma^2)}\)` denotes a normal distribution with mean `\(\mu\)` and variance `\(\sigma^2\)` (typically computed using our data)&lt;sup&gt;.smallest[👋]&lt;/sup&gt;. Here `\(\bar{X}\)` denotes the sample mean and `\(\color{#e64173}{\overset{\cdot}{\sim}}\)` represents ".pink[approximately distributed as]". 
+where `\(\color{#6A5ACD}{\mathcal{N}(\mu, \sigma^2)}\)` denotes a normal distribution with mean `\(\mu\)` and variance `\(\sigma^2\)` (typically computed using the data)&lt;sup&gt;.smallest[👋]&lt;/sup&gt;. Here `\(\bar{X}\)` denotes the sample mean and `\(\color{#e64173}{\overset{\cdot}{\sim}}\)` represents ".pink[approximately distributed as]". 
 
 .footnote[.smallest[👋] Check out [expected value](https://en.wikipedia.org/wiki/Expected_value) and [variance](https://en.wikipedia.org/wiki/Variance).]
 
@@ -310,11 +318,13 @@ where `\(\color{#6A5ACD}{\mathcal{N}(\mu, \sigma^2)}\)` denotes a normal distrib
 
 # How to measure uncertainty?
 
-In our example, we have `$$\hat{p} \overset{\cdot}{\sim} N(p, \frac{p(1-p)}{n})$$`. 
+.smallest[In our example, we have] `\(\small \hat{p} \overset{\cdot}{\sim} \mathcal{N}\Bigg(p, \frac{p(1-p)}{n}\Bigg).\)`
 
-SO WHAT DOES IT MEAN... WHEN SOMETHING IS ANAVERAGE OF LOTS OF STUFF THE DISTRBUTION GOES TO A NORMAL
+- .smallest[How to understand the practical implications of the CLT?]
+- .smallest[It essentially implies that when a measure is the average (or the sum) of various measures, then its distribution goes to a normal distribution provided sufficient data collected. (e.g. the height of an adult can be thought of as the sum of genetics, nutrients, life style ...)]
+- .smallest[A normal distribution looks like:]
 
-HOW DOES A NORMAL LOOK LIKE ... ADD AN IMAGE
+&lt;img src="pics/normal.png" width="50%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -366,19 +376,29 @@ HOW DOES A NORMAL LOOK LIKE ... ADD AN IMAGE
 
 ---
 
+# Central Limit Theorem - Example
+
+People have used .pink[the Galton Board] as a practical device to demonstrate the CLT, in particular that with sufficient sample size the binomial distribution approximates a normal distribution.
+
+&lt;div align="center"&gt;
+&lt;iframe width="684" height="381" src="https://www.youtube.com/watch?v=Vo9Esp1yaC8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+
+---
+
 # Confidence Intervals
 
 Now that we learn about CLT, how can we use it to construct .hi-purple[confidence intervals]? 
 
 - .smaller[Confidence intervals correspond to .pink[a range of values that are likely to include the population value with a certain level of confidence]. The level of confidence is a probability expressed as a percentage (%).] 
-- .smaller[In our example, we are interested in the true (population) proportion of voters in favor of Biden (51.3%). Using our sample of *n*=200, we had *m* = 95 and we can construct the following 95% confidence interval]:
+- .smaller[In our example, we are interested in the true (population) proportion of voters in favor of Biden (51.3%). Using our sample of] `\(\small n=200\)` .smaller[, we had] `\(\small m =95\)` .smaller[and we can construct the following 95% confidence interval]:
 
 .pull-left[
 &lt;img src="pics/ci.jpg" width="90%" style="display: block; margin: auto;" /&gt;
 ]
 
 .smaller[.pull-right[
-So what does it mean? 🤔 It means that with a .hi-purple[probability of 95%], the true proportion of voters for Biden (51.3% in this case) is between 40.45% and 54.65%.]
+So what does it mean? 🤔 It means that with a .hi-purple[probability of 95%], the true proportion of voters for Biden (51.3% in this case) is between 40.58% and 54.42%.]
 ]
 
 
@@ -417,14 +437,14 @@ But what is `\(Z_{1-\alpha/2}\)`? 🤓
 
 .pull-right[
 - For 90% confidence interval, `\(Z_{0.95} \approx 1.64\)`. 
-- .purple[For 95% confidence interval,] `\(\color{#6A5ACD}{Z_{0.975} \approx 1.96}\)`.purple[.]
+- .pink[For 95% confidence interval,] `\(\color{#e64173}{Z_{0.975} \approx 1.96}\)`.pink[.]
 - For 99% confidence interval, `\(Z_{0.995} \approx 2.58\)`. 
 ]
 ---
 
 # Confidence Intervals
 
-Therefore, a confidence intervals corresponds to a range of values that contains the true unknown population level quantity we are considering with a probability of approximately `\(1-\alpha\)` (typically 95%).
+Therefore, a confidence interval corresponds to a range of values that contains the true unknown population-level quantity we are considering with a probability of approximately `\(1-\alpha\)` (typically 95%).
 
 Basically, we have
 
@@ -432,9 +452,91 @@ Basically, we have
 
 ⚠️ This means that a fraction of `\(100\times\alpha\)`% of confidence intervals .hi.pink[don't include] `\(p\)`. 
 
-.purple[Therefore, conclusions can never be made with certainty!]
+---
+
+# Confidence Intervals
+
+.center[![](GIF/sample_clt3.gif)]
 
 ---
+
+# Confidence Intervals
+
+&lt;img src="pics/ci2.jpg" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# How to compute confidence intervals
+
+.panelset[
+.panel[.panel-name[Example]
+.smallest[Previously, we said that in a sample of] `\(n\)`=200, we had *m* = 95. In this case, we mentioned that (40.45%, 54.65%) was a 95% confidence interval. But how are these numbers computed?
+
+.smallest[Therefore, we have]
+
+$$ \small \color{#e64173}{\hat{p}} = \frac{m}{n} = \frac{13173}{25468} \approx \color{#e64173}{51.728\%}.$$
+.smallest[Then, we have]
+
+`$$\small\color{#6A5ACD}{\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}} \approx \color{#6A5ACD}{0.003131}.$$`
+.smallest[To obtain a 95\% confidence interval we used] `\(\small Z_{1-\alpha/2} = Z_{0.975} \approx 1.96\)` .smallest[ and we get]
+
+`$$\small \color{#e64173}{\hat{p}} \pm Z_{1-\alpha/2}\color{#6A5ACD}{\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}} \approx \color{#e64173}{51.728} \pm 1.96 \times \color{#6A5ACD}{0.003131} = (51.11\%, 52.34\%).$$`
+
+]
+.panel[.panel-name[`R` Code - 💪]
+
+```r
+n = 25468                  # Sample size
+m = 13173                  # Number of boys
+alpha = 0.05               # Confidence level (1-alpha)
+p_hat = m/n                # Estimated proportion
+
+# Compute CI
+Z = qnorm(1 - alpha/2)
+delta = sqrt(p_hat*(1 - p_hat)/n)
+CI = p_hat + c(-1, +1)*Z*delta
+print(paste("The estimated proportion is ", round(100*p_hat, 2), "%", sep = ""))
+```
+
+```
+#&gt; [1] "The estimated proportion is 51.72%"
+```
+
+```r
+print(paste("A ", (1 - alpha)*100, "% confidence interval is given by (",
+            round(100*CI[1], 2), "%, ", round(100*CI[2], 2), "%)", sep = ""))
+```
+
+```
+#&gt; [1] "A 95% confidence interval is given by (51.11%, 52.34%)"
+```
+]
+
+.panel[.panel-name[`R` Code - 🤖]
+
+
+```r
+n = 25468                  # Sample size
+m = 13173                  # Number of boys
+prop.test(x = m, n = n)
+```
+
+```
+#&gt; 
+#&gt; 	1-sample proportions test with continuity correction
+#&gt; 
+#&gt; data:  m out of n, null probability 0.5
+#&gt; X-squared = 30.2, df = 1, p-value = 3.897e-08
+#&gt; alternative hypothesis: true p is not equal to 0.5
+#&gt; 95 percent confidence interval:
+#&gt;  0.5110785 0.5233910
+#&gt; sample estimates:
+#&gt;         p 
+#&gt; 0.5172373
+```
+]
+]
+
 
 # Confidence Interval - Example 2
 
@@ -449,6 +551,75 @@ add an interdisciplinary example
 - There exists a trade-off between .hi-pink[risk] as measured by  `\(1-\alpha\)` (typically 95%) the confidence level, and the .hi-pink[precision of the conclusion] as measured, for example, by the confidence interval length.
 - Moreover, the larger the sample size, the more precise the conclusion, for the same confidence level.
 - Therefore, .purple[every decision based on statistical methods has a risk and how much risk is acceptable depends on the context] (e.g. safety in airplanes vs which soft drink tastes better).
+
+# Are there more 👦 than 👧?
+
+.panelset[
+.panel[.panel-name[Animation]
+.smallest[An American found 13,173 boys were born among 25,468 newborn children. Is this sample an evidence that the birth of boys may be more common than the birth of girls in the entire population?] .smallest[So, we have] `\(\small n = 25,468\)` .smallest[and] `\(\small m = 13,173\)`. .smallest[Therefore, we have]
+
+$$ \small \color{#e64173}{\hat{p}} = \frac{m}{n} = \frac{13173}{25468} \approx \color{#e64173}{51.728\%}.$$
+.smallest[Then, we have]
+
+`$$\small\color{#6A5ACD}{\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}} \approx \color{#6A5ACD}{0.003131}.$$`
+.smallest[To obtain a 95\% confidence interval we used] `\(\small Z_{1-\alpha/2} = Z_{0.975} \approx 1.96\)` .smallest[ and we get]
+
+`$$\small \color{#e64173}{\hat{p}} \pm Z_{1-\alpha/2}\color{#6A5ACD}{\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}} \approx \color{#e64173}{51.728} \pm 1.96 \times \color{#6A5ACD}{0.003131} = (51.11\%, 52.34\%).$$`
+
+]
+.panel[.panel-name[`R` Code - 💪]
+
+```r
+n = 25468                  # Sample size
+m = 13173                  # Number of boys
+alpha = 0.05               # Confidence level (1-alpha)
+p_hat = m/n                # Estimated proportion
+
+# Compute CI
+Z = qnorm(1 - alpha/2)
+delta = sqrt(p_hat*(1 - p_hat)/n)
+CI = p_hat + c(-1, +1)*Z*delta
+print(paste("The estimated proportion is ", round(100*p_hat, 2), "%", sep = ""))
+```
+
+```
+#&gt; [1] "The estimated proportion is 51.72%"
+```
+
+```r
+print(paste("A ", (1 - alpha)*100, "% confidence interval is given by (",
+            round(100*CI[1], 2), "%, ", round(100*CI[2], 2), "%)", sep = ""))
+```
+
+```
+#&gt; [1] "A 95% confidence interval is given by (51.11%, 52.34%)"
+```
+]
+
+.panel[.panel-name[`R` Code - 🤖]
+
+
+```r
+n = 25468                  # Sample size
+m = 13173                  # Number of boys
+prop.test(x = m, n = n)
+```
+
+```
+#&gt; 
+#&gt; 	1-sample proportions test with continuity correction
+#&gt; 
+#&gt; data:  m out of n, null probability 0.5
+#&gt; X-squared = 30.2, df = 1, p-value = 3.897e-08
+#&gt; alternative hypothesis: true p is not equal to 0.5
+#&gt; 95 percent confidence interval:
+#&gt;  0.5110785 0.5233910
+#&gt; sample estimates:
+#&gt;         p 
+#&gt; 0.5172373
+```
+]
+]
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

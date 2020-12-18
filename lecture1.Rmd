@@ -488,7 +488,7 @@ include_graphics("pics/sample_n.jpg")
 
 # Population and Sample - Example
 
-- In our example, we are interested in knowing if $p$, a .pink[population-level quantity], is bigger or smaller than 50%. Unfortunately, $p$ is generally unknown as we cannot access the whole population (otherwise let's not bother with Statistics! EMOJI). Therefore, we use $\hat{p}$ instead, a .purple[sample-dependent quantity].
+- In our example, we are interested in knowing if $p$, a .pink[population-level quantity], is bigger or smaller than 50%. Unfortunately, $p$ is generally unknown as we cannot access the whole population (otherwise let's not bother with Statistics! 🤪). Therefore, we use $\hat{p}$ instead, a .purple[sample-dependent quantity].
 - However, as we can see, $\hat{p}$ is .turquoise[random] in the sense that it can change depending on the collected sample (e.g. we get different answers when $n = 200$, where Trump is leading, and when $n = 600$, where Biden is leading). 
 - To address this issue, we need to assess the .hi.pink[uncertainty] of $\hat{p}$ (i.e. assess how different $\hat{p}$ and $p$ can be).
 - Statistics can provides us many tools allowing to determine uncertainty as well as the associated .pink[decision-making risks].
@@ -505,7 +505,7 @@ Loosely speaking, we can translate the CLT as
 
 $$\bar{X} = \frac{1}{n} \sum_{i = 1}^n X_i \color{#e64173}{\overset{\cdot}{\sim}} \color{#6A5ACD}{\mathcal{N}(\mu, \sigma^2)},$$ 
 
-where $\color{#6A5ACD}{\mathcal{N}(\mu, \sigma^2)}$ denotes a normal distribution with mean $\mu$ and variance $\sigma^2$ (typically computed using our data)<sup>.smallest[👋]</sup>. Here $\bar{X}$ denotes the sample mean and $\color{#e64173}{\overset{\cdot}{\sim}}$ represents ".pink[approximately distributed as]". 
+where $\color{#6A5ACD}{\mathcal{N}(\mu, \sigma^2)}$ denotes a normal distribution with mean $\mu$ and variance $\sigma^2$ (typically computed using the data)<sup>.smallest[👋]</sup>. Here $\bar{X}$ denotes the sample mean and $\color{#e64173}{\overset{\cdot}{\sim}}$ represents ".pink[approximately distributed as]". 
 
 .footnote[.smallest[👋] Check out [expected value](https://en.wikipedia.org/wiki/Expected_value) and [variance](https://en.wikipedia.org/wiki/Variance).]
 
@@ -513,11 +513,15 @@ where $\color{#6A5ACD}{\mathcal{N}(\mu, \sigma^2)}$ denotes a normal distributio
 
 # How to measure uncertainty?
 
-In our example, we have $$\hat{p} \overset{\cdot}{\sim} N(p, \frac{p(1-p)}{n})$$. 
+.smallest[In our example, we have] $\small \hat{p} \overset{\cdot}{\sim} \mathcal{N}\Bigg(p, \frac{p(1-p)}{n}\Bigg).$
 
-SO WHAT DOES IT MEAN... WHEN SOMETHING IS ANAVERAGE OF LOTS OF STUFF THE DISTRBUTION GOES TO A NORMAL
+- .smallest[How to understand the practical implications of the CLT?]
+- .smallest[It essentially implies that when a measure is the average (or the sum) of various measures, then its distribution goes to a normal distribution provided sufficient data collected. (e.g. the height of an adult can be thought of as the sum of genetics, nutrients, life style ...)]
+- .smallest[A normal distribution looks like:]
 
-HOW DOES A NORMAL LOOK LIKE ... ADD AN IMAGE
+```{R, out.width = "50%", echo = F}
+include_graphics("pics/normal.png")
+```
 
 ---
 
@@ -581,21 +585,31 @@ include_graphics("pics/sample_clt_n2.jpg")
 
 ---
 
+# Central Limit Theorem - Example
+
+People have used .pink[the Galton Board] as a practical device to demonstrate the CLT, in particular that with sufficient sample size the binomial distribution approximates a normal distribution.
+
+<div align="center">
+<iframe width="684" height="381" src="https://www.youtube.com/watch?v=Vo9Esp1yaC8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+---
+
 # Confidence Intervals
 
 Now that we learn about CLT, how can we use it to construct .hi-purple[confidence intervals]? 
 
 - .smaller[Confidence intervals correspond to .pink[a range of values that are likely to include the population value with a certain level of confidence]. The level of confidence is a probability expressed as a percentage (%).] 
-- .smaller[In our example, we are interested in the true (population) proportion of voters in favor of Biden (51.3%). Using our sample of *n*=200, we had *m* = 95 and we can construct the following 95% confidence interval]:
+- .smaller[In our example, we are interested in the true (population) proportion of voters in favor of Biden (51.3%). Using our sample of] $\small n=200$ .smaller[, we had] $\small m =95$ .smaller[and we can construct the following 95% confidence interval]:
 
 .pull-left[
-```{R, CI, out.width = "90%", echo = F}
+```{R, out.width = "90%", echo = F}
 include_graphics("pics/ci.jpg")
 ```
 ]
 
 .smaller[.pull-right[
-So what does it mean? 🤔 It means that with a .hi-purple[probability of 95%], the true proportion of voters for Biden (51.3% in this case) is between 40.45% and 54.65%.]
+So what does it mean? 🤔 It means that with a .hi-purple[probability of 95%], the true proportion of voters for Biden (51.3% in this case) is between 40.58% and 54.42%.]
 ]
 
 
@@ -636,14 +650,14 @@ include_graphics("pics/standard_normal.png")
 
 .pull-right[
 - For 90% confidence interval, $Z_{0.95} \approx 1.64$. 
-- .purple[For 95% confidence interval,] $\color{#6A5ACD}{Z_{0.975} \approx 1.96}$.purple[.]
+- .pink[For 95% confidence interval,] $\color{#e64173}{Z_{0.975} \approx 1.96}$.pink[.]
 - For 99% confidence interval, $Z_{0.995} \approx 2.58$. 
 ]
 ---
 
 # Confidence Intervals
 
-Therefore, a confidence intervals corresponds to a range of values that contains the true unknown population level quantity we are considering with a probability of approximately $1-\alpha$ (typically 95%).
+Therefore, a confidence interval corresponds to a range of values that contains the true unknown population-level quantity we are considering with a probability of approximately $1-\alpha$ (typically 95%).
 
 Basically, we have
 
