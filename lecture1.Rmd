@@ -675,7 +675,7 @@ $$\Pr \left(p \in \color{#e64173}{\hat{p}} \pm Z_{1-\alpha/2}\color{#6A5ACD}{\sq
 
 # Confidence Intervals
 
-```{R, CI, out.width = "90%", echo = F}
+```{R, out.width = "100%", echo = F}
 include_graphics("pics/ci2.jpg")
 ```
 
@@ -685,23 +685,21 @@ include_graphics("pics/ci2.jpg")
 
 .panelset[
 .panel[.panel-name[Example]
-.smallest[Previously, we said that in a sample of] $n$=200, we had *m* = 95. In this case, we mentioned that (40.45%, 54.65%) was a 95% confidence interval. But how are these numbers computed?
+.smallest[Previously, we said that in a sample of] $\small n=200$.smallest[, we had] $\small m = 95$.smallest[. In this case, we mentioned that (40.58%, 54.42%) was a 95% confidence interval. But how are these numbers computed? We have]
 
-.smallest[Therefore, we have]
-
-$$ \small \color{#e64173}{\hat{p}} = \frac{m}{n} = \frac{13173}{25468} \approx \color{#e64173}{51.728\%}.$$
+$$ \small \color{#e64173}{\hat{p}} = \frac{m}{n} = \frac{95}{200} = \color{#e64173}{47.5\%}.$$
 .smallest[Then, we have]
 
-$$\small\color{#6A5ACD}{\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}} \approx \color{#6A5ACD}{0.003131}.$$
-.smallest[To obtain a 95\% confidence interval we used] $\small Z_{1-\alpha/2} = Z_{0.975} \approx 1.96$ .smallest[ and we get]
+$$\small\color{#6A5ACD}{\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}} \approx \color{#6A5ACD}{0.0353}.$$
+.smallest[To obtain a 95% confidence interval we used] $\small Z_{1-\alpha/2} = Z_{0.975} \approx 1.96$ .smallest[ and we get]
 
-$$\small \color{#e64173}{\hat{p}} \pm Z_{1-\alpha/2}\color{#6A5ACD}{\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}} \approx \color{#e64173}{51.728} \pm 1.96 \times \color{#6A5ACD}{0.003131} = (51.11\%, 52.34\%).$$
+$$\small \color{#e64173}{\hat{p}} \pm Z_{1-\alpha/2}\color{#6A5ACD}{\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}} \approx \color{#e64173}{\frac{51.728}{100}} \pm 1.96 \times \color{#6A5ACD}{0.0353} = (40.58\%, 54.42\%).$$
 
 ]
 .panel[.panel-name[`R` Code - 💪]
 ```{r}
-n = 25468                  # Sample size
-m = 13173                  # Number of boys
+n = 200                    # Sample size
+m = 95                     # Number of boys
 alpha = 0.05               # Confidence level (1-alpha)
 p_hat = m/n                # Estimated proportion
 
@@ -714,23 +712,52 @@ print(paste("A ", (1 - alpha)*100, "% confidence interval is given by (",
             round(100*CI[1], 2), "%, ", round(100*CI[2], 2), "%)", sep = ""))
 ```
 ]
-
-.panel[.panel-name[`R` Code - 🤖]
-
-```{r}
-n = 25468                  # Sample size
-m = 13173                  # Number of boys
-prop.test(x = m, n = n)
-```
 ]
-]
-
-
-# Confidence Interval - Example 2
-
-add an interdisciplinary example
 
 ---
+
+# Confidence Interval with $\alpha = 20\%$
+
+```{R, out.width = "100%", echo = F}
+include_graphics("pics/sample_ci_trump1.jpeg")
+```
+
+---
+
+# Confidence Interval with $\alpha = 20\%$
+
+```{R, out.width = "100%", echo = F}
+include_graphics("pics/sample_ci_trump2.jpeg")
+```
+
+---
+
+# Confidence Interval with $\alpha = 20\%$
+
+```{R, out.width = "100%", echo = F}
+include_graphics("pics/sample_ci_trump3.jpeg")
+```
+
+---
+
+# Confidence Intervals with $\alpha = 20\%$
+
+.center[![](GIF/sample_ci.gif)]
+
+---
+
+# Why is 20%? Why not 5%?
+
+.center[![](GIF/sample_ci5.gif)]
+
+---
+
+# What if I want to be certain? 😳
+
+.center[![](GIF/sample_ci0.gif)]
+
+---
+
 
 # ⚠️ Take home message
 
@@ -740,10 +767,12 @@ add an interdisciplinary example
 - Moreover, the larger the sample size, the more precise the conclusion, for the same confidence level.
 - Therefore, .purple[every decision based on statistical methods has a risk and how much risk is acceptable depends on the context] (e.g. safety in airplanes vs which soft drink tastes better).
 
-# Are there more 👦 than 👧?
+---
+
+# Example: Are there more 👦 than 👧?
 
 .panelset[
-.panel[.panel-name[Animation]
+.panel[.panel-name[Problem]
 .smallest[An American found 13,173 boys were born among 25,468 newborn children. Is this sample an evidence that the birth of boys may be more common than the birth of girls in the entire population?] .smallest[So, we have] $\small n = 25,468$ .smallest[and] $\small m = 13,173$. .smallest[Therefore, we have]
 
 $$ \small \color{#e64173}{\hat{p}} = \frac{m}{n} = \frac{13173}{25468} \approx \color{#e64173}{51.728\%}.$$
@@ -752,7 +781,7 @@ $$ \small \color{#e64173}{\hat{p}} = \frac{m}{n} = \frac{13173}{25468} \approx \
 $$\small\color{#6A5ACD}{\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}} \approx \color{#6A5ACD}{0.003131}.$$
 .smallest[To obtain a 95\% confidence interval we used] $\small Z_{1-\alpha/2} = Z_{0.975} \approx 1.96$ .smallest[ and we get]
 
-$$\small \color{#e64173}{\hat{p}} \pm Z_{1-\alpha/2}\color{#6A5ACD}{\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}} \approx \color{#e64173}{51.728} \pm 1.96 \times \color{#6A5ACD}{0.003131} = (51.11\%, 52.34\%).$$
+$$\small \color{#e64173}{\hat{p}} \pm Z_{1-\alpha/2}\color{#6A5ACD}{\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}} \approx \color{#e64173}{\frac{51.728}{100}} \pm 1.96 \times \color{#6A5ACD}{0.003131} = (51.11\%, 52.34\%).$$
 
 ]
 .panel[.panel-name[`R` Code - 💪]
