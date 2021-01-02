@@ -1,0 +1,299 @@
+---
+title: "Introduction to Statistics"
+subtitle: "Part II: Introduction to Statistical Inference"
+author: "Stéphane Guerrier & Yuming Zhang"
+date: "8 January 2021"
+output:
+  xaringan::moon_reader:
+    css: ['default', 'metropolis', 'metropolis-fonts', 'my-css.css']
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+
+```{R, setup, include = F}
+# devtools::install_github("dill/emoGG")
+library(pacman)
+p_load(
+  broom, tidyverse,
+  latex2exp, ggplot2, ggthemes, ggforce, viridis, extrafont, gridExtra,
+  kableExtra, snakecase, janitor,
+  data.table, dplyr, estimatr,
+  lubridate, knitr, parallel,
+  lfe,
+  here, magrittr
+)
+# Define pink color
+red_pink <- "#e64173"
+turquoise <- "#20B2AA"
+orange <- "#FFA500"
+red <- "#fb6107"
+blue <- "#2b59c3"
+green <- "#8bb174"
+grey_light <- "grey70"
+grey_mid <- "grey50"
+grey_dark <- "grey20"
+purple <- "#6A5ACD"
+slate <- "#314f4f"
+# Dark slate grey: #314f4f
+# Knitr options
+opts_chunk$set(
+  comment = "#>",
+  fig.align = "center",
+  fig.height = 7,
+  fig.width = 10.5,
+  warning = F,
+  message = F
+)
+opts_chunk$set(dev = "svg")
+options(device = function(file, width, height) {
+  svg(tempfile(), width = width, height = height)
+})
+options(crayon.enabled = F)
+options(knitr.table.format = "html")
+# A blank theme for ggplot
+theme_empty <- theme_bw() + theme(
+  line = element_blank(),
+  rect = element_blank(),
+  strip.text = element_blank(),
+  axis.text = element_blank(),
+  plot.title = element_blank(),
+  axis.title = element_blank(),
+  plot.margin = structure(c(0, 0, -0.5, -1), unit = "lines", valid.unit = 3L, class = "unit"),
+  legend.position = "none"
+)
+theme_simple <- theme_bw() + theme(
+  line = element_blank(),
+  panel.grid = element_blank(),
+  rect = element_blank(),
+  strip.text = element_blank(),
+  axis.text.x = element_text(size = 18, family = "STIXGeneral"),
+  axis.text.y = element_blank(),
+  axis.ticks = element_blank(),
+  plot.title = element_blank(),
+  axis.title = element_blank(),
+  # plot.margin = structure(c(0, 0, -1, -1), unit = "lines", valid.unit = 3L, class = "unit"),
+  legend.position = "none"
+)
+theme_axes_math <- theme_void() + theme(
+  text = element_text(family = "MathJax_Math"),
+  axis.title = element_text(size = 22),
+  axis.title.x = element_text(hjust = .95, margin = margin(0.15, 0, 0, 0, unit = "lines")),
+  axis.title.y = element_text(vjust = .95, margin = margin(0, 0.15, 0, 0, unit = "lines")),
+  axis.line = element_line(
+    color = "grey70",
+    size = 0.25,
+    arrow = arrow(angle = 30, length = unit(0.15, "inches")
+  )),
+  plot.margin = structure(c(1, 0, 1, 0), unit = "lines", valid.unit = 3L, class = "unit"),
+  legend.position = "none"
+)
+theme_axes_serif <- theme_void() + theme(
+  text = element_text(family = "MathJax_Main"),
+  axis.title = element_text(size = 22),
+  axis.title.x = element_text(hjust = .95, margin = margin(0.15, 0, 0, 0, unit = "lines")),
+  axis.title.y = element_text(vjust = .95, margin = margin(0, 0.15, 0, 0, unit = "lines")),
+  axis.line = element_line(
+    color = "grey70",
+    size = 0.25,
+    arrow = arrow(angle = 30, length = unit(0.15, "inches")
+  )),
+  plot.margin = structure(c(1, 0, 1, 0), unit = "lines", valid.unit = 3L, class = "unit"),
+  legend.position = "none"
+)
+theme_axes <- theme_void() + theme(
+  text = element_text(family = "Fira Sans Book"),
+  axis.title = element_text(size = 18),
+  axis.title.x = element_text(hjust = .95, margin = margin(0.15, 0, 0, 0, unit = "lines")),
+  axis.title.y = element_text(vjust = .95, margin = margin(0, 0.15, 0, 0, unit = "lines")),
+  axis.line = element_line(
+    color = grey_light,
+    size = 0.25,
+    arrow = arrow(angle = 30, length = unit(0.15, "inches")
+  )),
+  plot.margin = structure(c(1, 0, 1, 0), unit = "lines", valid.unit = 3L, class = "unit"),
+  legend.position = "none"
+)
+theme_set(theme_gray(base_size = 20))
+# Column names for regression results
+reg_columns <- c("Term", "Est.", "S.E.", "t stat.", "p-Value")
+# Function for formatting p values
+format_pvi <- function(pv) {
+  return(ifelse(
+    pv < 0.0001,
+    "<0.0001",
+    round(pv, 4) %>% format(scientific = F)
+  ))
+}
+format_pv <- function(pvs) lapply(X = pvs, FUN = format_pvi) %>% unlist()
+# Tidy regression results table
+tidy_table <- function(x, terms, highlight_row = 1, highlight_color = "black", highlight_bold = T, digits = c(NA, 3, 3, 2, 5), title = NULL) {
+  x %>%
+    tidy() %>%
+    select(1:5) %>%
+    mutate(
+      term = terms,
+      p.value = p.value %>% format_pv()
+    ) %>%
+    kable(
+      col.names = reg_columns,
+      escape = F,
+      digits = digits,
+      caption = title
+    ) %>%
+    kable_styling(font_size = 20) %>%
+    row_spec(1:nrow(tidy(x)), background = "white") %>%
+    row_spec(highlight_row, bold = highlight_bold, color = highlight_color)
+}
+```
+
+```{css, echo = F, eval = F}
+@media print {
+  .has-continuation {
+    display: block !important;
+  }
+}
+```
+
+```{r xaringan-tile-view, echo=FALSE}
+xaringanExtra::use_tile_view()
+xaringanExtra::use_panelset()
+xaringanExtra::use_clipboard()
+```
+
+
+# Review
+
+- .smallest[.hi-pink[Statistical inference] allows to infer the properties of a population based on an observed sample.]
+- .smallest[.hi-purple[Proportion estimation]] $\color{#6A5ACD}{\hat{p}}$ .smallest[is .hi-purple[random] as it is sample dependent. Therefore, we need to access the .hi-purple[uncertainty] of] $\hat{p}$.
+- .smallest[One common approach to measure uncertainty is to use .hi-turquoise[confidence intervals], which rely on .hi-turquoise[Central Limit Theorem]. In the case of proportion estimation, we have] $$\hat{p} \overset{\cdot}{\sim} \mathcal{N}\Bigg(\color{#e64173}{p}, \color{#6A5ACD}{\frac{p(1-p)}{n}}\Bigg).$$
+- .smallest[Confidence intervals correspond to a range of values that are likely to include the population value with .hi-pink[a certain level of confidence]. The] $1-\alpha$ .smallest[confidence interval for] $p$ .smallest[is given by] $\color{#e64173}{\hat{p}} \pm Z_{1-\alpha/2}\color{#6A5ACD}{\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}}$ .smallest[, and obviously, it is random.]
+- .smallest[In Statistics, a decision or prediction can never be made with certainty. There always exists .hi-turquoise[a trade-off between the risk and the precision of the conclusion], and how much risk is acceptable depends on the context.]
+
+---
+
+# How to test a (scientific) hypothesis?
+
+- .smallest[An alternative summary measure of uncertainty is provided  by .hi-pink[p-values] that take values between 0% and 100%.]
+- .smallest[However, .hi-purple[p-values have been misused] many times because understanding what they mean is not intuitive.]
+
+<div align="center">
+<iframe src="https://fivethirtyeight.abcnews.go.com/video/embed/56150342" width="512" height="288" scrolling="no" style="border:none;" allowfullscreen></iframe>
+</div> 
+
+👋 .tiny[If you want to know more have a look [here](https://fivethirtyeight.com/features/statisticians-found-one-thing-they-can-agree-on-its-time-to-stop-misusing-p-values/).]
+
+---
+
+# A hypothesis testing
+
+- A p-value is associated to (a couple of) .purple[hypotheses] about the phenomenon under investigation, such as
+1. Coffee consumption increases blood pressure (really 🙄 ☕?)
+2. Republican politicians are bad/good for the American Economy.
+3. A glass of red wine is as good as an hour at the gym (🍷 🏃 😆).
+
+- More precisely, a hypothesis testing is designed to assess the strength of evidence against a baseline hypothesis called .pink[null hypothesis] $\color{#e64173}{H_0}$ and in favor of another hypothesis called .pink[alternative hypothesis] $\color{#e64173}{H_a}$.
+
+---
+
+# A hypothesis testing
+
+- In the Biden-Trump example, we can write
+.center[
+$H_0: p = 0.5$ and $H_a: p > 0.5$.
+]
+- Each hypothesis .purple[excludes the other], so that one can .purple[exclude one in favor of the other] using the data.
+- The .pink[null hypothesis] is the one that one will never be able to prove because the data is random.
+- The .pink[alternative hypothesis] is the one that offers more choice of values and hence has a chance to be favored with respect to the null hypothesis.
+- If we reject $H_0$ when in fact $H_0$ is true, this is a .purple[Type I error]. If we accept $H_0$ when in fact $H_a$ is true, this is a .purple[Type II error]. 
+
+---
+
+# Test statistic and P-value
+
+- .smallest[A hypothesis testing is based on a .hi-pink[test statistic], which measures the difference between the sample estimate and the hypothesized value in terms of its standard deviation, i.e.] 
+$$\text{test statistic} = \frac{\text{sample estimate - hypothesized value}}{\text{standard deviation of sample estimate}}.$$
+- .smallest[For a test for a single proportion, the test statistic is computed as] $$z = \frac{\hat{p}-\color{#e64173}{p_0}}{\color{#6A5ACD}{\sqrt{\frac{p_0(1-p_0)}{n}}}} \sim \mathcal{N}(0,1).$$
+- .smallest[The .hi-purple[P-value] is defined as the probability, assuming that] $H_0$ .smallest[is true, that the test statistic will take a value at least as extreme as that actually observed.] 🤯😱
+- .smallest[Informally, .pink[a p-value can be understood as a measure of plausibility of the null hypothesis given the data]. Small P-value indicate strong evidence against] $H_0$.
+
+---
+
+# Test statistic and P-value
+
+- .smaller[When the p-value is small enough (typically smaller than 5%), one says that the test based on the null and alternative hypotheses is .hi-pink[significant] or that the null hypothesis is rejected in favor of the alternative. .purple[This is generally what we want because it "verifies" our (research) hypothesis].]
+- .smaller[When the p-value is not small enough (typically larger than 5%), with the available data, we cannot reject the null hypothesis and then .hi-pink[nothing] can be concluded. 🤔]
+- .smaller[With a sample of data, the obtained p-value (associated to a couple of hypotheses) summarizes somehow the .hi-pink[incompatibility between the data and the model] (random process) constructed under the set of assumptions.]
+- .smaller[The p-value is usually compared to a .purple[threshold value] that sets the (subjective) risk level of decision in favor of the incompatibility. The risk level is called the .purple[significance level] and is a small value, usually 5%, but this depends on the context.]
+
+---
+
+# Test for a single proportion: Example 1
+
+.panelset[
+.panel[.panel-name[Problem]
+.smallest[Returning to our Biden-Trump example, suppose we believe (or hope to show that) .pink[Biden will have more than 50% of the votes]. We collect data with] $\small n = 600$ .smallest[and] $\small m = 322$.smallest[. We will consider the following steps to set up the test:]
+1. .smallest[.purple[Define hypotheses:]] $\small H_0: p = 0.5$ .smallest[and] $\small H_a: p \color{#e64173}{>} 0.5$.
+2. .smallest[.purple[Define]] $\small \color{#6A5ACD}{\alpha}$.smallest[: We consider] $\small \alpha = 5\%$.smallest[.]
+3. .smallest[.purple[Compute p-value]: p-value = ] $\small 3.959\%$ .smallest[(see computation tab for details).]
+4. .smallest[.purple[Conclusion:] We have p-value <] $\small \alpha$ .smallest[so we can reject the null hypothesis and conclude that the proportion of voters for Biden is greater than 50%.]
+]
+.panel[.panel-name[`R` Code ]
+```{r}
+prop.test(x = 322, n = 600, p = 0.5, alternative = "greater")
+```
+]
+]
+
+---
+
+# Test for a single proportion: Example 1
+
+.panelset[
+.panel[.panel-name[Problem]
+.smallest[What if we want to check if .pink[Trump will have more than 50% of the votes]. Using the same data, we set up the test as follows:]
+1. .smallest[.purple[Define hypotheses:]] $\small H_0: p = 0.5$ .smallest[and] $\small H_a: p \color{#e64173}{<} 0.5$.
+2. .smallest[.purple[Define]] $\small \color{#6A5ACD}{\alpha}$.smallest[: We consider] $\small \alpha = 5\%$.smallest[.]
+3. .smallest[.purple[Compute p-value]: p-value = ] $\small 96.04\%$ .smallest[(see computation tab for details).]
+4. .smallest[.purple[Conclusion:] We have p-value >] $\small \alpha$ .smallest[and we cannot reject the null hypothesis. We don't have enough evidence to conclude that Trump will have more than 50% of the votes.]
+]
+.panel[.panel-name[`R` Code ]
+```{r}
+prop.test(x = 322, n = 600, p = 0.5, alternative = "less")
+```
+]
+]
+
+---
+
+# Test for a single proportion: Example 2
+.panelset[
+.panel[.panel-name[Problem]
+.smallest[A researcher who is studying the effects of income levels on breastfeeding of infants hypothesizes that countries where the income level is lower have a higher rate of infant breastfeeding than higher income countries. It is .hi.purple[known] that in Germany (high-income country), 22% of all babies are breastfeed. In Tajikistan (low-income country) researchers found that in a random sample of 500 new mothers that 125 were breastfeeding their infants. What can we conclude?]
+1. .smallest[.purple[Define hypotheses:]] $\small H_0: p = 0.22$ .smallest[and] $\small H_a: p \color{#e64173}{>} 0.22$.
+2. .smallest[.purple[Define]] $\small \color{#6A5ACD}{\alpha}$.smallest[: We consider] $\small \alpha = 5\%$.smallest[.]
+3. .smallest[.purple[Compute p-value]: p-value = ] $\small 5.874\%$ .smallest[(see computation tab for details).]
+4. .smallest[.purple[Conclusion:] We have p-value >] $\small \alpha$ .smallest[and we cannot reject the null hypothesis. We don't have enough evidence to conclude that countries where the income level is lower have a higher rate of infant breastfeeding than higher income countries.]
+]
+.panel[.panel-name[`R` Code ]
+```{r}
+prop.test(x = 125, n = 500, p = 0.22, alternative = "greater")
+```
+]
+]
+
+---
+
+# The one-sample Student's t-test
+
+So far we discuss about significance test for a single proportion. How can we perform a .purple[test for the mean of a population]? We will use .hi-pink[the Student's t-test] <sup>.smallest[👋]</sup>, in which the test statistic follows a Student's t-distribution under the null hypothesis. 
+
+The Student's t-distributions were discovered in 1908 by William S. Gosset, who is a statistician employed by the Guinness brewing company. Gosset devised the t-test as an economical way to monitor the quality of stout. At that time, the company forbade its scientists from publishing their findings, so Gosset published his statistical work under the pen name "Student" in the journal Biometrika, one of the mainstream journals in Statistics. So the Student's t-test is named after Gosset's contributions. 🤓
+
+.footnote[.smallest[👋 The Student's t-test is used when the population variance is unknown. In some uncommon cases where the population variance is known, we use the Z-test, where the test statistic follows a standard normal distribution. Check out more [here](https://en.wikipedia.org/wiki/Z-test).]]
+
+
+
+
