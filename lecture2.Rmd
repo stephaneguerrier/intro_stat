@@ -168,7 +168,7 @@ xaringanExtra::use_clipboard()
 
 - .smallest[.hi-pink[Statistical inference] allows to infer the properties of a population based on an observed sample.]
 - .smallest[.hi-purple[Proportion estimation]] $\color{#6A5ACD}{\hat{p}}$ .smallest[is .hi-purple[random] as it is sample dependent. Therefore, we need to access the .hi-purple[uncertainty] of] $\hat{p}$.
-- .smallest[One common approach to measure uncertainty is to use .hi-turquoise[confidence intervals], which rely on .hi-turquoise[Central Limit Theorem]. In the case of proportion estimation, we have] $$\hat{p} \overset{\cdot}{\sim} \mathcal{N}\Bigg(\color{#e64173}{p}, \color{#6A5ACD}{\frac{p(1-p)}{n}}\Bigg).$$
+- .smallest[One common approach to measure uncertainty is to use .hi-turquoise[confidence intervals], which rely on .hi-turquoise[Central Limit Theorem]. In the case of proportion estimation, we have] $$\small \hat{p} \overset{\cdot}{\sim} \mathcal{N}\Bigg(\color{#e64173}{p}, \color{#6A5ACD}{\frac{p(1-p)}{n}}\Bigg).$$
 - .smallest[Confidence intervals correspond to a range of values that are likely to include the population value with .hi-pink[a certain level of confidence]. The] $1-\alpha$ .smallest[confidence interval for] $p$ .smallest[is given by] $\color{#e64173}{\hat{p}} \pm Z_{1-\alpha/2}\color{#6A5ACD}{\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}}$ .smallest[, and obviously, it is random.]
 - .smallest[In Statistics, a decision or prediction can never be made with certainty. There always exists .hi-turquoise[a trade-off between the risk and the precision of the conclusion], and how much risk is acceptable depends on the context.]
 
@@ -214,10 +214,10 @@ $H_0: p = 0.5$ and $H_a: p > 0.5$.
 # Test statistic and P-value
 
 - .smallest[A hypothesis testing is based on a .hi-pink[test statistic], which measures the difference between the sample estimate and the hypothesized value in terms of its standard deviation, i.e.] 
-$$\text{test statistic} = \frac{\text{sample estimate - hypothesized value}}{\text{standard deviation of sample estimate}}.$$
+$$\small \text{test statistic} = \frac{\text{sample estimate - hypothesized value}}{\text{standard deviation of sample estimate}}.$$
 - .smallest[For a test for a single proportion, the test statistic is computed as] $$z = \frac{\hat{p}-\color{#e64173}{p_0}}{\color{#6A5ACD}{\sqrt{\frac{p_0(1-p_0)}{n}}}} \sim \mathcal{N}(0,1).$$
-- .smallest[The .hi-purple[P-value] is defined as the probability, assuming that] $H_0$ .smallest[is true, that the test statistic will take a value at least as extreme as that actually observed.] 🤯😱
-- .smallest[Informally, .pink[a p-value can be understood as a measure of plausibility of the null hypothesis given the data]. Small P-value indicate strong evidence against] $H_0$.
+- .smallest[The .hi-purple[p-value] is defined as the probability, assuming that] $\small H_0$ .smallest[is true, that the test statistic will take a value at least as extreme as that actually observed.] 🤯😱
+- .smallest[Informally, .pink[a p-value can be understood as a measure of plausibility of the null hypothesis given the data]. Small p-value indicate strong evidence against] $\small H_0$.
 
 ---
 
@@ -286,14 +286,296 @@ prop.test(x = 125, n = 500, p = 0.22, alternative = "greater")
 
 ---
 
-# The one-sample Student's t-test
+# The one-sample Student's t test
 
-So far we discuss about significance test for a single proportion. How can we perform a .purple[test for the mean of a population]? We will use .hi-pink[the Student's t-test] <sup>.smallest[👋]</sup>, in which the test statistic follows a Student's t-distribution under the null hypothesis. 
+So far we discuss about significance test for a single proportion. How can we perform a .purple[test for the mean of a population]? We will use .hi-pink[the Student's t test] (or simply t test) <sup>.smallest[👋]</sup>, in which the test statistic follows a .pink[Student's t distribution] under the null hypothesis. 
 
-The Student's t-distributions were discovered in 1908 by William S. Gosset, who is a statistician employed by the Guinness brewing company. Gosset devised the t-test as an economical way to monitor the quality of stout. At that time, the company forbade its scientists from publishing their findings, so Gosset published his statistical work under the pen name "Student" in the journal Biometrika, one of the mainstream journals in Statistics. So the Student's t-test is named after Gosset's contributions. 🤓
+The Student's t distributions were discovered in 1908 by William S. Gosset, who is a statistician employed by the Guinness brewing company. Gosset devised the t test as an economical way to monitor the quality of stout. At that time, the company forbade its scientists from publishing their findings, so Gosset published his statistical work under the pen name "Student" in the journal Biometrika, one of the mainstream journals in Statistics. So the Student's t test is named after Gosset's contributions. 🍻🤓
 
-.footnote[.smallest[👋 The Student's t-test is used when the population variance is unknown. In some uncommon cases where the population variance is known, we use the Z-test, where the test statistic follows a standard normal distribution. Check out more [here](https://en.wikipedia.org/wiki/Z-test).]]
+.footnote[.smallest[👋 The Student's t test is used when the population variance is unknown. In some uncommon cases where the population variance is known, we use the Z test, where the test statistic follows a standard normal distribution. Check out more [here](https://en.wikipedia.org/wiki/Z-test).]]
 
+---
 
+# The one-sample Student's t test
+
+```{R, out.width = "50%", echo = F}
+include_graphics("pics/t_dist.png")
+```
+
+- .smallest[A particular t distribution is specified by giving the .pink[degrees of freedom]. In the t test, the degree of freedom considered is] $\small n-1$.  
+- .smallest[The probability density functions of the t distributions are similar in shape to the standard normal distribution. They are all symmetric about 0 and are bell-shaped. However, the t distributions have more probability in the tails than the standard normal distribution.]
+
+---
+
+# The one-sample t test: Example 1
+
+.panelset[
+.panel[.panel-name[Problem]
+.smallest[The Nielsen Company, a global information and media company, announced that the U.S. cell phone subscribers spend 5.4 hours on average per month in watching videos on their phones. We want to know whether the U.S. college students .pink[spend different time watching videos on their phones than the average] with the following sample (in hours) of size 8: $$11.9 \;\; 2.8 \;\; 3.0 \;\; 6.2 \;\; 4.7 \;\; 9.8 \;\; 11.1 \;\; 7.8.$$]
+1. .smallest[.purple[Define hypotheses:]] $\small H_0: \mu = 5.4$ .smallest[and] $\small H_a: \mu \color{#e64173}{\neq} 5.4$.
+2. .smallest[.purple[Define]] $\small \color{#6A5ACD}{\alpha}$.smallest[: We consider] $\small \alpha = 5\%$.smallest[.]
+3. .smallest[.purple[Compute p-value]: p-value = ] $\small 20.4\%$ .smallest[(see computation tab for details).]
+4. .smallest[.purple[Conclusion:] We have p-value >] $\small \alpha$ .smallest[and we cannot reject the null hypothesis. We don't have enough evidence to conclude that the U.S. college students spend different time watching videos on their phones than the average.]
+]
+.panel[.panel-name[`R` Code ]
+```{r}
+data = c(11.9, 2.8, 3.0, 6.2, 4.7, 9.8, 11.1, 7.8)
+t.test(x = data, mu = 5.4, alternative = "two.sided")
+```
+]
+]
+
+---
+
+# The one-sample t test: Example 2
+.panelset[
+.panel[.panel-name[Problem]
+An investor sues his broker and brokerage firm because he thinks his stock portfolio .pink[performs worse than the S&P 500 average, 0.95%]. We collect the rates of return for 10 months when the account was managed by the broker: 
+\begin{align}
+&-2.36 \;\; -1.82 \;\; -0.16 \;\; -0.65 \;\; -2.14 \\ 
+&-1.63 \;\; -23.5 \;\; -1.25 \;\; -4.34 \;\; -1.01
+\end{align}
+
+Please perform the t test following the steps and what conclusion can you draw? 🤔
+]
+.panel[.panel-name[Solution]
+1. .purple[Define hypotheses:] $H_0: \mu = 0.0095$ and $H_a: \mu \color{#e64173}{<} 0.0095$.
+2. .purple[Define] $\color{#6A5ACD}{\alpha}$: We consider $\alpha = 5\%$.
+3. .purple[Compute p-value]: p-value = $5.583\%$ (see computation tab for details).
+4. .purple[Conclusion:] We have p-value > $\alpha$ and we cannot reject the null hypothesis. We don't have enough evidence to conclude that the investor's stock portfolio performs worse than the S&P 500 average. 🙀
+]
+.panel[.panel-name[`R` Code ]
+```{r}
+data = c(-2.36, -1.82, -0.16, -0.65, -2.14, -1.63, -23.5, -1.25, -4.34, -1.01)
+t.test(x = data, mu = 0.0095, alternative = "less")
+```
+]
+]
+
+---
+
+# Limitations of the one-sample t test
+
+.smallest[For the t test to work, the data is necessary to satisfy the followings:]
+- .smallest[There are .pink[no outliers];]
+- .smallest[The sample distribution is at least .pink[approximately normal] with no strong skewness.] 
+
+.smallest[Therefore, before proceeding to any inference, we should check the data preliminarily using .purple[boxplot] or .purple[histogram] or .purple[QQ plot]] <sup>.smallest[👋]</sup> .smallest[to see if a t test can be used.]
+
+.pull-left[
+
+```{R, out.width = "100%", echo = F}
+boxplot(data, main = "Boxplot of data", 
+        cex.axis = 2, cex.lab = 2, cex.main = 3)
+```
+
+]
+
+.pull-right[
+
+```{R, out.width = "100%", echo = F}
+par(mai = c(1,1.5,1,1))
+hist(data, breaks = 20, xlim = c(-25,0), 
+     cex.axis = 2, cex.lab = 2, cex.main = 3)
+```
+
+]
+
+.footnote[.smallest[👋 Check out [QQ plot](https://en.wikipedia.org/wiki/Q%E2%80%93Q_plot).]]
+
+---
+
+# One-sample Wilcoxon signed rank test
+
+- .smallest[What can we do if there are outliers in the data and/or if the population distribution is clearly not normal, especially when the sample size is very small? We use .hi-pink[the Wilcoxon signed rank test]!]
+
+- .smallest[The .hi-purple[rank] is the position index of each observation when we order them from smallest to largest, starting with rank 1 for the smallest observation. ] 
+
+- .smallest[The Wilcoxon signed rank test only uses the ranks (i.e. the ordering) of the observations, and makes no use of their actual numerical values. Therefore, it is a .hi-turquoise[nonparametric test].]
+
+- .smallest[The Wilcoxon signed rank test depends on the .hi-purple[Wilcoxon signed rank statistic], which is the sum of the ranks of .purple[only the positive] values (or .purple[only the negative] values).]
+
+- .smallest[Unlike the one-sample t test whose hypotheses are on the population mean, the Wilcoxon signed rank test states the hypotheses in terms of .hi-pink[population median].]
+
+---
+
+# Revisit the portfolio example
+
+.panelset[
+.panel[.panel-name[Problem]
+.smallest[We recall the portfolio example in which we want to test if the investor's stock portfolio .pink[performs worse than the S&P 500 average, 0.95%]. We recall the sample as follows:]
+\begin{align}
+&\small -2.36 \;\; -1.82 \;\; -0.16 \;\; -0.65 \;\; -2.14 \\ 
+&\small -1.63 \;\; -23.5 \;\; -1.25 \;\; -4.34 \;\; -1.01
+\end{align}
+
+.smallest[Let's perform the Wilcoxon signed rank test and see if we draw different conclusion than the one-sample t test?]
+
+1. .smallest[.purple[Define hypotheses:]] $\small H_0: \text{median} = 0.0095$ .smallest[and] $\small H_a: \text{median} \color{#e64173}{<} 0.0095$.smallest[.]
+2. .smallest[.purple[Define]] $\small \color{#6A5ACD}{\alpha}$.smallest[: We consider] $\small \alpha = 5\%$.smallest[.]
+3. .smallest[.purple[Compute p-value]: p-value =] $\small 0.09766\%$ .smallest[(see computation tab for details).]
+4. .smallest[.purple[Conclusion:] We have p-value <] $\small \alpha$ .smallest[so we can reject the null hypothesis and conclude that the investor's stock portfolio performs worse than the S&P 500 average. 🥳]
+
+]
+.panel[.panel-name[`R` Code ]
+```{r}
+data = c(-2.36, -1.82, -0.16, -0.65, -2.14, -1.63, -23.5, -1.25, -4.34, -1.01)
+wilcox.test(x = data, mu = 0.0095, alternative = "less")
+```
+]
+]
+
+---
+
+# Summary
+
+- If the population distribution is actually normal, we will lose a bit of power using the one-sample Wilcoxon signed rank test compared to the one-sample t test. However, the difference is very small, so .pink[in practice we always recommend to use the one-sample Wilcoxon signed rank test].
+
+- Stef: still need to add something like "we need to check symmetry of the distribution if use wilcoxon, otherwise we need to modify data beforehand". (I don't understand why the population distribution has to be symmetric? If so, median = mean then what's difference with t test?)
+
+---
+
+# Two-sample problems
+
+.smallest[In practice, we often encounter problems that compare two samples, such as,] 
+1. .smallest[A scientist is interested in comparing the effects of the Pfizer-BioNTech vaccine and the Moderna vaccine against Covid 19. 🧬🦠]
+2. .smallest[A bank wants to know which of two proposed plans will most increase the use of its credit cards. 💸💳]
+3. .smallest[A psychologist wants to compare male and female college students' impression on a selected webpage. 📱💻]
+
+- .smallest[The goal of inference is to .purple[compare the means of the response variable in two groups.]]
+- .smallest[Two .hi-turquoise[independent] random samples are separately selected from two .hi-turquoise[distinct] populations, and therefore, they can, for example, be of different sample sizes.]
+- .smallest[We use .hi-pink[the two-sample t test] when the population variances are unknown <sup>.smallest[👋]</sup>.]
+
+.footnote[.smallest[👋 Similar to the one-sample t test, we use the two-sample Z test when both population variances are known, which is very uncommon in practice.]]
+
+---
+
+# The two-sample t test: Example
+
+.panelset[
+.panel[.panel-name[Problem]
+.smallest[There is emerging evidence of a relationship between timing of feeding and weight regulation. More precisely, it is claimed that .pink[people who have their main meal early tend to lose more weight compared to people who eat late]. We collect weight loss (kg) data from 12 individuals, where 7 of them are early eaters and 5 of them are late eaters. .turquoise[We assume that the weight loss from these two groups both follow normal distributions.] We want to test if such claim is valid based on the observed sample: 
+$$\small \text{Early eaters:} \;\; 6.3 \;\; 15.1 \;\; 9.4 \;\; 16.8 \;\; 10.2 \;\; 8.2 \;\; 12.7 \quad \text{Late eaters:} \;\; 7.8 \;\; 0.2 \;\; 1.5 \;\; 11.5 \;\; 4.6 $$
+]
+1. .smallest[.purple[Define hypotheses:]] $\small H_0: \mu_{\text{early}} = \mu_{\text{late}}$ .smallest[and] $\small H_a: \mu_{\text{early}} \color{#e64173}{>} \mu_{\text{late}}$.smallest[.]
+2. .smallest[.purple[Define]] $\small \color{#6A5ACD}{\alpha}$.smallest[: We consider] $\small \alpha = 5\%$.smallest[.]
+3. .smallest[.purple[Compute p-value:] p-value =] $\small 2.122\%$ .smallest[(see computation tab for details).]
+4. .smallest[.purple[Conclusion:] We have p-value <] $\small \alpha$ .smallest[so we can reject the null hypothesis and conclude that the early eaters tend to lose more weight compared to late eaters.]
+]
+.panel[.panel-name[`R` Code ]
+```{r}
+early_eaters = c(6.3, 15.1, 9.4, 16.8, 10.2, 8.2, 12.7)
+late_eaters = c(7.8, 0.2, 1.5, 11.5, 4.6)
+t.test(x = early_eaters, y = late_eaters, alternative = "greater")
+```
+]
+]
+
+---
+
+# Wilcoxon rank sum test
+
+- .smallest[Similar to the Wilcoxon signed rank test as a robust <sup>.smallest[👋]</sup> alternative to the one-sample t test, we can use the .hi-pink[Wilcoxon rank sum test] (also called the Mann-Whitney test) when the normality condition is not satisfied to use two-sample t test.]
+- .smallest[The Wilcoxon rank sum test depends on the .hi-purple[Wilcoxon rank sum statistic], which is the .purple[sum of the ranks of one sample]. As it only uses the ranks of the observations, it is a .hi-turquoise[nonparametric test].]
+- .smallest[In the simplest form, the Wilcoxon rank sum test states the hypotheses in terms of .hi-pink[population median]. However, more precisely, it actually tests whether the two distributions are the same, i.e. 😵]
+\begin{align}
+& \small H_0: \text{The two distributions are the same.} \\
+& \small H_a: \text{One distribution has values that are systematically larger (or smaller). }
+\end{align}
+
+.footnote[.smallest[👋 Informally, a robust method is such that it is not overly affected by outliers. The usual one-sample and two-sample t tests are somehow robust in the sense that their results of inference are not very sensitive to moderate lack of normality when the samples are sufficiently large. However, they may still fail when the population distribution shows strong skewness, especially when we have only a few observations.]]
+
+---
+
+# Revisit the weight loss example
+
+.panelset[
+.panel[.panel-name[Problem]
+.smallest[Let's recall the previous weight loss example. We want to test if .pink[early eaters tend to lose more weight than late eaters]. This time, .turquoise[we assume nothing on the distributions of the weight loss from these two groups]. Recall the sample as follows: 
+$$\small \text{Early eaters:} \;\; 6.3 \;\; 15.1 \;\; 9.4 \;\; 16.8 \;\; 10.2 \;\; 8.2 \;\; 12.7 \quad \text{Late eaters:} \;\; 7.8 \;\; 0.2 \;\; 1.5 \;\; 11.5 \;\; 4.6 $$
+]
+1. .smallest[.purple[Define hypotheses:]] $\small H_0: \text{median}_{\text{early}} = \text{median}_{\text{late}}$ .smallest[and] $\small H_a: \text{median}_{\text{early}} \color{#e64173}{>} \text{median}_{\text{late}}$.smallest[.]
+2. .smallest[.purple[Define]] $\small \color{#6A5ACD}{\alpha}$.smallest[: We consider] $\small \alpha = 5\%$.smallest[.]
+3. .smallest[.purple[Compute p-value:] p-value =] $\small 2.399\%$ .smallest[(see computation tab for details).]
+4. .smallest[.purple[Conclusion:] We have p-value <] $\small \alpha$ .smallest[so we can reject the null hypothesis and conclude that the early eaters tend to lose more weight compared to late eaters.]
+]
+.panel[.panel-name[`R` Code ]
+```{r}
+early_eaters = c(6.3, 15.1, 9.4, 16.8, 10.2, 8.2, 12.7)
+late_eaters = c(7.8, 0.2, 1.5, 11.5, 4.6)
+wilcox.test(x = early_eaters, y = late_eaters, alternative = "greater")
+```
+]
+]
+
+---
+
+# Exercise
+
+An airline company is planning to purchase some new wide-body airliners and narrows down its candidates to Boeing 747 and Lockheed L-1011 TriStar. The company wants to know .pink[if Boeing 747 has longer lifespans than Lockheed L-1011 TriStar] based on the following available samples (in years): 
+\begin{align}
+& \text{Boeing} \;\; 29.2 \;\; 27.9 \;\; 28.4 \;\; 22.5 \;\; 26.1 \;\; 19.8 \;\; 27.7 \;\; 27.2 \;\; 31.2 \;\; 28.7 \\
+& \text{Lockheed} \;\; 22.4 \;\; 20.2 \;\; 22.9 \;\; 25.1 \;\; 21.8 \;\; 24.2 \;\; 17.1 \;\; 30.5 \;\; 25.8 \;\; 22.6 \\
+\end{align}
+
+Perform a test you judge appropriate. What conclusion can you draw? 🧐
+
+---
+
+# Solution: the two-sample t test
+
+.panelset[
+.panel[.panel-name[Normality]
+
+.pull-left[
+```{R, out.width = "100%", echo = F}
+boeing = c(29.2, 27.9, 28.4, 22.5, 26.1, 19.8, 27.7, 27.2, 31.2, 28.7)
+boxplot(boeing, main = "Boxplot of Boeing data",
+        cex.axis = 2, cex.lab = 2, cex.main = 2)
+```
+]
+
+.pull-right[
+```{R, out.width = "100%", echo = F}
+lockheed = c(22.4, 20.2, 22.9, 25.1, 21.8, 24.2, 17.1, 30.5, 25.8, 22.6)
+boxplot(lockheed, main = "Boxplot of Lockheed data",
+        cex.axis = 2, cex.lab = 2, cex.main = 2)
+```
+]
+]
+.panel[.panel-name[Solution]
+1. .smallest[.purple[Define hypotheses:]] $\small H_0: \mu_{\text{B}} = \mu_{\text{L}}$ .smallest[and] $\small H_a: \mu_{\text{B}} \color{#e64173}{>} \mu_{\text{L}}$.smallest[.]
+2. .smallest[.purple[Define]] $\small \color{#6A5ACD}{\alpha}$.smallest[: We consider] $\small \color{#e64173}{\alpha = 2\%}$ .smallest[(see computation tab for details).]
+3. .smallest[.purple[Compute p-value:] p-value =] $\small 1.571\%$.smallest[.]
+4. .smallest[.purple[Conclusion:] We have p-value <] $\small \alpha$ .smallest[so we can reject the null hypothesis and conclude that Boeing 747 has longer lifespans than Lockheed L-1011 TriStar.] 
+]
+.panel[.panel-name[`R` Code ]
+```{r}
+boeing = c(29.2, 27.9, 28.4, 22.5, 26.1, 19.8, 27.7, 27.2, 31.2, 28.7)
+lockheed = c(22.4, 20.2, 22.9, 25.1, 21.8, 24.2, 17.1, 30.5, 25.8, 22.6)
+t.test(x = boeing, y = lockheed, alternative = "greater")
+```
+]
+]
+
+---
+
+# Solution: Wilcoxon rank sum test
+
+.panelset[
+.panel[.panel-name[Solution]
+1. .smallest[.purple[Define hypotheses:]] $\small H_0: \text{median}_{\text{B}} = \text{median}_{\text{L}}$ .smallest[and] $\small H_a: \text{median}_{\text{B}} \color{#e64173}{>} \text{median}_{\text{L}}$.smallest[.]
+2. .smallest[.purple[Define]] $\small \color{#6A5ACD}{\alpha}$.smallest[: We consider] $\small \color{#e64173}{\alpha = 2\%}$ .smallest[(see computation tab for details).]
+3. .smallest[.purple[Compute p-value:] p-value =] $\small 1.773\%$.smallest[.]
+4. .smallest[.purple[Conclusion:] We have p-value <] $\small \alpha$ .smallest[so we can reject the null hypothesis and conclude that Boeing 747 has longer lifespans than Lockheed L-1011 TriStar.]
+]
+.panel[.panel-name[`R` Code ]
+```{r}
+boeing = c(29.2, 27.9, 28.4, 22.5, 26.1, 19.8, 27.7, 27.2, 31.2, 28.7)
+lockheed = c(22.4, 20.2, 22.9, 25.1, 21.8, 24.2, 17.1, 30.5, 25.8, 22.6)
+wilcox.test(x = boeing, y = lockheed, alternative = "greater")
+```
+]
+]
 
 
