@@ -41,14 +41,28 @@ class: center, middle, inverse, title-slide
 # Review
 
 - .smallest[.hi-pink[Statistical inference] allows to infer the properties of a population based on an observed sample.]
-- .smallest[.hi-purple[Proportion estimation]] `\(\color{#6A5ACD}{\hat{p}}\)` .smallest[is .hi-purple[random] as it is sample dependent. Therefore, we need to access the .hi-purple[uncertainty] of] `\(\hat{p}\)`.
-- .smallest[One common approach to measure uncertainty is to use .hi-turquoise[confidence intervals], which rely on .hi-turquoise[Central Limit Theorem]. In the case of proportion estimation, we have] `$$\small \hat{p} \overset{\cdot}{\sim} \mathcal{N}\Bigg(\color{#e64173}{p}, \color{#6A5ACD}{\frac{p(1-p)}{n}}\Bigg).$$`
-- .smallest[Confidence intervals correspond to a range of values that are likely to include the population value with .hi-pink[a certain level of confidence]. The] `\(1-\alpha\)` .smallest[confidence interval for] `\(p\)` .smallest[is given by] `\(\color{#e64173}{\hat{p}} \pm Z_{1-\alpha/2}\color{#6A5ACD}{\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}}\)` .smallest[, and obviously, it is random.]
-- .smallest[In Statistics, a decision or prediction can never be made with certainty. There always exists .hi-turquoise[a trade-off between the risk and the precision of the conclusion], and how much risk is acceptable depends on the context.]
+- .smallest[For example, .hi-pink[proportion estimation]] `\(\color{#e64173}{\hat{p}}\)` .smallest[is .hi-purple[random] as it is sample dependent. Therefore, we need to access the .hi-purple[uncertainty] of] `\(\hat{p}\)`.
+- .smallest[One common approach to measure uncertainty is to use .hi-pink[confidence intervals], which rely on .hi-pink[Central Limit Theorem]. In the case of proportion estimation, we have] `$$\small \hat{p} \overset{\cdot}{\sim} \mathcal{N}\Bigg(\color{#e64173}{p}, \color{#6A5ACD}{\frac{p(1-p)}{n}}\Bigg).$$`
+- .smallest[Confidence intervals correspond to a range of values that are likely to include the population value with .hi-purple[a certain level of confidence]. The] `\(1-\alpha\)` .smallest[confidence interval for] `\(p\)` .smallest[is given by] `\(\color{#e64173}{\hat{p}} \pm Z_{1-\alpha/2}\color{#6A5ACD}{\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}}\)` .smallest[, and obviously, it is random.]
+- .smallest[In Statistics, a decision or prediction can never be made with certainty. There always exists .hi-purple[a trade-off between the risk and the precision of the conclusion], and how much risk is acceptable depends on the context.]
 
 ---
 
 # How to test a (scientific) hypothesis?
+
+Stef: could you do the following as you suggest? I'm not sure what exactly you want to add here... (as all the concepts about hypothesis come later, I don't know if here is the correct place to add a summary of testing process)...
+
+Between slides 2 and 3 I would add a slide that summarises: [testing process](https://en.wikipedia.org/wiki/Statistical_hypothesis_testing).
+
+Maybe add that this is the process that the scientific generally accepts…
+
+Maybe somewhere we could add: If there's one takeaway from the ASA statement, it's that p-values are not badges of truth and p &lt; 0.05 is not a line that separates real results from false ones. They're simply one piece of a puzzle that should be considered in the context of other evidence. (It's from [here](https://fivethirtyeight.com/features/statisticians-found-one-thing-they-can-agree-on-its-time-to-stop-misusing-p-values/))
+
+---
+
+# How to test a (scientific) hypothesis?
+
+Stef: adapt with previous slide, change title
 
 - .smallest[An alternative summary measure of uncertainty is provided  by .hi-pink[p-values] that take values between 0% and 100%.]
 - .smallest[However, .hi-purple[p-values have been misused] many times because understanding what they mean is not intuitive.]
@@ -63,10 +77,14 @@ class: center, middle, inverse, title-slide
 
 # A hypothesis testing
 
+Stef: want to add a John Oliver video here...
+
 - A p-value is associated to (a couple of) .purple[hypotheses] about the phenomenon under investigation, such as
 1. Coffee consumption increases blood pressure (really 🙄 ☕?)
 2. Republican politicians are bad/good for the American Economy.
 3. A glass of red wine is as good as an hour at the gym (🍷 🏃 😆).
+
+Yuming: maybe we can remove the following point (as it's discussed in the next slide)
 
 - More precisely, a hypothesis testing is designed to assess the strength of evidence against a baseline hypothesis called .pink[null hypothesis] `\(\color{#e64173}{H_0}\)` and in favor of another hypothesis called .pink[alternative hypothesis] `\(\color{#e64173}{H_a}\)`.
 
@@ -74,14 +92,26 @@ class: center, middle, inverse, title-slide
 
 # A hypothesis testing
 
-- In the Biden-Trump example, we can write
+- In the Biden-Trump example, recall that we want to verify if Biden will win the popular vote. Then we can translate this into the following hypotheses:
 .center[
 `\(H_0: p = 0.5\)` and `\(H_a: p &gt; 0.5\)`.
 ]
+- In a hypothesis test, the statement being tested is called the .hi-pink[null hypothesis] `\(\color{#e64173}{H_0}\)`. A hypothesis test is designed to assess the strength of the evidence against the null hypothesis.
+- The .hi-pink[alternative hypothesis] `\(\color{#e64173}{H_a}\)` is the statement we hope or suspect to be true instead of `\(H_0\)`.
 - Each hypothesis .purple[excludes the other], so that one can .purple[exclude one in favor of the other] using the data.
-- The .pink[null hypothesis] is the one that one will never be able to prove because the data is random.
-- The .pink[alternative hypothesis] is the one that offers more choice of values and hence has a chance to be favored with respect to the null hypothesis.
-- If we reject `\(H_0\)` when in fact `\(H_0\)` is true, this is a .purple[Type I error]. If we accept `\(H_0\)` when in fact `\(H_a\)` is true, this is a .purple[Type II error]. 
+
+---
+
+# A hypothesis testing
+
+|                 | `\(H_0\)` is true                               | `\(H_0\)` is false                          |
+| --------------- |---------------------------------------------| ----------------------------------------|
+| Accept `\(H_0\)`    | `\(\text{Correct inference (prob=}1-\alpha)\)`  | `\(\text{Type II error (prob=}1-\beta)\)`   |
+| Reject `\(H_0\)`    | `\(\text{Type I error (prob=}\alpha)\)`         | `\(\text{Correct inference (prob=}\beta)\)` |
+
+- If we reject `\(H_0\)` when in fact `\(H_0\)` is true, this is a .hi-pink[type I error] (also called .hi-pink[false positive]). If we accept `\(H_0\)` when in fact `\(H_a\)` is true, this is a .hi-purple[type II error] (also called .hi-purple[false negative]).
+- A test is of .hi-pink[significance level] `\(\color{#e64173}{\alpha}\)` when the probability to make a type I error is `\(\alpha\)`. Usually we consider `\(\alpha = 5\%\)`, however, this can vary depending on the context.
+- A test if of .hi-purple[power] `\(\color{#6A5ACD}{\beta}\)` when the probability to make a type II error is `\(1-\beta\)`. In other words, the power of a test is its probability to reject `\(H_0\)` when `\(H_0\)` is false.
 
 ---
 
@@ -90,7 +120,7 @@ class: center, middle, inverse, title-slide
 - .smallest[A hypothesis testing is based on a .hi-pink[test statistic], which measures the difference between the sample estimate and the hypothesized value in terms of its standard deviation, i.e.] 
 `$$\small \text{test statistic} = \frac{\text{sample estimate - hypothesized value}}{\text{standard deviation of sample estimate}}.$$`
 
-- .smallest[For example, consider a test for a single proportion with] `\(\small H_0: p = p_0\)` .smallest[and] `\(\small H_a: p &gt; p_0\)`.smallest[, the corresponding test statistic can be computed as] `$$z = \frac{\hat{p}-\color{#e64173}{p_0}}{\color{#6A5ACD}{\sqrt{\frac{p_0(1-p_0)}{n}}}} \sim \mathcal{N}(0,1).$$`
+- .smallest[For example, consider a test for a single proportion with] `\(\small H_0: p = p_0\)` .smallest[and] `\(\small H_a: p &gt; p_0\)`.smallest[, the corresponding test statistic can be computed as] `$$Z = \frac{\hat{p}-\color{#e64173}{p_0}}{\color{#6A5ACD}{\sqrt{\frac{p_0(1-p_0)}{n}}}} \overset{\cdot}{\sim} \mathcal{N}(0,1).$$`
 - .smallest[The .hi-purple[p-value] is defined as the probability, assuming that] `\(\small H_0\)` .smallest[is true, that the test statistic will take a value at least as extreme as that actually observed.] 🤯😱
 - .smallest[Informally, .pink[a p-value can be understood as a measure of plausibility of the null hypothesis given the data]. Small p-value indicates strong evidence against] `\(\small H_0\)`.
 
@@ -98,10 +128,23 @@ class: center, middle, inverse, title-slide
 
 # Test statistic and P-value
 
-- .smaller[When the p-value is small enough (typically smaller than 5%), one says that the test based on the null and alternative hypotheses is .hi-pink[significant] or that the null hypothesis is rejected in favor of the alternative. .purple[This is generally what we want because it "verifies" our (research) hypothesis].]
-- .smaller[When the p-value is not small enough (typically larger than 5%), with the available data, we cannot reject the null hypothesis and then .hi-pink[nothing] can be concluded. 🤔]
-- .smaller[With a sample of data, the obtained p-value (associated to a couple of hypotheses) summarizes somehow the .hi-pink[incompatibility between the data and the model] (random process) constructed under the set of assumptions.]
-- .smaller[The p-value is usually compared to a .purple[threshold value] that sets the (subjective) risk level of decision in favor of the incompatibility. The risk level is called the .purple[significance level] and is a small value, usually 5%, but this depends on the context.]
+&lt;img src="pics/p_value.png" width="45%" style="display: block; margin: auto;" /&gt;
+
+👋 .smallest[If you want to know more have a look [here](https://xkcd.com/1478/).]
+
+---
+
+# Test statistic and P-value
+
+- When the p-value is small enough (i.e. smaller than the significance level `\(\alpha\)`), one says that the test based on the null and alternative hypotheses is .hi-pink[significant] or that the null hypothesis is rejected in favor of the alternative. .purple[This is generally what we want because it "verifies" our (research) hypothesis].
+- When the p-value is not small enough, with the available data, we cannot reject the null hypothesis so .hi-pink[nothing] can be concluded. 🤔
+- With a sample of data, the obtained p-value summarizes somehow the .hi-pink[incompatibility between the data and the model] (random process) constructed under the set of assumptions.
+
+.center[
+.purple["Absence of evidence is not evidence of absence." &lt;sup&gt;.smallest[👋]&lt;/sup&gt;]
+]
+
+.footnote[.smallest[👋] From the British Medical Journal.]
 
 ---
 
@@ -109,10 +152,10 @@ class: center, middle, inverse, title-slide
 
 .panelset[
 .panel[.panel-name[Problem]
-.smallest[Returning to our Biden-Trump example, suppose we believe (or hope to show that) .pink[Biden will have more than 50% of the votes]. We collect data with] `\(\small n = 600\)` .smallest[and] `\(\small m = 322\)`.smallest[. We will consider the following steps to set up the test:]
+.smallest[Returning to our Biden-Trump example, suppose we believe (or hope to show that) .pink[Biden will have more than 50% of the votes at a significance level of 5%]. We collect data with] `\(\small n = 600\)` .smallest[and] `\(\small m = 322\)`.smallest[. We will consider the following steps to set up the test:]
 1. .smallest[.purple[Define hypotheses:]] `\(\small H_0: p = 0.5\)` .smallest[and] `\(\small H_a: p \color{#e64173}{&gt;} 0.5\)`.
 2. .smallest[.purple[Define]] `\(\small \color{#6A5ACD}{\alpha}\)`.smallest[: We consider] `\(\small \alpha = 5\%\)`.smallest[.]
-3. .smallest[.purple[Compute p-value]: p-value = ] `\(\small 3.959\%\)` .smallest[(see computation tab for details).]
+3. .smallest[.purple[Compute p-value]: p-value = ] `\(\small 3.959\%\)` .smallest[(see R code tab for details).]
 4. .smallest[.purple[Conclusion:] We have p-value &lt;] `\(\small \alpha\)` .smallest[so we can reject the null hypothesis and conclude that the proportion of voters for Biden is greater than 50%.]
 ]
 .panel[.panel-name[`R` Code ]
@@ -143,10 +186,10 @@ prop.test(x = 322, n = 600, p = 0.5, alternative = "greater")
 
 .panelset[
 .panel[.panel-name[Problem]
-.smallest[What if we want to check if .pink[Trump will have more than 50% of the votes]? Using the same data, we set up the test as follows:]
+.smallest[What if we want to check if .pink[Trump will have more than 50% of the votes at the 95% confidence level]? Using the same data, we set up the test as follows:]
 1. .smallest[.purple[Define hypotheses:]] `\(\small H_0: p = 0.5\)` .smallest[and] `\(\small H_a: p \color{#e64173}{&lt;} 0.5\)`.
-2. .smallest[.purple[Define]] `\(\small \color{#6A5ACD}{\alpha}\)`.smallest[: We consider] `\(\small \alpha = 5\%\)`.smallest[.]
-3. .smallest[.purple[Compute p-value]: p-value = ] `\(\small 96.04\%\)` .smallest[(see computation tab for details).]
+2. .smallest[.purple[Define]] `\(\small \color{#6A5ACD}{\alpha}\)`.smallest[: We consider] `\(\small \alpha = 5\%\)` .smallest[  (which corresponds to the 95% confidence level).]
+3. .smallest[.purple[Compute p-value]: p-value = ] `\(\small 96.04\%\)` .smallest[(see R code tab for details).]
 4. .smallest[.purple[Conclusion:] We have p-value &gt;] `\(\small \alpha\)` .smallest[and we cannot reject the null hypothesis. We don't have enough evidence to conclude that Trump will have more than 50% of the votes.]
 ]
 .panel[.panel-name[`R` Code ]
@@ -179,7 +222,7 @@ prop.test(x = 322, n = 600, p = 0.5, alternative = "less")
 .smallest[A researcher who is studying the effects of income levels on breastfeeding of infants hypothesizes that .pink[countries where the income level is lower have a higher rate of infant breastfeeding than higher income countries]. It is .hi.purple[known] that in Germany (high-income country), 22% of all babies are breastfeed. In Tajikistan (low-income country) researchers found that in a random sample of 500 new mothers that 125 were breastfeeding their infants. What can we conclude?]
 1. .smallest[.purple[Define hypotheses:]] `\(\small H_0: p = 0.22\)` .smallest[and] `\(\small H_a: p \color{#e64173}{&gt;} 0.22\)`.
 2. .smallest[.purple[Define]] `\(\small \color{#6A5ACD}{\alpha}\)`.smallest[: We consider] `\(\small \alpha = 5\%\)`.smallest[.]
-3. .smallest[.purple[Compute p-value]: p-value = ] `\(\small 5.874\%\)` .smallest[(see computation tab for details).]
+3. .smallest[.purple[Compute p-value]: p-value = ] `\(\small 5.874\%\)` .smallest[(see R code tab for details).]
 4. .smallest[.purple[Conclusion:] We have p-value &gt;] `\(\small \alpha\)` .smallest[and we cannot reject the null hypothesis. We don't have enough evidence to conclude that countries where the income level is lower have a higher rate of infant breastfeeding than higher income countries.]
 ]
 .panel[.panel-name[`R` Code ]
@@ -206,33 +249,34 @@ prop.test(x = 125, n = 500, p = 0.22, alternative = "greater")
 
 ---
 
-# The one-sample Student's t test
+# The one-sample Student's t-test
 
-So far we discuss about significance test for a single proportion. How can we perform a .purple[test for the mean of a population]? We will use .hi-pink[the Student's t test] (or simply t test) &lt;sup&gt;.smallest[👋]&lt;/sup&gt;, in which the test statistic follows a .pink[Student's t distribution] under the null hypothesis. 
+.smallest[So far we discuss about significance test for a single proportion. How can we perform a .purple[test for the mean of a population]? We will use .hi-pink[the Student's t-test] (or simply t-test) &lt;sup&gt;.smallest[👋]&lt;/sup&gt;, in which the test statistic follows a .pink[Student's t distribution] under the null hypothesis. ]
 
-The Student's t distributions were discovered in 1908 by William S. Gosset, who is a statistician employed by the Guinness brewing company. Gosset devised the t test as an economical way to monitor the quality of stout. At that time, the company forbade its scientists from publishing their findings, so Gosset published his statistical work under the pen name "Student" in the journal Biometrika, one of the mainstream journals in Statistics. So the Student's t test is named after Gosset's contributions. 🍻🤓
+.smallest[The Student's t distributions were discovered in 1908 by William S. Gosset, who is a statistician employed by the Guinness brewing company. Gosset devised the t-test as an economical way to monitor the quality of stout. At that time, the company forbade its scientists from publishing their findings, so Gosset published his statistical work under the pen name "Student" in the journal Biometrika (which is nowadays still one of the leading journals in Statistics). So the Student's t-test is named after Gosset's contributions. 🍻🤓]
+&lt;img src="pics/gosset_biometrika.png" width="55%" style="display: block; margin: auto;" /&gt;
 
-.footnote[.smallest[👋 The Student's t test is used when the population variance is unknown. In some uncommon cases where the population variance is known, we use the Z test, where the test statistic follows a standard normal distribution. Check out more [here](https://en.wikipedia.org/wiki/Z-test).]]
+.footnote[.smallest[👋 The Student's t-test is used when the population variance is unknown. In some uncommon cases where the population variance is known, we use the Z-test, where the test statistic follows a standard normal distribution. Check out more [here](https://en.wikipedia.org/wiki/Z-test).]]
 
 ---
 
-# The one-sample Student's t test
+# The one-sample Student's t-test
 
 &lt;img src="pics/t_dist.png" width="50%" style="display: block; margin: auto;" /&gt;
 
-- .smallest[A particular t distribution is specified by giving the .pink[degrees of freedom]. In the t test, the degrees of freedom considered is] `\(\small n-1\)`.  
+- .smallest[A particular t distribution is specified by giving the .pink[degrees of freedom]. In the t-test, the degrees of freedom considered is] `\(\small n-1\)`.  
 - .smallest[The probability density functions of the t distributions are similar in shape to the standard normal distribution. They are all symmetric about 0 and are bell-shaped. However, the t distributions have more probability in the tails than the standard normal distribution.]
 
 ---
 
-# The one-sample t test: Example 1
+# The one-sample t-test: Example 1
 
 .panelset[
 .panel[.panel-name[Problem]
 .smallest[The Nielsen Company, a global information and media company, announced that the U.S. cell phone subscribers spend 5.4 hours on average per month in watching videos on their phones. We want to know whether the U.S. college students .pink[spend different time watching videos on their phones than the average] with the following sample (in hours) of size 8: `$$11.9 \;\; 2.8 \;\; 3.0 \;\; 6.2 \;\; 4.7 \;\; 9.8 \;\; 11.1 \;\; 7.8.$$`]
 1. .smallest[.purple[Define hypotheses:]] `\(\small H_0: \mu = 5.4\)` .smallest[and] `\(\small H_a: \mu \color{#e64173}{\neq} 5.4\)`.
 2. .smallest[.purple[Define]] `\(\small \color{#6A5ACD}{\alpha}\)`.smallest[: We consider] `\(\small \alpha = 5\%\)`.smallest[.]
-3. .smallest[.purple[Compute p-value]: p-value = ] `\(\small 20.4\%\)` .smallest[(see computation tab for details).]
+3. .smallest[.purple[Compute p-value]: p-value = ] `\(\small 20.4\%\)` .smallest[(see R code tab for details).]
 4. .smallest[.purple[Conclusion:] We have p-value &gt;] `\(\small \alpha\)` .smallest[and we cannot reject the null hypothesis. We don't have enough evidence to conclude that the U.S. college students spend different time watching videos on their phones than the average.]
 ]
 .panel[.panel-name[`R` Code ]
@@ -260,18 +304,18 @@ t.test(x = data, mu = 5.4, alternative = "two.sided")
 
 ---
 
-# The one-sample t test: Example 2
+# The one-sample t-test: Example 2
 .panelset[
 .panel[.panel-name[Problem]
 An investor sues his broker and brokerage firm because he thinks his stock portfolio .pink[performs worse than the S&amp;P 500 average, 0.95%]. We collect the rates of return (in %) for 10 months when the account was managed by the broker: 
 `$$\small -2.36 \;\; -1.82 \;\; 0.46 \;\; 0.65 \;\; -2.14 \;\; -1.63 \;\; -25.5 \;\; 0.25 \;\; -4.34 \;\; 0.91$$`
 
-Please perform the t test following the steps and what conclusion can you draw? 🤔
+Please perform the t-test following the steps and what conclusion can you draw? 🤔
 ]
 .panel[.panel-name[Solution]
 1. .purple[Define hypotheses:] `\(H_0: \mu = 0.95\)` and `\(H_a: \mu \color{#e64173}{&lt;} 0.95\)`.
 2. .purple[Define] `\(\color{#6A5ACD}{\alpha}\)`: We consider `\(\alpha = 5\%\)`.
-3. .purple[Compute p-value]: p-value = `\(5.237\%\)` (see computation tab for details).
+3. .purple[Compute p-value]: p-value = `\(5.237\%\)` (see R code tab for details).
 4. .purple[Conclusion:] We have p-value &gt; `\(\alpha\)` and we cannot reject the null hypothesis. We don't have enough evidence to conclude that the investor's stock portfolio performs worse than the S&amp;P 500 average. 🙀
 ]
 .panel[.panel-name[`R` Code ]
@@ -299,23 +343,23 @@ t.test(x = data, mu = 0.95, alternative = "less")
 
 ---
 
-# Limitations of the one-sample t test
+# Limitations of the one-sample t-test
 
-.smallest[For the t test to work, the data is necessary to satisfy the followings:]
+.smallest[For the t-test to work, the data is necessary to satisfy the followings:]
 - .smallest[There are .pink[no outliers];]
 - .smallest[The sample distribution is at least .pink[approximately normal] with no strong skewness.] 
 
-.smallest[Therefore, before proceeding to any inference, we should check the data preliminarily using .purple[boxplot] or .purple[histogram] or .purple[QQ plot]] &lt;sup&gt;.smallest[👋]&lt;/sup&gt; .smallest[to see if a t test can be used.]
+.smallest[Therefore, before proceeding to any inference, we should check the data preliminarily using .purple[boxplot] or .purple[histogram] or .purple[QQ plot]] &lt;sup&gt;.smallest[👋]&lt;/sup&gt; .smallest[to see if a t-test can be used.]
 
 .pull-left[
 
-&lt;img src="lecture2_files/figure-html/unnamed-chunk-8-1.svg" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="lecture2_files/figure-html/unnamed-chunk-10-1.svg" width="100%" style="display: block; margin: auto;" /&gt;
 
 ]
 
 .pull-right[
 
-&lt;img src="lecture2_files/figure-html/unnamed-chunk-9-1.svg" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="lecture2_files/figure-html/unnamed-chunk-11-1.svg" width="100%" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -333,7 +377,7 @@ t.test(x = data, mu = 0.95, alternative = "less")
 
 - .smallest[The Wilcoxon signed rank test depends on the .hi-purple[Wilcoxon signed rank statistic], which is the sum of the ranks of .purple[only the positive] values (or .purple[only the negative] values).]
 
-- .smallest[Unlike the one-sample t test whose hypotheses are on the population mean, the Wilcoxon signed rank test states the hypotheses in terms of .hi-pink[population median].]
+- .smallest[Unlike the one-sample t-test whose hypotheses are on the population mean, the Wilcoxon signed rank test states the hypotheses in terms of .hi-pink[population median].]
 
 ---
 
@@ -344,11 +388,11 @@ t.test(x = data, mu = 0.95, alternative = "less")
 .smallest[We recall the portfolio example in which we want to test if the investor's stock portfolio .pink[performs worse than the S&amp;P 500 average, 0.95%]. We recall the sample as follows:]
 `$$\small -2.36 \;\; -1.82 \;\; 0.46 \;\; 0.65 \;\; -2.14 \;\; -1.63 \;\; -25.5 \;\; 0.25 \;\; -4.34 \;\; 0.91$$`
 
-.smallest[Let's perform the Wilcoxon signed rank test and see if we draw different conclusion than the one-sample t test?]
+.smallest[Let's perform the Wilcoxon signed rank test and see if we draw different conclusion than the one-sample t-test?]
 
 1. .smallest[.purple[Define hypotheses:]] `\(\small H_0: \text{median} = 0.95\)` .smallest[and] `\(\small H_a: \text{median} \color{#e64173}{&lt;} 0.95\)`.smallest[.]
 2. .smallest[.purple[Define]] `\(\small \color{#6A5ACD}{\alpha}\)`.smallest[: We consider] `\(\small \alpha = 5\%\)`.smallest[.]
-3. .smallest[.purple[Compute p-value]: p-value =] `\(\small 0.09766\%\)` .smallest[(see computation tab for details).]
+3. .smallest[.purple[Compute p-value]: p-value =] `\(\small 0.09766\%\)` .smallest[(see R code tab for details).]
 4. .smallest[.purple[Conclusion:] We have p-value &lt;] `\(\small \alpha\)` .smallest[so we can reject the null hypothesis and conclude that the investor's stock portfolio performs worse than the S&amp;P 500 average. 🥳]
 
 ]
@@ -374,9 +418,9 @@ wilcox.test(x = data, mu = 0.95, alternative = "less")
 
 # Summary
 
-- If the population distribution is actually normal, we will lose a bit of power using the one-sample Wilcoxon signed rank test compared to the one-sample t test. However, the difference is very small, so .pink[in practice we always recommend to use the one-sample Wilcoxon signed rank test.]
+- If the population distribution is actually normal, we will lose a bit of power using the one-sample Wilcoxon signed rank test compared to the one-sample t-test. However, the difference is very small, so .pink[in practice we always recommend to use the one-sample Wilcoxon signed rank test.]
 
-- Stef: still need to add something like "we need to check symmetry of the distribution if use wilcoxon, otherwise we need to modify data beforehand". (I don't understand why the population distribution has to be symmetric? If so, median = mean then what's difference with t test?)
+- Stef: still need to add something like "we need to check symmetry of the distribution if use wilcoxon, otherwise we need to modify data beforehand". (I don't understand why the population distribution has to be symmetric? If so, median = mean then what's difference with t-test?)
 
 ---
 
@@ -389,13 +433,13 @@ wilcox.test(x = data, mu = 0.95, alternative = "less")
 
 - .smallest[The goal of inference is to .purple[compare the means of the response variable in two groups.]]
 - .smallest[Two .hi-turquoise[independent] random samples are separately selected from two .hi-turquoise[distinct] populations, and therefore, they can, for example, be of different sample sizes.]
-- .smallest[We use .hi-pink[the two-sample t test] when the population variances are unknown &lt;sup&gt;.smallest[👋]&lt;/sup&gt;.]
+- .smallest[We use .hi-pink[the two-sample t-test] when the population variances are unknown &lt;sup&gt;.smallest[👋]&lt;/sup&gt;.]
 
-.footnote[.smallest[👋 Similar to the one-sample t test, we use the two-sample Z test when both population variances are known, which is very uncommon in practice.]]
+.footnote[.smallest[👋 Similar to the one-sample t-test, we use the two-sample Z-test when both population variances are known, which is very uncommon in practice.]]
 
 ---
 
-# The two-sample t test: Example
+# The two-sample t-test: Example
 
 .panelset[
 .panel[.panel-name[Problem]
@@ -404,7 +448,7 @@ $$\small \text{Early eaters:} \;\; 6.3 \;\; 15.1 \;\; 9.4 \;\; 16.8 \;\; 10.2 \;
 ]
 1. .smallest[.purple[Define hypotheses:]] `\(\small H_0: \mu_{\text{early}} = \mu_{\text{late}}\)` .smallest[and] `\(\small H_a: \mu_{\text{early}} \color{#e64173}{&gt;} \mu_{\text{late}}\)`.smallest[.]
 2. .smallest[.purple[Define]] `\(\small \color{#6A5ACD}{\alpha}\)`.smallest[: We consider] `\(\small \alpha = 5\%\)`.smallest[.]
-3. .smallest[.purple[Compute p-value:] p-value =] `\(\small 2.122\%\)` .smallest[(see computation tab for details).]
+3. .smallest[.purple[Compute p-value:] p-value =] `\(\small 2.122\%\)` .smallest[(see R code tab for details).]
 4. .smallest[.purple[Conclusion:] We have p-value &lt;] `\(\small \alpha\)` .smallest[so we can reject the null hypothesis and conclude that the early eaters tend to lose more weight compared to late eaters.]
 ]
 .panel[.panel-name[`R` Code ]
@@ -435,7 +479,7 @@ t.test(x = early_eaters, y = late_eaters, alternative = "greater")
 
 # Wilcoxon rank sum test
 
-- .smallest[Similar to the Wilcoxon signed rank test as a robust &lt;sup&gt;.smallest[👋]&lt;/sup&gt; alternative to the one-sample t test, we can use the .hi-pink[Wilcoxon rank sum test] (also called the Mann-Whitney test) when the normality condition is not satisfied to use two-sample t test.]
+- .smallest[Similar to the Wilcoxon signed rank test as a robust &lt;sup&gt;.smallest[👋]&lt;/sup&gt; alternative to the one-sample t-test, we can use the .hi-pink[Wilcoxon rank sum test] (also called the Mann-Whitney test) when the normality condition is not satisfied to use two-sample t-test.]
 - .smallest[The Wilcoxon rank sum test depends on the .hi-purple[Wilcoxon rank sum statistic], which is the .purple[sum of the ranks of one sample]. As it only uses the ranks of the observations, it is a .hi-turquoise[nonparametric test].]
 - .smallest[In the simplest form, the Wilcoxon rank sum test states the hypotheses in terms of .hi-pink[population median]. However, more precisely, it actually tests whether the two distributions are the same, i.e. 😵]
 `\begin{align}
@@ -443,7 +487,7 @@ t.test(x = early_eaters, y = late_eaters, alternative = "greater")
 &amp; \small H_a: \text{One distribution has values that are systematically larger (or smaller). }
 \end{align}`
 
-.footnote[.smallest[👋 Informally, a robust method is such that it is not overly affected by outliers. The usual one-sample and two-sample t tests are somehow robust in the sense that their results of inference are not very sensitive to moderate lack of normality when the samples are sufficiently large. However, they may still fail when the population distribution shows strong skewness, especially when we have only a few observations.]]
+.footnote[.smallest[👋 Informally, a robust method is such that it is not overly affected by outliers. The usual one-sample and two-sample t-tests are somehow robust in the sense that their results of inference are not very sensitive to moderate lack of normality when the samples are sufficiently large. However, they may still fail when the population distribution shows strong skewness, especially when we have only a few observations.]]
 
 ---
 
@@ -456,7 +500,7 @@ $$\small \text{Early eaters:} \;\; 6.3 \;\; 15.1 \;\; 9.4 \;\; 16.8 \;\; 10.2 \;
 ]
 1. .smallest[.purple[Define hypotheses:]] `\(\small H_0: \text{median}_{\text{early}} = \text{median}_{\text{late}}\)` .smallest[and] `\(\small H_a: \text{median}_{\text{early}} \color{#e64173}{&gt;} \text{median}_{\text{late}}\)`.smallest[.]
 2. .smallest[.purple[Define]] `\(\small \color{#6A5ACD}{\alpha}\)`.smallest[: We consider] `\(\small \alpha = 5\%\)`.smallest[.]
-3. .smallest[.purple[Compute p-value:] p-value =] `\(\small 2.399\%\)` .smallest[(see computation tab for details).]
+3. .smallest[.purple[Compute p-value:] p-value =] `\(\small 2.399\%\)` .smallest[(see R code tab for details).]
 4. .smallest[.purple[Conclusion:] We have p-value &lt;] `\(\small \alpha\)` .smallest[so we can reject the null hypothesis and conclude that the early eaters tend to lose more weight compared to late eaters.]
 ]
 .panel[.panel-name[`R` Code ]
@@ -492,22 +536,22 @@ Perform a test you judge appropriate. What conclusion can you draw? 🧐
 
 ---
 
-# Solution: the two-sample t test
+# Solution: the two-sample t-test
 
 .panelset[
 .panel[.panel-name[Normality]
 
 .pull-left[
-&lt;img src="lecture2_files/figure-html/unnamed-chunk-13-1.svg" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="lecture2_files/figure-html/unnamed-chunk-15-1.svg" width="100%" style="display: block; margin: auto;" /&gt;
 ]
 
 .pull-right[
-&lt;img src="lecture2_files/figure-html/unnamed-chunk-14-1.svg" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="lecture2_files/figure-html/unnamed-chunk-16-1.svg" width="100%" style="display: block; margin: auto;" /&gt;
 ]
 ]
 .panel[.panel-name[Solution]
 1. .smallest[.purple[Define hypotheses:]] `\(\small H_0: \mu_{\text{B}} = \mu_{\text{L}}\)` .smallest[and] `\(\small H_a: \mu_{\text{B}} \color{#e64173}{&gt;} \mu_{\text{L}}\)`.smallest[.]
-2. .smallest[.purple[Define]] `\(\small \color{#6A5ACD}{\alpha}\)`.smallest[: We consider] `\(\small \color{#e64173}{\alpha = 2\%}\)` .smallest[(see computation tab for details).]
+2. .smallest[.purple[Define]] `\(\small \color{#6A5ACD}{\alpha}\)`.smallest[: We consider] `\(\small \color{#e64173}{\alpha = 2\%}\)` .smallest[(see R code tab for details).]
 3. .smallest[.purple[Compute p-value:] p-value =] `\(\small 1.571\%\)`.smallest[.]
 4. .smallest[.purple[Conclusion:] We have p-value &lt;] `\(\small \alpha\)` .smallest[so we can reject the null hypothesis and conclude that Boeing 747 has longer lifespans than Lockheed L-1011 TriStar.] 
 ]
@@ -542,7 +586,7 @@ t.test(x = boeing, y = lockheed, alternative = "greater")
 .panelset[
 .panel[.panel-name[Solution]
 1. .smallest[.purple[Define hypotheses:]] `\(\small H_0: \text{median}_{\text{B}} = \text{median}_{\text{L}}\)` .smallest[and] `\(\small H_a: \text{median}_{\text{B}} \color{#e64173}{&gt;} \text{median}_{\text{L}}\)`.smallest[.]
-2. .smallest[.purple[Define]] `\(\small \color{#6A5ACD}{\alpha}\)`.smallest[: We consider] `\(\small \color{#e64173}{\alpha = 2\%}\)` .smallest[(see computation tab for details).]
+2. .smallest[.purple[Define]] `\(\small \color{#6A5ACD}{\alpha}\)`.smallest[: We consider] `\(\small \color{#e64173}{\alpha = 2\%}\)` .smallest[(see R code tab for details).]
 3. .smallest[.purple[Compute p-value:] p-value =] `\(\small 1.773\%\)`.smallest[.]
 4. .smallest[.purple[Conclusion:] We have p-value &lt;] `\(\small \alpha\)` .smallest[so we can reject the null hypothesis and conclude that Boeing 747 has longer lifespans than Lockheed L-1011 TriStar.]
 ]
@@ -632,7 +676,7 @@ Can we simply do multiple tests with what we have learned? 🤔
 # Methods to remedy such problem
 
 - .smallest[The .hi-pink[Bonferroni correction] is one of oldest methods proposed to counteract the problem of multiple testing (i.e. potential increased chance to make Type I errors). ]
-- .smallest[.purple[It tests each individual hypothesis at a reduced significance level.] For example, if a trial is testing 20 hypotheses with a desired] `\(\small \alpha = 5\%\)`.smallest[, then the Bonferroni correction would test each individual hypothesis at] `\(\small \alpha^* = \alpha/20 = 5\% / 20 = 0.25\%\)`.smallest[. Therefore, .purple[it controls the familywise error rate at]] `\(\small \color{#6A5ACD}{\leq \alpha}\)`.
+- .smallest[.purple[It-tests each individual hypothesis at a reduced significance level.] For example, if a trial is testing 20 hypotheses with a desired] `\(\small \alpha = 5\%\)`.smallest[, then the Bonferroni correction would test each individual hypothesis at] `\(\small \alpha^* = \alpha/20 = 5\% / 20 = 0.25\%\)`.smallest[. Therefore, .purple[it controls the familywise error rate at]] `\(\small \color{#6A5ACD}{\leq \alpha}\)`.
 - .smallest[The Bonferroni correction can be .hi-turquoise[conservative] if there are a large number of tests, as it comes at the cost of reducing the power of the tests.]
 - .smallest[Another more recent and less conservative method is the .hi-pink[False Discovery Rate (FDR)]. It provides less stringent control of Type I errors compared to the Bonferroni correction. Thus, the FDR has greater power, yet at the cost of increased numbers of Type I errors.]
 
@@ -644,11 +688,11 @@ Can we simply do multiple tests with what we have learned? 🤔
 
 .smallest[We are interested in comparing means, but why is it an analysis of .purple[variance]?]
 .pull-left[
-&lt;img src="lecture2_files/figure-html/unnamed-chunk-17-1.svg" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="lecture2_files/figure-html/unnamed-chunk-19-1.svg" width="100%" style="display: block; margin: auto;" /&gt;
 ]
 
 .pull-right[
-&lt;img src="lecture2_files/figure-html/unnamed-chunk-18-1.svg" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="lecture2_files/figure-html/unnamed-chunk-20-1.svg" width="100%" style="display: block; margin: auto;" /&gt;
 ]
 
 .footnote[.smallest[👋 There is also two-way ANOVA which analyzes the effect of two factors. For example, a customer wants to compare the lifetime of tires from different brands. In this case, he should use the one-way ANOVA, with brand as the only factor. However, if he also wants to consider a tire's heat resistance ability, then he should use the two-way ANOVA, with two factors: brand and heat resistance ability. Check out [more](https://en.wikipedia.org/wiki/Two-way_analysis_of_variance).]]
@@ -657,7 +701,7 @@ Can we simply do multiple tests with what we have learned? 🤔
 
 # The one-way ANOVA
 
-.smallest[The one-way ANOVA makes similar assumptions as the two-sample t test:]
+.smallest[The one-way ANOVA makes similar assumptions as the two-sample t-test:]
 - `\(\small J\)` .smallest[.hi-turquoise[independent] random samples are separately selected from each of these .hi-turquoise[distinct] populations. They can be of different sample sizes.]
 - .smallest[The] `\(\small j^{th}\)` .smallest[population has a .pink[normal distribution] with unknown mean] `\(\small \mu_j\)`.
 - .smallest[.purple[All the populations have the same variance], whose value is unknown.]
@@ -672,7 +716,7 @@ Can we simply do multiple tests with what we have learned? 🤔
 
 ---
 
-# The one-way ANOVA table and F test
+# The one-way ANOVA table and F-test
 
 .smallest[The one-way ANOVA relies on an F statistic to compare the variation among groups with the variation within groups. All calculations can be organized in an .hi-pink[ANOVA table]. More precisely, suppose we in total have] `\(\small N\)` .smallest[observations from] `\(\small J\)` .smallest[groups, where] `\(\small y_{ij}\)` .smallest[denotes the] `\(\small i^{th}\)` .smallest[observation from the] `\(\small j^{th}\)` .smallest[group, and] `\(\small n_j\)` .smallest[denotes the sample size of the] `\(\small j^{th}\)` .smallest[sample. Then the ANOVA table is given by:]
 
@@ -689,12 +733,12 @@ Can we simply do multiple tests with what we have learned? 🤔
 
 ---
 
-# The one-way ANOVA table and F test
+# The one-way ANOVA table and F-test
 
 - .smallest[.hi-pink[Sum of squares] are the sum of squared deviations presented in the data. As we can see, the total variation comes from two parts:: variation between groups and variation within groups.]
 - .smallest[.hi-purple[Degrees of freedom] have the same relation, i.e.] `\(\small \text{DFT} = \text{DFB} + \text{DFW}\)`.smallest[.]
-- .smallest[The one-way ANOVA relies on the .hi-turquoise[F statistic], which, when] `\(\small H_0\)` .smallest[is true, has an F distribution with two degrees of freedom,] `\(\small \text{DFB}\)` .smallest[and] `\(\small \text{DFW}\)`.smallest[. Therefore, it is also called the .hi-pink[F test].]
-- .smallest[Any differences among the group means tend to make the F statistic larger, and thus, smaller p-value. So in this sense, .purple[the F test is always one-sided.]]
+- .smallest[The one-way ANOVA relies on the .hi-turquoise[F statistic], which, when] `\(\small H_0\)` .smallest[is true, has an F distribution with two degrees of freedom,] `\(\small \text{DFB}\)` .smallest[and] `\(\small \text{DFW}\)`.smallest[. Therefore, it is also called the .hi-pink[F-test].]
+- .smallest[Any differences among the group means tend to make the F statistic larger, and thus, smaller p-value. So in this sense, .purple[the F-test is always one-sided.]]
 - .smallest[From the ANOVA table, we can clearly see how .turquoise[the value of the F statistic and the p-value depend on the sample sizes, the variation of the data within the groups, and the differences between the means.]]
 
 ---
@@ -717,7 +761,7 @@ Can we simply do multiple tests with what we have learned? 🤔
 &amp;\small H_a: \text{not all three population means are equal}
 \end{align}`
 2. .smallest[.purple[Define]] `\(\small \color{#6A5ACD}{\alpha}\)`.smallest[: We consider] `\(\small \alpha = 5\%\)`.smallest[.]
-3. .smallest[.purple[Compute p-value]: p-value = ] `\(\small 0.0464\%\)` .smallest[(see computation tab for details).]
+3. .smallest[.purple[Compute p-value]: p-value = ] `\(\small 0.0464\%\)` .smallest[(see R code tab for details).]
 4. .smallest[.purple[Conclusion:] We have p-value &lt;] `\(\small \alpha\)` .smallest[so we can reject the null hypothesis and conclude that not all the means of corn yields are the same among these 3 groups.]
 ]
 .panel[.panel-name[`R` Code ]
@@ -747,7 +791,7 @@ summary(res_aov)
 
 # Kruskal-Wallis test
 
-- .smallest[The .hi-pink[Kruskal-Wallis test] is a test that can replace the ANOVA F test. The assumption about data production (i.e. independent random samples from each population) remains important, but .pink[we can relax the normality and the same variance assumptions.] Indeed, we only need to assume that the response has a continuous distribution in each population.]
+- .smallest[The .hi-pink[Kruskal-Wallis test] is a test that can replace the ANOVA F-test. The assumption about data production (i.e. independent random samples from each population) remains important, but .pink[we can relax the normality and the same variance assumptions.] Indeed, we only need to assume that the response has a continuous distribution in each population.]
 - .smallest[Just like the Wilcoxon tests for one and two samples, .purple[the Kruskal-Wallis test is particularly useful when there are outliers and/or when the normality condition cannot be satisfied.]]
 - .smallest[The idea of the Kruskal-Wallis test is to rank all the responses from all groups together and then apply the one-way ANOVA to the .hi-turquoise[ranks] rather than to the original observations. Therefore, it is a .hi-turquoise[nonparametric test].]
 - .smallest[In the simplest form, the Kruskal-Wallis test states the hypotheses in terms of .hi-pink[population median]. That is,]
@@ -776,7 +820,7 @@ summary(res_aov)
 &amp;\small H_a: \text{not all three population medians are equal}
 \end{align}`
 2. .smallest[.purple[Define]] `\(\small \color{#6A5ACD}{\alpha}\)`.smallest[: We consider] `\(\small \alpha = 5\%\)`.smallest[.]
-3. .smallest[.purple[Compute p-value]: p-value = ] `\(\small 0.5248\%\)` .smallest[(see computation tab for details).]
+3. .smallest[.purple[Compute p-value]: p-value = ] `\(\small 0.5248\%\)` .smallest[(see R code tab for details).]
 4. .smallest[.purple[Conclusion:] We have p-value &lt;] `\(\small \alpha\)` .smallest[so we can reject the null hypothesis and conclude that not all the means of corn yields are the same among these 3 groups that are weeded differently.]
 ]
 .panel[.panel-name[`R` Code ]
@@ -807,11 +851,11 @@ kruskal.test(corns ~ groups)
 
 | Setting                     | Normal, no outliers  | Not normal, with outliers  |
 | --------------------------- |----------------------| -------------------------- |
-| One sample                  | One-sample t test    | Wilcoxon signed rank test  |
-| Two independent samples     | Two-sample t test    | Wilcoxon rank sum test     |
-| Several independent samples | One-way ANOVA F test | Kruskal-Wallis test        |
+| One sample                  | One-sample t-test    | Wilcoxon signed rank test  |
+| Two independent samples     | Two-sample t-test    | Wilcoxon rank sum test     |
+| Several independent samples | One-way ANOVA F-test | Kruskal-Wallis test        |
 
-- .smallest[With 2 or more samples, we have only discussed about tests for .hi-pink[comparison of means] as it is most often the case encountered in practice. Similar tests can be conducted to compare, for example, porportions or variances.]
+- .smallest[With 2 or more samples, we have only discussed about tests for .hi-pink[comparison of means] as it is most often the case encountered in practice. Similar tests can be conducted to compare, for example, proportions or variances.]
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
