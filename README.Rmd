@@ -15,9 +15,8 @@ The linked slides (below) are `.html` files that will only work properly if you 
 [.Rmd](https://raw.githack.com/stephaneguerrier/intro_stat/master/lecture1.Rmd))
 
 **[Part II: Statistical Hypothesis Testing](https://raw.githack.com/stephaneguerrier/intro_stat/master/lecture2.html)** (note formats: [.html](https://raw.githack.com/stephaneguerrier/intro_stat/master/lecture2.html) |
-[.pdf](https://raw.githack.com/stephaneguerrier/intro_stat/master/lecture1.pdf) |
+.pdf (coming soon 🚧) |
 [.Rmd](https://raw.githack.com/stephaneguerrier/intro_stat/master/lecture2.Rmd))
-
 
 
 **Part III: Linear Regression** (coming soon 🚧)

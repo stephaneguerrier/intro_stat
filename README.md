@@ -25,6 +25,11 @@ Inference](https://raw.githack.com/stephaneguerrier/intro_stat/master/lecture1.h
 |
 [.Rmd](https://raw.githack.com/stephaneguerrier/intro_stat/master/lecture1.Rmd))
 
-**Part II: Statistical Hypothesis Testing** (coming soon 🚧)
+**[Part II: Statistical Hypothesis
+Testing](https://raw.githack.com/stephaneguerrier/intro_stat/master/lecture2.html)**
+(note formats:
+[.html](https://raw.githack.com/stephaneguerrier/intro_stat/master/lecture2.html)
+| .pdf (coming soon 🚧) |
+[.Rmd](https://raw.githack.com/stephaneguerrier/intro_stat/master/lecture2.Rmd))
 
 **Part III: Linear Regression** (coming soon 🚧)
