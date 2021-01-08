@@ -167,52 +167,41 @@ xaringanExtra::use_clipboard()
 # Review
 
 - .smallest[.hi-pink[Statistical inference] allows to infer the properties of a population based on an observed sample.]
-- .smallest[For example, .hi-pink[proportion estimation]] $\color{#e64173}{\hat{p}}$ .smallest[is .hi-purple[random] as it is sample dependent. Therefore, we need to access the .hi-purple[uncertainty] of] $\hat{p}$.
+- .smallest[For example, .hi-pink[proportion estimation]] $\color{#e64173}{\hat{p}}$ .smallest[is .hi-purple[random] as it is sample dependent. Therefore, we need to access the .hi-purple[uncertainty] of] $\hat{p}$ .smallest[to infer on] $p$.
 - .smallest[One common approach to measure uncertainty is to use .hi-pink[confidence intervals], which rely on .hi-pink[Central Limit Theorem]. In the case of proportion estimation, we have] $$\small \hat{p} \overset{\cdot}{\sim} \mathcal{N}\Bigg(\color{#e64173}{p}, \color{#6A5ACD}{\frac{p(1-p)}{n}}\Bigg).$$
-- .smallest[Confidence intervals correspond to a range of values that are likely to include the population value with .hi-purple[a certain level of confidence]. The] $1-\alpha$ .smallest[confidence interval for] $p$ .smallest[is given by] $\color{#e64173}{\hat{p}} \pm Z_{1-\alpha/2}\color{#6A5ACD}{\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}}$ .smallest[, and obviously, it is random.]
+- .smallest[Confidence intervals correspond to a range of values that include the population value with .hi-purple[a certain level of confidence]. The] $1-\alpha$ .smallest[confidence interval for] $p$ .smallest[is given by] $\color{#e64173}{\hat{p}} \pm Z_{1-\alpha/2}\color{#6A5ACD}{\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}}$ .smallest[, and obviously, it is random.]
 - .smallest[In Statistics, a decision or prediction can never be made with certainty. There always exists .hi-purple[a trade-off between the risk and the precision of the conclusion], and how much risk is acceptable depends on the context.]
 
 ---
 
 # How to test a (scientific) hypothesis?
 
-Stef: could you do the following as you suggest? I'm not sure what exactly you want to add here... (as all the concepts about hypothesis come later, I don't know if here is the correct place to add a summary of testing process)...
+.center[
+.turquoise["In god we trust, all others must bring data." <sup>.smallest[👋]</sup>]
+]
 
-Between slides 2 and 3 I would add a slide that summarises: [testing process](https://en.wikipedia.org/wiki/Statistical_hypothesis_testing).
+- .smallest[To assess the .pink[validity of a (scientific) hypothesis], the scientific community generally agrees on .purple[a specific procedure].]
+- .smallest[These hypotheses can be .pink[nearly anything], such as:]
+  1. .smallest[Coffee consumption increases blood pressure. ☕️]
+  2. .smallest[Republican politicians are bad/good for the American Economy. ]
+  3. .smallest[A glass of red wine is as good as an hour at the gym. 🍷🏋️]
+- .smallest[This procedure involves the design of an experiment and then the collection of data to compute a metric (called p-value) which .purple[evaluates the adequacy between the data and your original hypothesis.]]
+- .smallest[There is generally .pink[a specific threshold] (typically 5%), and if the p-value falls below this threshold .purple[we can claim that we have statistically significant result(s) validating our hypothesis.]]
 
-Maybe add that this is the process that the scientific generally accepts…
-
-Maybe somewhere we could add: If there's one takeaway from the ASA statement, it's that p-values are not badges of truth and p < 0.05 is not a line that separates real results from false ones. They're simply one piece of a puzzle that should be considered in the context of other evidence. (It's from [here](https://fivethirtyeight.com/features/statisticians-found-one-thing-they-can-agree-on-its-time-to-stop-misusing-p-values/))
-
----
-
-# How to test a (scientific) hypothesis?
-
-Stef: adapt with previous slide, change title
-
-- .smallest[An alternative summary measure of uncertainty is provided  by .hi-pink[p-values] that take values between 0% and 100%.]
-- .smallest[However, .hi-purple[p-values have been misused] many times because understanding what they mean is not intuitive.]
-
-<div align="center">
-<iframe src="https://fivethirtyeight.abcnews.go.com/video/embed/56150342" width="512" height="288" scrolling="no" style="border:none;" allowfullscreen></iframe>
-</div> 
-
-👋 .tiny[If you want to know more have a look [here](https://fivethirtyeight.com/features/statisticians-found-one-thing-they-can-agree-on-its-time-to-stop-misusing-p-values/).]
+.footnote[.smallest[👋 From W. Edwards Deming]]
 
 ---
 
-# A hypothesis testing
+# Statistics vs Truth
 
-Stef: want to add a John Oliver video here...
+- .smallest[.pink[Statistically significant results are not necessarily the truth], as there isn't a threshold (again typically 5%) that separates real results from the false ones.]
+- .smallest[This procedure simply provides us with one piece of a puzzle that should be considered in the context of other evidence.]
 
-- A p-value is associated to (a couple of) .purple[hypotheses] about the phenomenon under investigation, such as
-1. Coffee consumption increases blood pressure (really 🙄 ☕?)
-2. Republican politicians are bad/good for the American Economy.
-3. A glass of red wine is as good as an hour at the gym (🍷 🏃 😆).
+```{R, out.width = "50%", echo = F}
+include_graphics("pics/medical_studies2.png")
+```
 
-Yuming: maybe we can remove the following point (as it's discussed in the next slide)
-
-- More precisely, a hypothesis testing is designed to assess the strength of evidence against a baseline hypothesis called .pink[null hypothesis] $\color{#e64173}{H_0}$ and in favor of another hypothesis called .pink[alternative hypothesis] $\color{#e64173}{H_a}$.
+.footnote[.smallest[👋] Read the original article: "*This is why you shouldn't believe that exciting new medical study*" [here](https://www.vox.com/2015/3/23/8264355/research-study-hype).]
 
 ---
 
@@ -241,7 +230,7 @@ $H_0: p = 0.5$ and $H_a: p > 0.5$.
 
 ---
 
-# Test statistic and P-value
+# Test statistics and P-values
 
 - .smallest[A hypothesis testing is based on a .hi-pink[test statistic], which measures the difference between the sample estimate and the hypothesized value in terms of its standard deviation, i.e.] 
 $$\small \text{test statistic} = \frac{\text{sample estimate - hypothesized value}}{\text{standard deviation of sample estimate}}.$$
@@ -252,7 +241,7 @@ $$\small \text{test statistic} = \frac{\text{sample estimate - hypothesized valu
 
 ---
 
-# Test statistic and P-value
+# How to understand p-values?
 
 ```{R, out.width = "45%", echo = F}
 include_graphics("pics/p_value.png")
@@ -262,7 +251,19 @@ include_graphics("pics/p_value.png")
 
 ---
 
-# Test statistic and P-value
+# P-values may be controversial
+
+.hi-purple[P-values have been misused] many times because understanding what they mean is not intuitive!
+
+<div align="center">
+<iframe src="https://fivethirtyeight.abcnews.go.com/video/embed/56150342" width="675" height="380" scrolling="no" style="border:none;" allowfullscreen></iframe>
+</div> 
+
+👋 .tiny[If you want to know more have a look [here](https://fivethirtyeight.com/features/statisticians-found-one-thing-they-can-agree-on-its-time-to-stop-misusing-p-values/).]
+
+---
+
+# ⚠️ Take home message about p-values
 
 - When the p-value is small enough (i.e. smaller than the significance level $\alpha$), one says that the test based on the null and alternative hypotheses is .hi-pink[significant] or that the null hypothesis is rejected in favor of the alternative. .purple[This is generally what we want because it "verifies" our (research) hypothesis].
 - When the p-value is not small enough, with the available data, we cannot reject the null hypothesis so .hi-pink[nothing] can be concluded. 🤔
@@ -280,11 +281,11 @@ include_graphics("pics/p_value.png")
 
 .panelset[
 .panel[.panel-name[Problem]
-.smallest[Returning to our Biden-Trump example, suppose we believe (or hope to show that) .pink[Biden will have more than 50% of the votes at a significance level of 5%]. We collect data with] $\small n = 600$ .smallest[and] $\small m = 322$.smallest[. We will consider the following steps to set up the test:]
+.smallest[Returning to our Biden-Trump example, suppose we believe (or hope to show that) .pink[Biden will have more than 50% of the votes]. We collect data with] $\small n = 600$ .smallest[and] $\small m = 322$.smallest[. We will consider the following steps to set up the test:]
 1. .smallest[.purple[Define hypotheses:]] $\small H_0: p = 0.5$ .smallest[and] $\small H_a: p \color{#e64173}{>} 0.5$.
-2. .smallest[.purple[Define]] $\small \color{#6A5ACD}{\alpha}$.smallest[: We consider] $\small \alpha = 5\%$.smallest[.]
+2. .smallest[.purple[Define]] $\small \color{#6A5ACD}{\alpha}$.smallest[: We consider] $\small \alpha = 5\%$ .smallest[(as it is generally a default value 🤔).]
 3. .smallest[.purple[Compute p-value]: p-value = ] $\small 3.959\%$ .smallest[(see R code tab for details).]
-4. .smallest[.purple[Conclusion:] We have p-value <] $\small \alpha$ .smallest[so we can reject the null hypothesis and conclude that the proportion of voters for Biden is greater than 50%.]
+4. .smallest[.purple[Conclusion:] We have p-value <] $\small \alpha$ .smallest[so we can reject the null hypothesis and conclude that the proportion of voters for Biden is greater than 50% at the significance level of 5%.]
 ]
 .panel[.panel-name[`R` Code ]
 ```{r}
@@ -299,11 +300,11 @@ prop.test(x = 322, n = 600, p = 0.5, alternative = "greater")
 
 .panelset[
 .panel[.panel-name[Problem]
-.smallest[What if we want to check if .pink[Trump will have more than 50% of the votes at the 95% confidence level]? Using the same data, we set up the test as follows:]
+.smallest[What if we want to check if .pink[Trump will have more than 50% of the votes]? Using the same data, we set up the test as follows:]
 1. .smallest[.purple[Define hypotheses:]] $\small H_0: p = 0.5$ .smallest[and] $\small H_a: p \color{#e64173}{<} 0.5$.
-2. .smallest[.purple[Define]] $\small \color{#6A5ACD}{\alpha}$.smallest[: We consider] $\small \alpha = 5\%$ .smallest[  (which corresponds to the 95% confidence level).]
+2. .smallest[.purple[Define]] $\small \color{#6A5ACD}{\alpha}$.smallest[: We consider] $\small \alpha = 5\%$.smallest[.]
 3. .smallest[.purple[Compute p-value]: p-value = ] $\small 96.04\%$ .smallest[(see R code tab for details).]
-4. .smallest[.purple[Conclusion:] We have p-value >] $\small \alpha$ .smallest[and we cannot reject the null hypothesis. We don't have enough evidence to conclude that Trump will have more than 50% of the votes.]
+4. .smallest[.purple[Conclusion:] We have p-value >] $\small \alpha$ .smallest[and we cannot reject the null hypothesis. We don't have enough evidence to conclude that Trump will have more than 50% of the votes at the significance level of 5%.]
 ]
 .panel[.panel-name[`R` Code ]
 ```{r}
@@ -321,7 +322,7 @@ prop.test(x = 322, n = 600, p = 0.5, alternative = "less")
 1. .smallest[.purple[Define hypotheses:]] $\small H_0: p = 0.22$ .smallest[and] $\small H_a: p \color{#e64173}{>} 0.22$.
 2. .smallest[.purple[Define]] $\small \color{#6A5ACD}{\alpha}$.smallest[: We consider] $\small \alpha = 5\%$.smallest[.]
 3. .smallest[.purple[Compute p-value]: p-value = ] $\small 5.874\%$ .smallest[(see R code tab for details).]
-4. .smallest[.purple[Conclusion:] We have p-value >] $\small \alpha$ .smallest[and we cannot reject the null hypothesis. We don't have enough evidence to conclude that countries where the income level is lower have a higher rate of infant breastfeeding than higher income countries.]
+4. .smallest[.purple[Conclusion:] We have p-value >] $\small \alpha$ .smallest[and we cannot reject the null hypothesis. We don't have enough evidence to conclude, at the significance level of 5%, that countries where the income level is lower have a higher rate of infant breastfeeding than higher income countries.]
 ]
 .panel[.panel-name[`R` Code ]
 ```{r}
@@ -334,25 +335,47 @@ prop.test(x = 125, n = 500, p = 0.22, alternative = "greater")
 
 # The one-sample Student's t-test
 
-.smallest[So far we discuss about significance test for a single proportion. How can we perform a .purple[test for the mean of a population]? We will use .hi-pink[the Student's t-test] (or simply t-test) <sup>.smallest[👋]</sup>, in which the test statistic follows a .pink[Student's t distribution] under the null hypothesis. ]
+- .smallest[So far we discuss about significance test for a single proportion. How can we perform a .purple[test for the mean of a population]? We will use .hi-pink[the Student's t-test] (or simply t-test) <sup>.smallest[👋]</sup>, in which the test statistic follows a .pink[Student's t distribution] under the null hypothesis.] 
 
-.smallest[The Student's t distributions were discovered in 1908 by William S. Gosset, who is a statistician employed by the Guinness brewing company. Gosset devised the t-test as an economical way to monitor the quality of stout. At that time, the company forbade its scientists from publishing their findings, so Gosset published his statistical work under the pen name "Student" in the journal Biometrika (which is nowadays still one of the leading journals in Statistics). So the Student's t-test is named after Gosset's contributions. 🍻🤓]
-```{R, out.width = "55%", echo = F}
-include_graphics("pics/gosset_biometrika.png")
-```
+- .smallest[The Student's t distributions were discovered in 1908 by William S. Gosset, who is a statistician employed by the Guinness brewing company. Gosset devised the t-test as an economical way to monitor the quality of stout. At that time, the company forbade its scientists from publishing their findings, so Gosset published his statistical work under the pen name "Student" in the journal Biometrika. So the Student's t-test is named after Gosset's contributions. 🍻🤓]
+
+- .smallest[A t-test is useful to test if the population mean is .pink[greater, smaller, or different than] a hypothesized value.]
 
 .footnote[.smallest[👋 The Student's t-test is used when the population variance is unknown. In some uncommon cases where the population variance is known, we use the Z-test, where the test statistic follows a standard normal distribution. Check out more [here](https://en.wikipedia.org/wiki/Z-test).]]
 
 ---
 
-# The one-sample Student's t-test
+# Data visualization
 
-```{R, out.width = "50%", echo = F}
-include_graphics("pics/t_dist.png")
+- .smallest[Before assessing if the mean of a population fits our hypothesis, we generally .purple[start by presenting our data visually].] 
+- .smallest[A standard method is to consider a .hi-pink[boxplot].]
+```{R, out.width = "70%", echo = F}
+include_graphics("pics/boxplot.jpg")
 ```
 
-- .smallest[A particular t distribution is specified by giving the .pink[degrees of freedom]. In the t-test, the degrees of freedom considered is] $\small n-1$.  
-- .smallest[The probability density functions of the t distributions are similar in shape to the standard normal distribution. They are all symmetric about 0 and are bell-shaped. However, the t distributions have more probability in the tails than the standard normal distribution.]
+.footnote[.smallest[👋 More information about boxplot can be found [here](http://web.pdx.edu/~stipakb/download/PA551/boxplot.html).]]
+
+---
+
+# The one-sample Student's t-test
+
+- .smaller[Consider the following example where we wish to assess .pink[if the population means of some of the groups below are larger than 0.]] 
+
+```{r, out.width = "80%", echo = F}
+gg_color_hue <- function(n) {
+  hues = seq(15, 375, length = n + 1)
+  hcl(h = hues, l = 65, c = 100)[1:n]
+}
+cols = gg_color_hue(4)
+set.seed(10)
+x1 = rnorm(100)
+x2 = rnorm(100, sd = 0.2)
+x3 = rnorm(100) + 1
+x4 = rnorm(100, sd = 0.2) + 1
+boxplot(x1, x2, x3, x4, col = cols, names = c("Group 1", "Group 2", "Group 3", "Group 4"), cex.axis = 2, cex.lab = 2)
+points(1:4, c(mean(x1), mean(x2), mean(x3), mean(x4)), pch = 16, col = 1, cex = 2)
+abline(h = 0, lwd = 1, lty = 2)
+```
 
 ---
 
@@ -360,11 +383,37 @@ include_graphics("pics/t_dist.png")
 
 .panelset[
 .panel[.panel-name[Problem]
-.smallest[The Nielsen Company, a global information and media company, announced that the U.S. cell phone subscribers spend 5.4 hours on average per month in watching videos on their phones. We want to know whether the U.S. college students .pink[spend different time watching videos on their phones than the average] with the following sample (in hours) of size 8: $$11.9 \;\; 2.8 \;\; 3.0 \;\; 6.2 \;\; 4.7 \;\; 9.8 \;\; 11.1 \;\; 7.8.$$]
+.smallest[The Nielsen Company, a global information and media company, announced that the U.S. cell phone subscribers spend 5.4 hours on average per week in watching videos on their phones. We want to know whether the U.S. college students .pink[spend different time watching videos on their phones than the average] with the following sample (in hours) of size 8: $$11.9 \;\; 2.8 \;\; 3.0 \;\; 6.2 \;\; 4.7 \;\; 9.8 \;\; 11.1 \;\; 7.8.$$]
 1. .smallest[.purple[Define hypotheses:]] $\small H_0: \mu = 5.4$ .smallest[and] $\small H_a: \mu \color{#e64173}{\neq} 5.4$.
 2. .smallest[.purple[Define]] $\small \color{#6A5ACD}{\alpha}$.smallest[: We consider] $\small \alpha = 5\%$.smallest[.]
 3. .smallest[.purple[Compute p-value]: p-value = ] $\small 20.4\%$ .smallest[(see R code tab for details).]
-4. .smallest[.purple[Conclusion:] We have p-value >] $\small \alpha$ .smallest[and we cannot reject the null hypothesis. We don't have enough evidence to conclude that the U.S. college students spend different time watching videos on their phones than the average.]
+4. .smallest[.purple[Conclusion:] We have p-value >] $\small \alpha$ .smallest[and we cannot reject the null hypothesis at the significance level of 5%. We don't have enough evidence to conclude that the U.S. college students spend different time watching videos on their phones than the average.]
+]
+.panel[.panel-name[Boxplot Code]
+
+```{r, eval = F}
+data = c(11.9, 2.8, 3.0, 6.2, 4.7, 9.8, 11.1, 7.8)
+boxplot(data, col = "lightgrey", 
+        main = "U.S. college students", 
+        ylab = "Time watching videos (week)")
+points(1, mean(data), pch = 16, col = 1)
+abline(h = 5.4, lwd = 1, lty = 2)
+```
+
+]
+.panel[.panel-name[Boxplot]
+
+```{r, out.width="80%", echo = F}
+par(mai = c(1, 1.5, 1, 1))
+data = c(11.9, 2.8, 3.0, 6.2, 4.7, 9.8, 11.1, 7.8)
+boxplot(data, col = "lightgrey", 
+        main = "U.S. college students", 
+        ylab = "Time watching videos (week)",
+        cex.axis = 2, cex.lab = 2, cex.main = 2)
+points(1, mean(data), pch = 16, col = 1, cex = 2)
+abline(h = 5.4, lwd = 1, lty = 2)
+```
+
 ]
 .panel[.panel-name[`R` Code ]
 ```{r}
@@ -379,16 +428,42 @@ t.test(x = data, mu = 5.4, alternative = "two.sided")
 # The one-sample t-test: Example 2
 .panelset[
 .panel[.panel-name[Problem]
-An investor sues his broker and brokerage firm because he thinks his stock portfolio .pink[performs worse than the S&P 500 average, 0.95%]. We collect the rates of return (in %) for 10 months when the account was managed by the broker: 
+An investor sues his broker and brokerage firm because he thinks his stock portfolio .pink[performs worse than the S&P 500 monthly average return rate, 0.95%]. We collect the rates of return (in %) for 10 months when the account was managed by the broker: 
 $$\small -2.36 \;\; -1.82 \;\; 0.46 \;\; 0.65 \;\; -2.14 \;\; -1.63 \;\; -25.5 \;\; 0.25 \;\; -4.34 \;\; 0.91$$
 
 Please perform the t-test following the steps and what conclusion can you draw? 🤔
+]
+.panel[.panel-name[Boxplot Code]
+
+```{r, eval = F}
+data = c(-2.36, -1.82, 0.46, 0.65, -2.14, -1.63, -25.5, 0.25, -4.34, 0.91)
+boxplot(data, col = "lightgrey", 
+        main = "Stock portfolio", 
+        ylab = "Monthly rates of return (%)")
+points(1, mean(data), pch = 16, col = 1)
+abline(h = 0.95, lwd = 1, lty = 2)
+```
+
+]
+.panel[.panel-name[Boxplot]
+
+```{r, out.width="80%", echo = F}
+par(mai = c(1, 1.5, 1, 1))
+data = c(-2.36, -1.82, 0.46, 0.65, -2.14, -1.63, -25.5, 0.25, -4.34, 0.91)
+boxplot(data, col = "lightgrey", 
+        main = "Stock portfolio", 
+        ylab = "Monthly rates of return (%)",
+        cex.axis = 2, cex.lab = 2, cex.main = 2)
+points(1, mean(data), pch = 16, col = 1, cex = 2)
+abline(h = 0.95, lwd = 1, lty = 2)
+```
+
 ]
 .panel[.panel-name[Solution]
 1. .purple[Define hypotheses:] $H_0: \mu = 0.95$ and $H_a: \mu \color{#e64173}{<} 0.95$.
 2. .purple[Define] $\color{#6A5ACD}{\alpha}$: We consider $\alpha = 5\%$.
 3. .purple[Compute p-value]: p-value = $5.237\%$ (see R code tab for details).
-4. .purple[Conclusion:] We have p-value > $\alpha$ and we cannot reject the null hypothesis. We don't have enough evidence to conclude that the investor's stock portfolio performs worse than the S&P 500 average. 🙀
+4. .purple[Conclusion:] We have p-value > $\alpha$ and we cannot reject the null hypothesis at the significance level of 5%. We don't have enough evidence to conclude that the investor's stock portfolio performs worse than the S&P 500 monthly average return rate. 🙀
 ]
 .panel[.panel-name[`R` Code ]
 ```{r}
@@ -411,8 +486,14 @@ t.test(x = data, mu = 0.95, alternative = "less")
 .pull-left[
 
 ```{R, out.width = "100%", echo = F}
-boxplot(data, main = "Boxplot of data", 
+par(mai = c(1, 1.5, 1, 1))
+data = c(-2.36, -1.82, 0.46, 0.65, -2.14, -1.63, -25.5, 0.25, -4.34, 0.91)
+boxplot(data, col = "lightgrey", 
+        main = "Stock portfolio", 
+        ylab = "Monthly rates of return (%)",
         cex.axis = 2, cex.lab = 2, cex.main = 3)
+points(1, mean(data), pch = 16, col = 1, cex = 2)
+abline(h = 0.95, lwd = 1, lty = 2)
 ```
 
 ]
@@ -421,7 +502,7 @@ boxplot(data, main = "Boxplot of data",
 
 ```{R, out.width = "100%", echo = F}
 par(mai = c(1,1.5,1,1))
-hist(data, breaks = 20, xlim = c(-28,3), 
+hist(data, breaks = 20, xlim = c(-28,3),  col = "grey",
      cex.axis = 2, cex.lab = 2, cex.main = 3)
 ```
 
@@ -441,7 +522,7 @@ hist(data, breaks = 20, xlim = c(-28,3),
 
 - .smallest[The Wilcoxon signed rank test depends on the .hi-purple[Wilcoxon signed rank statistic], which is the sum of the ranks of .purple[only the positive] values (or .purple[only the negative] values).]
 
-- .smallest[Unlike the one-sample t-test whose hypotheses are on the population mean, the Wilcoxon signed rank test states the hypotheses in terms of .hi-pink[population median].]
+- .smallest[Unlike the one-sample t-test whose hypotheses are on the population mean, the Wilcoxon signed rank test states the hypotheses in terms of .hi-pink[population median]. When the distribution is symmetric, the mean and the median of the population have the same value.]
 
 ---
 
@@ -449,7 +530,7 @@ hist(data, breaks = 20, xlim = c(-28,3),
 
 .panelset[
 .panel[.panel-name[Problem]
-.smallest[We recall the portfolio example in which we want to test if the investor's stock portfolio .pink[performs worse than the S&P 500 average, 0.95%]. We recall the sample as follows:]
+.smallest[We recall the portfolio example in which we want to test if the investor's stock portfolio .pink[performs worse than the S&P 500 monthly average return rate, 0.95%]. We recall the sample as follows:]
 $$\small -2.36 \;\; -1.82 \;\; 0.46 \;\; 0.65 \;\; -2.14 \;\; -1.63 \;\; -25.5 \;\; 0.25 \;\; -4.34 \;\; 0.91$$
 
 .smallest[Let's perform the Wilcoxon signed rank test and see if we draw different conclusion than the one-sample t-test?]
@@ -457,7 +538,33 @@ $$\small -2.36 \;\; -1.82 \;\; 0.46 \;\; 0.65 \;\; -2.14 \;\; -1.63 \;\; -25.5 \
 1. .smallest[.purple[Define hypotheses:]] $\small H_0: \text{median} = 0.95$ .smallest[and] $\small H_a: \text{median} \color{#e64173}{<} 0.95$.smallest[.]
 2. .smallest[.purple[Define]] $\small \color{#6A5ACD}{\alpha}$.smallest[: We consider] $\small \alpha = 5\%$.smallest[.]
 3. .smallest[.purple[Compute p-value]: p-value =] $\small 0.09766\%$ .smallest[(see R code tab for details).]
-4. .smallest[.purple[Conclusion:] We have p-value <] $\small \alpha$ .smallest[so we can reject the null hypothesis and conclude that the investor's stock portfolio performs worse than the S&P 500 average. 🥳]
+4. .smallest[.purple[Conclusion:] We have p-value <] $\small \alpha$ .smallest[so we can reject the null hypothesis at the significance level of 5% and conclude that the investor's stock portfolio performs worse than the S&P 500 average. 🥳]
+
+]
+.panel[.panel-name[Boxplot Code]
+
+```{r, eval = F}
+data = c(-2.36, -1.82, 0.46, 0.65, -2.14, -1.63, -25.5, 0.25, -4.34, 0.91)
+boxplot(data, col = "lightgrey", 
+        main = "Stock portfolio", 
+        ylab = "Monthly rates of return (%)")
+points(1, mean(data), pch = 16, col = 1)
+abline(h = 0.95, lwd = 1, lty = 2)
+```
+
+]
+.panel[.panel-name[Boxplot]
+
+```{r, out.width="80%", echo = F}
+par(mai = c(1, 1.5, 1, 1))
+data = c(-2.36, -1.82, 0.46, 0.65, -2.14, -1.63, -25.5, 0.25, -4.34, 0.91)
+boxplot(data, col = "lightgrey", 
+        main = "Stock portfolio", 
+        ylab = "Monthly rates of return (%)",
+        cex.axis = 2, cex.lab = 2, cex.main = 2)
+points(1, mean(data), pch = 16, col = 1, cex = 2)
+abline(h = 0.95, lwd = 1, lty = 2)
+```
 
 ]
 .panel[.panel-name[`R` Code ]
@@ -472,9 +579,9 @@ wilcox.test(x = data, mu = 0.95, alternative = "less")
 
 # Summary
 
-- If the population distribution is actually normal, we will lose a bit of power using the one-sample Wilcoxon signed rank test compared to the one-sample t-test. However, the difference is very small, so .pink[in practice we always recommend to use the one-sample Wilcoxon signed rank test.]
-
-- Stef: still need to add something like "we need to check symmetry of the distribution if use wilcoxon, otherwise we need to modify data beforehand". (I don't understand why the population distribution has to be symmetric? If so, median = mean then what's difference with t-test?)
+- .pink[In general, assessing whether the data is normally distributed is very difficult.] In fact, there is no satisfactory statistical method for it.
+- In practice, we recommend to always first look at the boxplot, assess the symmetry of the data and verify that there is no outlier (or data that is too far from the bulk of the data). If these conditions do not appear to be satisfied, it is preferable to use the one-sample Wilcoxon signed rank test. 
+- .purple[Our recommendation is to always use the one-sample Wilcoxon signed rank test], as it is generally challenging to assess if the assumptions are satisfied for a t-test, and if the data actually satisfy the normality condition. We may lose a bit of power using the Wilcoxon signed rank test compared to the t-test if all the conditions are indeed satisfied, however, the difference is generally very small. 
 
 ---
 
@@ -503,7 +610,31 @@ $$\small \text{Early eaters:} \;\; 6.3 \;\; 15.1 \;\; 9.4 \;\; 16.8 \;\; 10.2 \;
 1. .smallest[.purple[Define hypotheses:]] $\small H_0: \mu_{\text{early}} = \mu_{\text{late}}$ .smallest[and] $\small H_a: \mu_{\text{early}} \color{#e64173}{>} \mu_{\text{late}}$.smallest[.]
 2. .smallest[.purple[Define]] $\small \color{#6A5ACD}{\alpha}$.smallest[: We consider] $\small \alpha = 5\%$.smallest[.]
 3. .smallest[.purple[Compute p-value:] p-value =] $\small 2.122\%$ .smallest[(see R code tab for details).]
-4. .smallest[.purple[Conclusion:] We have p-value <] $\small \alpha$ .smallest[so we can reject the null hypothesis and conclude that the early eaters tend to lose more weight compared to late eaters.]
+4. .smallest[.purple[Conclusion:] We have p-value <] $\small \alpha$ .smallest[so we can reject the null hypothesis at the significance level of 5% and conclude that the early eaters tend to lose more weight compared to late eaters.]
+]
+.panel[.panel-name[Boxplot Code]
+```{r, eval = F}
+early_eaters = c(6.3, 15.1, 9.4, 16.8, 10.2, 8.2, 12.7)
+late_eaters = c(7.8, 0.2, 1.5, 11.5, 4.6)
+
+boxplot(early_eaters, late_eaters, 
+        names = c("Early", "Late"), 
+        ylab = "Weight loss (kg)",
+        col = c("#F8766D", "#00BFC4"))
+points(1:2, c(mean(early_eaters), mean(late_eaters)), 
+       pch = 16, col = 1)
+```
+]
+.panel[.panel-name[Boxplot]
+```{r, out.width = "80%", echo = F}
+early_eaters = c(6.3, 15.1, 9.4, 16.8, 10.2, 8.2, 12.7)
+late_eaters = c(7.8, 0.2, 1.5, 11.5, 4.6)
+
+par(mai = c(1,1.5,1,1))
+boxplot(early_eaters, late_eaters, col = c("#F8766D", "#00BFC4"), 
+        names = c("Early", "Late"), ylab = "Weight loss (kg)", cex.axis = 2, cex.lab = 2)
+points(1:2, c(mean(early_eaters), mean(late_eaters)), pch = 16, col = 1, cex = 2)
+```
 ]
 .panel[.panel-name[`R` Code ]
 ```{r}
@@ -542,6 +673,30 @@ $$\small \text{Early eaters:} \;\; 6.3 \;\; 15.1 \;\; 9.4 \;\; 16.8 \;\; 10.2 \;
 3. .smallest[.purple[Compute p-value:] p-value =] $\small 2.399\%$ .smallest[(see R code tab for details).]
 4. .smallest[.purple[Conclusion:] We have p-value <] $\small \alpha$ .smallest[so we can reject the null hypothesis and conclude that the early eaters tend to lose more weight compared to late eaters.]
 ]
+.panel[.panel-name[Boxplot Code]
+```{r, eval = F}
+early_eaters = c(6.3, 15.1, 9.4, 16.8, 10.2, 8.2, 12.7)
+late_eaters = c(7.8, 0.2, 1.5, 11.5, 4.6)
+
+boxplot(early_eaters, late_eaters, 
+        names = c("Early", "Late"), 
+        ylab = "Weight loss (kg)",
+        col = c("#F8766D", "#00BFC4"))
+points(1:2, c(mean(early_eaters), mean(late_eaters)), 
+       pch = 16, col = 1)
+```
+]
+.panel[.panel-name[Boxplot]
+```{r, out.width = "80%", echo = F}
+early_eaters = c(6.3, 15.1, 9.4, 16.8, 10.2, 8.2, 12.7)
+late_eaters = c(7.8, 0.2, 1.5, 11.5, 4.6)
+
+par(mai = c(1,1.5,1,1))
+boxplot(early_eaters, late_eaters, col = c("#F8766D", "#00BFC4"), 
+        names = c("Early", "Late"), ylab = "Weight loss (kg)", cex.axis = 2, cex.lab = 2)
+points(1:2, c(mean(early_eaters), mean(late_eaters)), pch = 16, col = 1, cex = 2)
+```
+]
 .panel[.panel-name[`R` Code ]
 ```{r}
 early_eaters = c(6.3, 15.1, 9.4, 16.8, 10.2, 8.2, 12.7)
@@ -557,9 +712,15 @@ wilcox.test(x = early_eaters, y = late_eaters, alternative = "greater")
 
 An airline company is planning to purchase some new wide-body airliners and narrows down its candidates to Boeing 747 and Lockheed L-1011 TriStar. The company wants to know .pink[if Boeing 747 has longer lifespans than Lockheed L-1011 TriStar] based on the following available samples (in years): 
 \begin{align}
-& \text{Boeing} \;\; 29.2 \;\; 27.9 \;\; 28.4 \;\; 22.5 \;\; 26.1 \;\; 19.8 \;\; 27.7 \;\; 27.2 \;\; 31.2 \;\; 28.7 \\
-& \text{Lockheed} \;\; 22.4 \;\; 20.2 \;\; 22.9 \;\; 25.1 \;\; 21.8 \;\; 24.2 \;\; 17.1 \;\; 30.5 \;\; 25.8 \;\; 22.6 \\
+& \text{Boeing} \;\; 30.2 \;\; 27.9 \;\; 29.4 \;\; 22.5 \;\; 26.1 \;\; 22.8 \;\; 27.7 \;\; 27.2 \;\; 31.2 \;\; 29.7 \\
+& \text{Lockheed} \;\; 22.4 \;\; 20.2 \;\; 22.9 \;\; 25.1 \;\; 21.8 \;\; 24.2 \;\; 17.1 \;\; 20.5 \;\; 25.8 \;\; 22.6 \\
 \end{align}
+
+To import the data, please use the following code:
+```{r}
+boeing = c(30.2, 27.9, 29.4, 22.5, 26.1, 22.8, 27.7, 27.2, 31.2, 29.7)
+lockheed = c(22.4, 20.2, 22.9, 25.1, 21.8, 24.2, 17.1, 20.5, 25.8, 22.6)
+```
 
 Perform a test you judge appropriate. What conclusion can you draw? 🧐
 
@@ -568,34 +729,43 @@ Perform a test you judge appropriate. What conclusion can you draw? 🧐
 # Solution: the two-sample t-test
 
 .panelset[
-.panel[.panel-name[Normality]
+.panel[.panel-name[Boxplot Code]
 
-.pull-left[
-```{R, out.width = "100%", echo = F}
-boeing = c(29.2, 27.9, 28.4, 22.5, 26.1, 19.8, 27.7, 27.2, 31.2, 28.7)
-boxplot(boeing, main = "Boxplot of Boeing data",
-        cex.axis = 2, cex.lab = 2, cex.main = 2)
-```
-]
+```{r, out.width="80%",eval=F}
+boeing = c(30.2, 27.9, 29.4, 22.5, 26.1, 22.8, 27.7, 27.2, 31.2, 29.7)
+lockheed = c(22.4, 20.2, 22.9, 25.1, 21.8, 24.2, 17.1, 20.5, 25.8, 22.6)
 
-.pull-right[
-```{R, out.width = "100%", echo = F}
-lockheed = c(22.4, 20.2, 22.9, 25.1, 21.8, 24.2, 17.1, 30.5, 25.8, 22.6)
-boxplot(lockheed, main = "Boxplot of Lockheed data",
-        cex.axis = 2, cex.lab = 2, cex.main = 2)
+boxplot(boeing, lockheed, col = c("#F8766D", "#00BFC4"), 
+        names = c("Boeing", "Lockheed"), 
+        ylab = "Lifespans (year)")
+points(1:2, c(mean(boeing), mean(lockheed)), pch = 16, col = 1)
 ```
+
 ]
+.panel[.panel-name[Boxplot]
+
+```{r, out.width="80%", echo=F}
+par(mai = c(1, 1.5, 1, 1))
+boeing = c(30.2, 27.9, 29.4, 22.5, 26.1, 22.8, 27.7, 27.2, 31.2, 29.7)
+lockheed = c(22.4, 20.2, 22.9, 25.1, 21.8, 24.2, 17.1, 20.5, 25.8, 22.6)
+boxplot(boeing, lockheed, col = c("#F8766D", "#00BFC4"), 
+        names = c("Boeing", "Lockheed"), 
+        ylab = "Lifespans (year)",
+        cex.axis = 2, cex.lab = 2)
+points(1:2, c(mean(boeing), mean(lockheed)), pch = 16, col = 1, cex = 2)
+```
+
 ]
 .panel[.panel-name[Solution]
 1. .smallest[.purple[Define hypotheses:]] $\small H_0: \mu_{\text{B}} = \mu_{\text{L}}$ .smallest[and] $\small H_a: \mu_{\text{B}} \color{#e64173}{>} \mu_{\text{L}}$.smallest[.]
-2. .smallest[.purple[Define]] $\small \color{#6A5ACD}{\alpha}$.smallest[: We consider] $\small \color{#e64173}{\alpha = 2\%}$ .smallest[(see R code tab for details).]
-3. .smallest[.purple[Compute p-value:] p-value =] $\small 1.571\%$.smallest[.]
-4. .smallest[.purple[Conclusion:] We have p-value <] $\small \alpha$ .smallest[so we can reject the null hypothesis and conclude that Boeing 747 has longer lifespans than Lockheed L-1011 TriStar.] 
+2. .smallest[.purple[Define]] $\small \color{#6A5ACD}{\alpha}$.smallest[: We consider] $\small \color{#e64173}{\alpha = 1\%}$.smallest[.]
+3. .smallest[.purple[Compute p-value:] p-value =] $\small 0.02739\%$ .smallest[(see R code tab for details).]
+4. .smallest[.purple[Conclusion:] We have p-value <] $\small \alpha$ .smallest[so we can reject the null hypothesis at the significance level of 1% and conclude that Boeing 747 has longer lifespans than Lockheed L-1011 TriStar.] 
 ]
 .panel[.panel-name[`R` Code ]
 ```{r}
-boeing = c(29.2, 27.9, 28.4, 22.5, 26.1, 19.8, 27.7, 27.2, 31.2, 28.7)
-lockheed = c(22.4, 20.2, 22.9, 25.1, 21.8, 24.2, 17.1, 30.5, 25.8, 22.6)
+boeing = c(30.2, 27.9, 29.4, 22.5, 26.1, 22.8, 27.7, 27.2, 31.2, 29.7)
+lockheed = c(22.4, 20.2, 22.9, 25.1, 21.8, 24.2, 17.1, 20.5, 25.8, 22.6)
 t.test(x = boeing, y = lockheed, alternative = "greater")
 ```
 ]
@@ -606,16 +776,43 @@ t.test(x = boeing, y = lockheed, alternative = "greater")
 # Solution: Wilcoxon rank sum test
 
 .panelset[
+.panel[.panel-name[Boxplot Code]
+
+```{r, out.width="80%",eval=F}
+boeing = c(30.2, 27.9, 29.4, 22.5, 26.1, 22.8, 27.7, 27.2, 31.2, 29.7)
+lockheed = c(22.4, 20.2, 22.9, 25.1, 21.8, 24.2, 17.1, 20.5, 25.8, 22.6)
+
+boxplot(boeing, lockheed, col = c("#F8766D", "#00BFC4"), 
+        names = c("Boeing", "Lockheed"), 
+        ylab = "Lifespans (year)")
+points(1:2, c(mean(boeing), mean(lockheed)), pch = 16, col = 1)
+```
+
+]
+.panel[.panel-name[Boxplot]
+
+```{r, out.width="80%", echo=F}
+par(mai = c(1, 1.5, 1, 1))
+boeing = c(30.2, 27.9, 29.4, 22.5, 26.1, 22.8, 27.7, 27.2, 31.2, 29.7)
+lockheed = c(22.4, 20.2, 22.9, 25.1, 21.8, 24.2, 17.1, 20.5, 25.8, 22.6)
+boxplot(boeing, lockheed, col = c("#F8766D", "#00BFC4"), 
+        names = c("Boeing", "Lockheed"), 
+        ylab = "Lifespans (year)",
+        cex.axis = 2, cex.lab = 2)
+points(1:2, c(mean(boeing), mean(lockheed)), pch = 16, col = 1, cex = 2)
+```
+
+]
 .panel[.panel-name[Solution]
 1. .smallest[.purple[Define hypotheses:]] $\small H_0: \text{median}_{\text{B}} = \text{median}_{\text{L}}$ .smallest[and] $\small H_a: \text{median}_{\text{B}} \color{#e64173}{>} \text{median}_{\text{L}}$.smallest[.]
-2. .smallest[.purple[Define]] $\small \color{#6A5ACD}{\alpha}$.smallest[: We consider] $\small \color{#e64173}{\alpha = 2\%}$ .smallest[(see R code tab for details).]
-3. .smallest[.purple[Compute p-value:] p-value =] $\small 1.773\%$.smallest[.]
-4. .smallest[.purple[Conclusion:] We have p-value <] $\small \alpha$ .smallest[so we can reject the null hypothesis and conclude that Boeing 747 has longer lifespans than Lockheed L-1011 TriStar.]
+2. .smallest[.purple[Define]] $\small \color{#6A5ACD}{\alpha}$.smallest[: We consider] $\small \color{#e64173}{\alpha = 1\%}$ .smallest[(see R code tab for details).]
+3. .smallest[.purple[Compute p-value:] p-value =] $\small 0.0525\%$.smallest[.]
+4. .smallest[.purple[Conclusion:] We have p-value <] $\small \alpha$ .smallest[so we can reject the null hypothesis at the significance level of 1%  and conclude that Boeing 747 has longer lifespans than Lockheed L-1011 TriStar.]
 ]
 .panel[.panel-name[`R` Code ]
 ```{r}
-boeing = c(29.2, 27.9, 28.4, 22.5, 26.1, 19.8, 27.7, 27.2, 31.2, 28.7)
-lockheed = c(22.4, 20.2, 22.9, 25.1, 21.8, 24.2, 17.1, 30.5, 25.8, 22.6)
+boeing = c(30.2, 27.9, 29.4, 22.5, 26.1, 22.8, 27.7, 27.2, 31.2, 29.7)
+lockheed = c(22.4, 20.2, 22.9, 25.1, 21.8, 24.2, 17.1, 20.5, 25.8, 22.6)
 wilcox.test(x = boeing, y = lockheed, alternative = "greater")
 ```
 ]
@@ -623,15 +820,27 @@ wilcox.test(x = boeing, y = lockheed, alternative = "greater")
 
 ---
 
+# Why are we only comparing the means?
+
+- So far we have only discussed tests for comparison of means. However, in fact, .purple[the comparison of other features of the data such as the variance can be of great interest as well.] A good example of this is the very controversial .hi-pink["variability hypothesis"]. 
+- The variability hypothesis has often been discussed in relation to cognitive ability, where it has been observed that human males are more likely than females to have either very high or very low intelligence. The .pink[sex difference in the variability of intelligence] has been discussed since at least Charles Darwin. The variability hypothesis has continued to spur controversy within academic circles. 
+
+
+```{R, green, out.width = "45%", echo = F}e_graphics("pics/NormalDist.png")
+```
+
+.footnote[.smallest[👋 If you are interested in knowing more, check out [here](https://en.wikipedia.org/wiki/Variability_hypothesis#:~:text=The%20variability%20hypothesis%2C%20also%20known,in%20traits%20than%20females%20do.&text=Sex%2Ddifferences%20in%20variability%20are,physical%2C%20psychological%20and%20genetic%20ones.)!]
+
+---
+
 # How about more than 2 samples? 😜
 
 In practice, we often even encounter situations where we need to .pink[compare the means of more than 2 groups]. For example,
 
-1. A scientist wants to study the effects of the Pfizer-BioNTech, the Moderna, and the Chinese vaccine against Covid 19 compared to the placebo.
-2. A nutritionist wants to compare the diet habits of female from different ages (10-20, 21-30, ...) 
-3. A restaurant wants to compare the consumptions among 3 different kinds of pizzas. 🍕🍴🤤
+1. A scientist wants to compare the vaccine efficacy of the Pfizer-BioNTech, the Moderna, and the Sputnik V vaccines.
+2. A nutritionist wants to compare the weight loss efficacy of several diets. 
+3. A restaurant wants to compare the consumptions among 3 different kinds of pizzas. 🍕🍴
 
-Can we simply do multiple tests with what we have learned? 🤔
 
 ---
 
@@ -695,6 +904,16 @@ include_graphics("pics/green.png")
 
 ---
 
+# ☠️ Multiple testing can be dangerous!
+
+```{R, out.width = "80%", echo = F}
+include_graphics("pics/medical_studies2.png")
+```
+
+.footnote[.smallest[👋] Read the original article: "*This is why you shouldn't believe that exciting new medical study*" [here](https://www.vox.com/2015/3/23/8264355/research-study-hype).]
+
+---
+
 # Methods to remedy such problem
 
 - .smallest[The .hi-pink[Bonferroni correction] is one of oldest methods proposed to counteract the problem of multiple testing (i.e. potential increased chance to make Type I errors). ]
@@ -706,7 +925,17 @@ include_graphics("pics/green.png")
 
 # The one-way ANOVA
 
-.smallest[To compare several means of different populations, we use a statistical method called the .hi-pink[(one-way) ANalysis Of VAriance (ANOVA)]] <sup>.smallest[👋]</sup>. 
+- .smallest[To compare several means of different populations, a standard approach is to start our analysis by using the .hi-pink[(one-way) ANalysis Of VAriance (ANOVA)] <sup>.smallest[👋]</sup>. More precisely, we proceed our analysis with the following steps:]
+  - .smallest[.purple[Step 1:] We first perform the ANOVA, where the null hypothesis states that all the means are the same. If we cannot reject the null hypothesis, we stop our analysis here. Otherwise, we move on to Step 2.]
+  - .smallest[.purple[Step 2:] We compare the groups mutually with two-sample t-tests in order to verify our hypothesis.]
+- .smallest[For example, suppose we have 3 groups and our hypothesis is that the mean of Group 1 is larger than the mean of Group 2, which is larger than the mean of Group 3. We start with an ANOVA and test if all the means are equal. If we reject the null hypothesis, then we perform the two-sample t tests of Group 1 vs Group 2, Group 1 vs Group 3, and Group 2 vs Group 3, which in total are 3 tests.]
+- .smallest[.pink[Naturally, we should adjust the significance level for multiple testing in Step 2.]]
+
+.footnote[.smallest[👋 There is also two-way ANOVA which analyzes the effect of two factors. For example, a customer wants to compare the lifetime of tires from different brands. In this case, he should use the one-way ANOVA, with brand as the only factor. However, if he also wants to consider a tire's heat resistance ability, then he should use the two-way ANOVA, with two factors: brand and heat resistance ability. Check out [more](https://en.wikipedia.org/wiki/Two-way_analysis_of_variance).]]
+
+---
+
+# The one-way ANOVA
 
 .smallest[We are interested in comparing means, but why is it an analysis of .purple[variance]?]
 .pull-left[
@@ -721,23 +950,33 @@ mydata = data.frame(Value = c(x1, x2, x3),
 boxplot(Value ~ Group, data = mydata, ylim = c(-20,20), cex.axis = 2, cex.lab = 2)
 points(seq(1,3), c(mean(x1), mean(x2), mean(x3)), col = "red", cex = 2, pch = 16)
 ```
+
+```{r, out.width="100%", echo = F}
+par(mai = c(1,1.5,0,1))
+cols = gg_color_hue(3)
+set.seed(2)
+x1 = rnorm(10, 10, 5)
+x2 = rnorm(10, 5, 5)
+x3 = rnorm(10, 0, 5)
+boxplot(x1, x2, x3, col = cols, names = c("Group 1", "Group 2", "Group 3"), cex.axis = 2, cex.lab = 2)
+points(1:3, c(mean(x1), mean(x2), mean(x3)), pch = 16, col = 1, cex = 2)
+abline(h = 10, lwd = 1, lty = 2)
+```
 ]
 
 .pull-right[
 ```{R, out.width = "100%", echo = F}
 par(mai = c(1,1.5,0,1))
+cols = gg_color_hue(3)
 set.seed(2)
 x1 = rnorm(10, 10, 2)
 x2 = rnorm(10, 5, 2)
 x3 = rnorm(10, 0, 2)
-mydata = data.frame(Value = c(x1, x2, x3),
-                    Group = c(rep("Group 1", 10), rep("Group 2", 10), rep("Group 3", 10)))
-boxplot(Value ~ Group, data = mydata, ylim = c(-20,20), cex.axis = 2, cex.lab = 2)
-points(seq(1,3), c(mean(x1), mean(x2), mean(x3)), col = "red", cex = 2, pch = 16)
+boxplot(x1, x2, x3, col = cols, names = c("Group 1", "Group 2", "Group 3"), cex.axis = 2, cex.lab = 2)
+points(1:3, c(mean(x1), mean(x2), mean(x3)), pch = 16, col = 1, cex = 2)
+abline(h = 10, lwd = 1, lty = 2)
 ```
 ]
-
-.footnote[.smallest[👋 There is also two-way ANOVA which analyzes the effect of two factors. For example, a customer wants to compare the lifetime of tires from different brands. In this case, he should use the one-way ANOVA, with brand as the only factor. However, if he also wants to consider a tire's heat resistance ability, then he should use the two-way ANOVA, with two factors: brand and heat resistance ability. Check out [more](https://en.wikipedia.org/wiki/Two-way_analysis_of_variance).]]
 
 ---
 
@@ -789,14 +1028,50 @@ points(seq(1,3), c(mean(x1), mean(x2), mean(x3)), col = "red", cex = 2, pch = 16
 
 .panelset[
 .panel[.panel-name[Problem]
-.smallest[Lamb's-quarter is a common weed that interferes with the growth of corn. A researcher collected 3 samples of corn yields (bushels per acre) from 3 plots, each of which are weeded such that there are 1, 3, 9 weeds per meter. .turquoise[The researcher believes that the corn yields follow normal distributions with the same variance.] He wants to test if the means of corn yields are all the same among these 3 groups with the following data:]
+.smallest[Lamb's-quarter is a common weed that interferes with the growth of corn. A researcher collected 3 samples of corn yields (bushels per acre) from 3 plots, each of which are weeded such that there are 1, 3, 9 weeds per squared meter. She wants to show that more weeds lead to less corn yields with the following data:]
 \begin{align}
-& \small \text{Group 1 (1 weed/meter): } 163.7 \;\; 162.6 \;\; 155.4 \;\; 158.8 \;\; 156.1 \\
-& \small \text{Group 2 (3 weeds/meter): } 154 \;\; 152.7 \;\; 160.9 \;\; 157.5 \;\; 154.4 \\
-& \small \text{Group 3 (9 weeds/meter): } 149.9 \;\; 148.4 \;\; 139.5 \;\; 149.1 \;\; 145.2
+& \small \text{Group 1 (1 weed/squared meter): } 163.7 \;\; 162.6 \;\; 155.4 \;\; 158.8 \;\; 156.1 \\
+& \small \text{Group 2 (3 weeds/squared meter): } 154 \;\; 152.7 \;\; 160.9 \;\; 157.5 \;\; 154.4 \\
+& \small \text{Group 3 (9 weeds/squared meter): } 149.9 \;\; 148.4 \;\; 139.5 \;\; 149.1 \;\; 145.2
 \end{align}
 ]
-.panel[.panel-name[Test steps]
+.panel[.panel-name[Boxplot Code]
+
+```{r, eval = F}
+corn1 = c(163.7, 162.6, 155.4, 158.8, 156.1) 
+corn2 = c(154, 152.7, 160.9, 157.5, 154.4)
+corn3 = c(149.9, 148.4, 139.5, 149.1, 145.2)
+
+boxplot(corn1, corn2, corn3, 
+        main = "Corn yields vs Weeds", 
+        xlab = c("Group 1", "Group 2", "Group 3"),
+        ylab = "Corn yields (bushels per acre)",
+        col = c("#F8766D", "#00BA38", "#619CFF"))
+points(1:3, c(mean(corn1), mean(corn2), mean(corn3)), 
+       pch = 16, col = 1)
+```
+
+]
+.panel[.panel-name[Boxplot]
+
+```{r, out.width="80%", echo = F}
+par(mai = c(1, 1.5, 1, 1))
+corn1 = c(163.7, 162.6, 155.4, 158.8, 156.1) 
+corn2 = c(154, 152.7, 160.9, 157.5, 154.4)
+corn3 = c(149.9, 148.4, 139.5, 149.1, 145.2)
+
+boxplot(corn1, corn2, corn3, 
+        main = "Corn yields vs Weeds", 
+        xlab = c("Group 1", "Group 2", "Group 3"),
+        ylab = "Corn yields (bushels per acre)",
+        col = c("#F8766D", "#00BA38", "#619CFF"), 
+        cex.axis = 2, cex.lab = 2, cex.main = 2)
+points(1:3, c(mean(corn1), mean(corn2), mean(corn3)), 
+       pch = 16, col = 1, cex = 2)
+```
+
+]
+.panel[.panel-name[ANOVA]
 1. .smallest[.purple[Define hypotheses:]] 
 \begin{align}
 &\small H_0: \mu_1 = \mu_2 = \mu_3 \\
@@ -818,6 +1093,16 @@ res_aov = aov(corns ~ groups)
 summary(res_aov)
 ```
 ]
+.panel[.panel-name[Comparisons]
+```{r}
+t.test(corn1, corn2, alternative = "greater")
+t.test(corn1, corn3, alternative = "greater")
+t.test(corn2, corn3, alternative = "greater")
+```
+
+These results suggest, at the adjusted significance level of $5\%/3 \approx 1.67\%$, that more weeds lead to less corn yields.
+]
+
 ]
 
 ---
@@ -839,14 +1124,50 @@ summary(res_aov)
 
 .panelset[
 .panel[.panel-name[Problem]
-.smallest[Let's recall the previous corn yields example. The researcher wants to test if the means of corn yields are all the same among 3 groups that come from differently weeded plots. .turquoise[The researcher is not sure if the corn yields follow normal distributions with the same variance.] Recall the data as follows:]
+.smallest[Let's recall the previous corn yields example. The researcher wants to test if more weeds lead to less corn yields. Recall the data as follows:]
 \begin{align}
-& \small \text{Group 1 (1 weed/meter): } 163.7 \;\; 162.6 \;\; 155.4 \;\; 158.8 \;\; 156.1 \\
-& \small \text{Group 2 (3 weeds/meter): } 154 \;\; 152.7 \;\; 160.9 \;\; 157.5 \;\; 154.4 \\
-& \small \text{Group 3 (9 weeds/meter): } 149.9 \;\; 148.4 \;\; 139.5 \;\; 149.1 \;\; 145.2
+& \small \text{Group 1 (1 weed/squared meter): } 163.7 \;\; 162.6 \;\; 155.4 \;\; 158.8 \;\; 156.1 \\
+& \small \text{Group 2 (3 weeds/squared meter): } 154 \;\; 152.7 \;\; 160.9 \;\; 157.5 \;\; 154.4 \\
+& \small \text{Group 3 (9 weeds/squared meter): } 149.9 \;\; 148.4 \;\; 139.5 \;\; 149.1 \;\; 145.2
 \end{align}
 ]
-.panel[.panel-name[Test steps]
+.panel[.panel-name[Boxplot Code]
+
+```{r, eval = F}
+corn1 = c(163.7, 162.6, 155.4, 158.8, 156.1) 
+corn2 = c(154, 152.7, 160.9, 157.5, 154.4)
+corn3 = c(149.9, 148.4, 139.5, 149.1, 145.2)
+
+boxplot(corn1, corn2, corn3, 
+        main = "Corn yields vs Weeds", 
+        xlab = c("Group 1", "Group 2", "Group 3"),
+        ylab = "Corn yields (bushels per acre)",
+        col = c("#F8766D", "#00BA38", "#619CFF"))
+points(1:3, c(mean(corn1), mean(corn2), mean(corn3)), 
+       pch = 16, col = 1)
+```
+
+]
+.panel[.panel-name[Boxplot]
+
+```{r, out.width="80%", echo = F}
+par(mai = c(1, 1.5, 1, 1))
+corn1 = c(163.7, 162.6, 155.4, 158.8, 156.1) 
+corn2 = c(154, 152.7, 160.9, 157.5, 154.4)
+corn3 = c(149.9, 148.4, 139.5, 149.1, 145.2)
+
+boxplot(corn1, corn2, corn3, 
+        main = "Corn yields vs Weeds", 
+        xlab = c("Group 1", "Group 2", "Group 3"),
+        ylab = "Corn yields (bushels per acre)",
+        col = c("#F8766D", "#00BA38", "#619CFF"), 
+        cex.axis = 2, cex.lab = 2, cex.main = 2)
+points(1:3, c(mean(corn1), mean(corn2), mean(corn3)), 
+       pch = 16, col = 1, cex = 2)
+```
+
+]
+.panel[.panel-name[Kruskal-Wallis]
 1. .smallest[.purple[Define hypotheses:]] 
 \begin{align}
 &\small H_0: \text{median}_1 = \text{median}_2 = \text{median}_3 \\
@@ -867,16 +1188,13 @@ groups = c(rep("Group 1", 5), rep("Group 2", 5), rep("Group 3", 5))
 kruskal.test(corns ~ groups)
 ```
 ]
+.panel[.panel-name[Comparisons]
+```{r}
+wilcox.test(corn1, corn2, alternative = "greater")
+wilcox.test(corn1, corn3, alternative = "greater")
+wilcox.test(corn2, corn3, alternative = "greater")
+```
+
+These results suggest, at the adjusted significance level of $5\%/3 \approx 1.67\%$, that more weeds lead to less corn yields.
 ]
-
----
-
-# Summary
-
-| Setting                     | Normal, no outliers  | Not normal, with outliers  |
-| --------------------------- |----------------------| -------------------------- |
-| One sample                  | One-sample t-test    | Wilcoxon signed rank test  |
-| Two independent samples     | Two-sample t-test    | Wilcoxon rank sum test     |
-| Several independent samples | One-way ANOVA F-test | Kruskal-Wallis test        |
-
-- .smallest[With 2 or more samples, we have only discussed about tests for .hi-pink[comparison of means] as it is most often the case encountered in practice. Similar tests can be conducted to compare, for example, proportions or variances.]
+]
