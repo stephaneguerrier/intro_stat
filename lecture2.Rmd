@@ -166,11 +166,11 @@ xaringanExtra::use_clipboard()
 
 # Review
 
-- .smallest[.hi-pink[Statistical inference] allows to infer the properties of a population based on an observed sample.]
-- .smallest[For example, .hi-pink[proportion estimation]] $\color{#e64173}{\hat{p}}$ .smallest[is .hi-purple[random] as it is sample dependent. Therefore, we need to access the .hi-purple[uncertainty] of] $\hat{p}$ .smallest[to infer on] $p$.
-- .smallest[One common approach to measure uncertainty is to use .hi-pink[confidence intervals], which rely on .hi-pink[Central Limit Theorem]. In the case of proportion estimation, we have] $$\small \hat{p} \overset{\cdot}{\sim} \mathcal{N}\Bigg(\color{#e64173}{p}, \color{#6A5ACD}{\frac{p(1-p)}{n}}\Bigg).$$
-- .smallest[Confidence intervals correspond to a range of values that include the population value with .hi-purple[a certain level of confidence]. The] $1-\alpha$ .smallest[confidence interval for] $p$ .smallest[is given by] $\color{#e64173}{\hat{p}} \pm Z_{1-\alpha/2}\color{#6A5ACD}{\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}}$ .smallest[, and obviously, it is random.]
-- .smallest[In Statistics, a decision or prediction can never be made with certainty. There always exists .hi-purple[a trade-off between the risk and the precision of the conclusion], and how much risk is acceptable depends on the context.]
+- .smallest[.pink[Statistical inference] allows to infer the properties of a population based on an observed sample.]
+- .smallest[For example, .pink[proportion estimation]] $\color{#e64173}{\hat{p}}$ .smallest[is .purple[random] as it is sample dependent. Therefore, we need to access the .purple[uncertainty] of] $\hat{p}$ .smallest[to infer on] $p$.
+- .smallest[One common approach to measure uncertainty is to use .pink[confidence intervals], which rely on .pink[Central Limit Theorem]. In the case of proportion estimation, we have] $$\small \hat{p} \overset{\cdot}{\sim} \mathcal{N}\Bigg(\color{#e64173}{p}, \color{#6A5ACD}{\frac{p(1-p)}{n}}\Bigg).$$
+- .smallest[Confidence intervals correspond to a range of values that include the population value with .purple[a certain level of confidence]. The] $1-\alpha$ .smallest[confidence interval for] $p$ .smallest[is given by] $\color{#e64173}{\hat{p}} \pm Z_{1-\alpha/2}\color{#6A5ACD}{\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}}$ .smallest[, and obviously, it is random.]
+- .smallest[In Statistics, a decision or prediction can never be made with certainty. There always exists .purple[a trade-off between the risk and the precision of the conclusion], and how much risk is acceptable depends on the context.]
 
 ---
 
@@ -219,14 +219,14 @@ $H_0: p = 0.5$ and $H_a: p > 0.5$.
 
 # A hypothesis testing
 
-|                 | $H_0$ is true                               | $H_0$ is false                          |
-| --------------- |---------------------------------------------| ----------------------------------------|
-| Accept $H_0$    | $\text{Correct inference (prob=}1-\alpha)$  | $\text{Type II error (prob=}1-\beta)$   |
-| Reject $H_0$    | $\text{Type I error (prob=}\alpha)$         | $\text{Correct inference (prob=}\beta)$ |
+|                     | $H_0$ is true                               | $H_0$ is false                          |
+| ------------------- |---------------------------------------------| ----------------------------------------|
+| Can't reject $H_0$  | $\text{Correct decision (prob=}1-\alpha)$   | $\text{Type II error (prob=}1-\beta)$   |
+| Reject $H_0$        | $\text{Type I error (prob=}\alpha)$         | $\text{Correct decision (prob=}\beta)$  |
 
-- If we reject $H_0$ when in fact $H_0$ is true, this is a .hi-pink[type I error] (also called .hi-pink[false positive]). If we accept $H_0$ when in fact $H_a$ is true, this is a .hi-purple[type II error] (also called .hi-purple[false negative]).
-- A test is of .hi-pink[significance level] $\color{#e64173}{\alpha}$ when the probability to make a type I error is $\alpha$. Usually we consider $\alpha = 5\%$, however, this can vary depending on the context.
-- A test if of .hi-purple[power] $\color{#6A5ACD}{\beta}$ when the probability to make a type II error is $1-\beta$. In other words, the power of a test is its probability to reject $H_0$ when $H_0$ is false.
+- If we reject $H_0$ when in fact $H_0$ is true, this is a .pink[type I error] (also called .pink[false positive]). If we accept $H_0$ when in fact $H_a$ is true, this is a .purple[type II error] (also called .purple[false negative]).
+- A test is of .pink[significance level] $\color{#e64173}{\alpha}$ when the probability to make a type I error is $\alpha$. Usually we consider $\alpha = 5\%$, however, this can vary depending on the context.
+- A test if of .purple[power] $\color{#6A5ACD}{\beta}$ when the probability to make a type II error is $1-\beta$. In other words, the power of a test is its probability to reject $H_0$ when $H_0$ is false.
 
 ---
 
@@ -243,6 +243,20 @@ $$\small \text{test statistic} = \frac{\text{sample estimate - hypothesized valu
 
 # How to understand p-values?
 
+- When the p-value is small enough (i.e. smaller than the significance level $\alpha$), one says that the test based on the null and alternative hypotheses is .pink[significant] or that the null hypothesis is rejected in favor of the alternative. .purple[This is generally what we want because it "verifies" our (research) hypothesis].
+- When the p-value is not small enough, with the available data, we cannot reject the null hypothesis so .pink[nothing] can be concluded. 🤔
+- With a sample of data, the obtained p-value summarizes somehow the .pink[incompatibility between the data and the model] (random process) constructed under the set of assumptions.
+
+.center[
+.purple["Absence of evidence is not evidence of absence." <sup>.smallest[👋]</sup>]
+]
+
+.footnote[.smallest[👋] From the British Medical Journal.]
+
+---
+
+# How to understand p-values?
+
 ```{R, out.width = "45%", echo = F}
 include_graphics("pics/p_value.png")
 ```
@@ -253,27 +267,13 @@ include_graphics("pics/p_value.png")
 
 # P-values may be controversial
 
-.hi-purple[P-values have been misused] many times because understanding what they mean is not intuitive!
+.purple[P-values have been misused] many times because understanding what they mean is not intuitive!
 
 <div align="center">
 <iframe src="https://fivethirtyeight.abcnews.go.com/video/embed/56150342" width="675" height="380" scrolling="no" style="border:none;" allowfullscreen></iframe>
 </div> 
 
-👋 .tiny[If you want to know more have a look [here](https://fivethirtyeight.com/features/statisticians-found-one-thing-they-can-agree-on-its-time-to-stop-misusing-p-values/).]
-
----
-
-# ⚠️ Take home message about p-values
-
-- When the p-value is small enough (i.e. smaller than the significance level $\alpha$), one says that the test based on the null and alternative hypotheses is .hi-pink[significant] or that the null hypothesis is rejected in favor of the alternative. .purple[This is generally what we want because it "verifies" our (research) hypothesis].
-- When the p-value is not small enough, with the available data, we cannot reject the null hypothesis so .hi-pink[nothing] can be concluded. 🤔
-- With a sample of data, the obtained p-value summarizes somehow the .hi-pink[incompatibility between the data and the model] (random process) constructed under the set of assumptions.
-
-.center[
-.purple["Absence of evidence is not evidence of absence." <sup>.smallest[👋]</sup>]
-]
-
-.footnote[.smallest[👋] From the British Medical Journal.]
+👋 .smallest[If you want to know more have a look [here](https://fivethirtyeight.com/features/statisticians-found-one-thing-they-can-agree-on-its-time-to-stop-misusing-p-values/).]
 
 ---
 
@@ -515,14 +515,10 @@ hist(data, breaks = 20, xlim = c(-28,3),  col = "grey",
 # One-sample Wilcoxon signed rank test
 
 - .smallest[What can we do if there are outliers in the data and/or if the population distribution is clearly not normal, especially when the sample size is very small? We use the .hi-pink[Wilcoxon signed rank test]!]
-
-- .smallest[The .hi-purple[rank] is the position index of each observation when we order them from smallest to largest, starting with rank 1 for the smallest observation. ] 
-
-- .smallest[The Wilcoxon signed rank test only uses the ranks (i.e. the ordering) of the observations, and makes no use of their actual numerical values. Therefore, it is a .hi-turquoise[nonparametric test].]
-
-- .smallest[The Wilcoxon signed rank test depends on the .hi-purple[Wilcoxon signed rank statistic], which is the sum of the ranks of .purple[only the positive] values (or .purple[only the negative] values).]
-
-- .smallest[Unlike the one-sample t-test whose hypotheses are on the population mean, the Wilcoxon signed rank test states the hypotheses in terms of .hi-pink[population median]. When the distribution is symmetric, the mean and the median of the population have the same value.]
+- .smallest[The .purple[rank] is the position index of each observation when we order them from smallest to largest, starting with rank 1 for the smallest observation. ] 
+- .smallest[The Wilcoxon signed rank test only uses the ranks (i.e. the ordering) of the observations, and makes no use of their actual numerical values. Therefore, it is a .turquoise[nonparametric test].]
+- .smallest[The Wilcoxon signed rank test depends on the .purple[Wilcoxon signed rank statistic], which is the sum of the ranks of .purple[only the positive] values (or .purple[only the negative] values).]
+- .smallest[Unlike the one-sample t-test whose hypotheses are on the population mean, the Wilcoxon signed rank test states the hypotheses in terms of .pink[population median]. When the distribution is symmetric, the mean and the median of the population have the same value.]
 
 ---
 
@@ -588,7 +584,7 @@ wilcox.test(x = data, mu = 0.95, alternative = "less")
 # Two-sample problems
 
 .smallest[In practice, we often encounter problems that compare two samples. For example,] 
-1. .smallest[A scientist is interested in comparing the effects of the Pfizer-BioNTech vaccine and the Moderna vaccine against Covid 19. 🧬🦠]
+1. .smallest[A scientist is interested in comparing the vaccine efficacy of the Pfizer-BioNTech and the Moderna vaccine. 🧬🦠]
 2. .smallest[A bank wants to know which of two proposed plans will most increase the use of its credit cards. 💸💳]
 3. .smallest[A psychologist wants to compare male and female college students' impression on a selected webpage. 📱💻]
 
@@ -604,7 +600,7 @@ wilcox.test(x = data, mu = 0.95, alternative = "less")
 
 .panelset[
 .panel[.panel-name[Problem]
-.smallest[There is emerging evidence of a relationship between timing of feeding and weight regulation. More precisely, it is claimed that .pink[people who have their main meal early tend to lose more weight compared to people who eat late]. We collect weight loss (in kg) data from 12 individuals, where 7 of them are early eaters and 5 of them are late eaters. .turquoise[We assume that the weight loss from these two groups both follow normal distributions.] We want to test if such claim is valid based on the observed sample: 
+.smallest[There is emerging evidence of a relationship between timing of feeding and weight regulation. More precisely, it is claimed that .pink[people who have their main meal early tend to lose more weight compared to people who eat late]. We collect weight loss (in kg) data from 12 individuals, where 7 of them are early eaters and 5 of them are late eaters. We want to test if such claim is valid based on the observed sample: 
 $$\small \text{Early eaters:} \;\; 6.3 \;\; 15.1 \;\; 9.4 \;\; 16.8 \;\; 10.2 \;\; 8.2 \;\; 12.7 \quad \text{Late eaters:} \;\; 7.8 \;\; 0.2 \;\; 1.5 \;\; 11.5 \;\; 4.6 $$
 ]
 1. .smallest[.purple[Define hypotheses:]] $\small H_0: \mu_{\text{early}} = \mu_{\text{late}}$ .smallest[and] $\small H_a: \mu_{\text{early}} \color{#e64173}{>} \mu_{\text{late}}$.smallest[.]
@@ -665,7 +661,7 @@ t.test(x = early_eaters, y = late_eaters, alternative = "greater")
 
 .panelset[
 .panel[.panel-name[Problem]
-.smallest[Let's recall the previous weight loss example. We want to test if .pink[early eaters tend to lose more weight than late eaters]. This time, .turquoise[we assume nothing on the distributions of the weight loss from these two groups]. Recall the samples as follows: 
+.smallest[Let's recall the previous weight loss example. We want to test if .pink[early eaters tend to lose more weight than late eaters]. The sample is as follows: 
 $$\small \text{Early eaters:} \;\; 6.3 \;\; 15.1 \;\; 9.4 \;\; 16.8 \;\; 10.2 \;\; 8.2 \;\; 12.7 \quad \text{Late eaters:} \;\; 7.8 \;\; 0.2 \;\; 1.5 \;\; 11.5 \;\; 4.6 $$
 ]
 1. .smallest[.purple[Define hypotheses:]] $\small H_0: \text{median}_{\text{early}} = \text{median}_{\text{late}}$ .smallest[and] $\small H_a: \text{median}_{\text{early}} \color{#e64173}{>} \text{median}_{\text{late}}$.smallest[.]
@@ -822,19 +818,14 @@ wilcox.test(x = boeing, y = lockheed, alternative = "greater")
 
 # Why are we only comparing the means?
 
-- So far we have only discussed tests for comparison of means. However, in fact, .purple[the comparison of other features of the data such as the variance can be of great interest as well.] A good example of this is the very controversial .hi-pink["variability hypothesis"]. 
-- The variability hypothesis has often been discussed in relation to cognitive ability, where it has been observed that human males are more likely than females to have either very high or very low intelligence. The .pink[sex difference in the variability of intelligence] has been discussed since at least Charles Darwin. The variability hypothesis has continued to spur controversy within academic circles. 
-
-
-```{R, out.width = "45%", echo = F}
-include_graphics("pics/NormalDist.png")
-```
+- .smaller[So far we have only discussed tests for comparison of means. However, in fact, .purple[the comparison of other features of the data such as the variance can be of great interest as well.] A good example of this is the very controversial .hi-pink["variability hypothesis"]. ]
+- .smaller[The variability hypothesis has often been discussed in relation to cognitive ability, where it has been observed that human males are more likely than females to have either very high or very low intelligence. The .pink[sex difference in the variability of intelligence] has been discussed since at least Charles Darwin. The variability hypothesis has continued to spur controversy within academic circles. ]
 
 .footnote[.smallest[👋 If you are interested in knowing more, check out [here](https://en.wikipedia.org/wiki/Variability_hypothesis#:~:text=The%20variability%20hypothesis%2C%20also%20known,in%20traits%20than%20females%20do.&text=Sex%2Ddifferences%20in%20variability%20are,physical%2C%20psychological%20and%20genetic%20ones.)!]]
 
 ---
 
-# How about more than 2 samples? 😜
+# How about more than 2 samples?
 
 In practice, we often even encounter situations where we need to .pink[compare the means of more than 2 groups]. For example,
 
@@ -907,7 +898,7 @@ include_graphics("pics/green.png")
 
 # ☠️ Multiple testing can be dangerous!
 
-```{R, out.width = "80%", echo = F}
+```{R, out.width = "70%", echo = F}
 include_graphics("pics/medical_studies2.png")
 ```
 
@@ -918,8 +909,8 @@ include_graphics("pics/medical_studies2.png")
 # Methods to remedy such problem
 
 - .smallest[The .hi-pink[Bonferroni correction] is one of oldest methods proposed to counteract the problem of multiple testing (i.e. potential increased chance to make Type I errors). ]
-- .smallest[.purple[It-tests each individual hypothesis at a reduced significance level.] For example, if a trial is testing 20 hypotheses with a desired] $\small \alpha = 5\%$.smallest[, then the Bonferroni correction would test each individual hypothesis at] $\small \alpha^* = \alpha/20 = 5\% / 20 = 0.25\%$.smallest[. Therefore, .purple[it controls the familywise error rate at]] $\small \color{#6A5ACD}{\leq \alpha}$.
-- .smallest[The Bonferroni correction can be .hi-turquoise[conservative] if there are a large number of tests, as it comes at the cost of reducing the power of the tests.]
+- .smallest[.purple[It tests each individual hypothesis at a reduced significance level.] For example, if a trial is testing 20 hypotheses with a desired] $\small \alpha = 5\%$.smallest[, then the Bonferroni correction would test each individual hypothesis at] $\small \alpha^* = \alpha/20 = 5\% / 20 = 0.25\%$.smallest[. Therefore, .purple[it controls the familywise error rate at]] $\small \color{#6A5ACD}{\leq \alpha}$.
+- .smallest[The Bonferroni correction can be .turquoise[conservative] if there are a large number of tests, as it comes at the cost of reducing the power of the tests.]
 - .smallest[Another more recent and less conservative method is the .hi-pink[False Discovery Rate (FDR)]. It provides less stringent control of Type I errors compared to the Bonferroni correction. Thus, the FDR has greater power, yet at the cost of increased numbers of Type I errors.]
 
 ---
@@ -932,26 +923,12 @@ include_graphics("pics/medical_studies2.png")
 - .smallest[For example, suppose we have 3 groups and our hypothesis is that the mean of Group 1 is larger than the mean of Group 2, which is larger than the mean of Group 3. We start with an ANOVA and test if all the means are equal. If we reject the null hypothesis, then we perform the two-sample t tests of Group 1 vs Group 2, Group 1 vs Group 3, and Group 2 vs Group 3, which in total are 3 tests.]
 - .smallest[.pink[Naturally, we should adjust the significance level for multiple testing in Step 2.]]
 
-.footnote[.smallest[👋 There is also two-way ANOVA which analyzes the effect of two factors. For example, a customer wants to compare the lifetime of tires from different brands. In this case, he should use the one-way ANOVA, with brand as the only factor. However, if he also wants to consider a tire's heat resistance ability, then he should use the two-way ANOVA, with two factors: brand and heat resistance ability. Check out [more](https://en.wikipedia.org/wiki/Two-way_analysis_of_variance).]]
-
 ---
 
 # The one-way ANOVA
 
 .smallest[We are interested in comparing means, but why is it an analysis of .purple[variance]?]
 .pull-left[
-```{R, out.width = "100%", echo = F}
-par(mai = c(1,1.5,0,1))
-set.seed(2)
-x1 = rnorm(10, 10, 5)
-x2 = rnorm(10, 5, 5)
-x3 = rnorm(10, 0, 5)
-mydata = data.frame(Value = c(x1, x2, x3),
-                    Group = c(rep("Group 1", 10), rep("Group 2", 10), rep("Group 3", 10)))
-boxplot(Value ~ Group, data = mydata, ylim = c(-20,20), cex.axis = 2, cex.lab = 2)
-points(seq(1,3), c(mean(x1), mean(x2), mean(x3)), col = "red", cex = 2, pch = 16)
-```
-
 ```{r, out.width="100%", echo = F}
 par(mai = c(1,1.5,0,1))
 cols = gg_color_hue(3)
@@ -961,7 +938,6 @@ x2 = rnorm(10, 5, 5)
 x3 = rnorm(10, 0, 5)
 boxplot(x1, x2, x3, col = cols, names = c("Group 1", "Group 2", "Group 3"), cex.axis = 2, cex.lab = 2)
 points(1:3, c(mean(x1), mean(x2), mean(x3)), pch = 16, col = 1, cex = 2)
-abline(h = 10, lwd = 1, lty = 2)
 ```
 ]
 
@@ -975,7 +951,6 @@ x2 = rnorm(10, 5, 2)
 x3 = rnorm(10, 0, 2)
 boxplot(x1, x2, x3, col = cols, names = c("Group 1", "Group 2", "Group 3"), cex.axis = 2, cex.lab = 2)
 points(1:3, c(mean(x1), mean(x2), mean(x3)), pch = 16, col = 1, cex = 2)
-abline(h = 10, lwd = 1, lty = 2)
 ```
 ]
 
@@ -991,67 +966,23 @@ abline(h = 10, lwd = 1, lty = 2)
 .smallest[Then the hypotheses for the one-way ANOVA can be specified as follows:]
 \begin{align}
 & \small H_0: \mu_1 = \mu_2 = \ldots = \mu_J \\
-& \small H_a: \text{not all of the } \mu_j \text{ are equal}
+& \small H_a: H_0 \text{ is false}
 \end{align}
 
-.smallest[⚠️ Notice that the alternative says that the means are not all equal, which can be true because all the means are different or simply because one of them differs from the rest. So this is a more complex situation than comparing just two populations. .pink[If we reject the null hypothesis, we need to perform some further analysis to draw conclusions about which population means differ from which others and by how much.]]
-
----
-
-# The one-way ANOVA table and F-test
-
-.smallest[The one-way ANOVA relies on an F statistic to compare the variation among groups with the variation within groups. All calculations can be organized in an .hi-pink[ANOVA table]. More precisely, suppose we in total have] $\small N$ .smallest[observations from] $\small J$ .smallest[groups, where] $\small y_{ij}$ .smallest[denotes the] $\small i^{th}$ .smallest[observation from the] $\small j^{th}$ .smallest[group, and] $\small n_j$ .smallest[denotes the sample size of the] $\small j^{th}$ .smallest[sample. Then the ANOVA table is given by:]
-
-| Source        | Sum of squares  | Degrees of freedom  | Mean square                                  | F statistic                              |
-| :-----------: |:---------------:| :------------------:| :-------------------------------------------:|:----------------------------------------:|
-| Between       | $\text{SSB}$    | $\text{DFB} = J-1$  | $\text{MSB} = \frac{\text{SSB}}{\text{DFB}}$ | $\text{F}=\frac{\text{MSB}}{\text{MSW}}$ |
-| Within        | $\text{SSW}$    | $\text{DFW} = N-J$  | $\text{MSW} = \frac{\text{SSW}}{\text{DFW}}$ |                                          |
-| Total         | $\text{SST}$    | $\text{DFT} = N-1$  |                                              |                                          |
-
-\begin{align}
-& \small \text{SSB} = \sum_{j=1}^J \sum_{i=1}^{n_j} (\bar{y_j} - \bar{y})^2 \;\;\; \text{SSW} = \sum_{j=1}^J \sum_{i=1}^{n_j} (y_{ij} - \bar{y_j})^2 \\
-& \small \text{SST} = \text{SSB} + \text{SSW} = \sum_{j=1}^J \sum_{i=1}^{n_j} (y_{ij} - \bar{y})^2
-\end{align}
-
----
-
-# The one-way ANOVA table and F-test
-
-- .smallest[.hi-pink[Sum of squares] are the sum of squared deviations presented in the data. As we can see, the total variation comes from two parts:: variation between groups and variation within groups.]
-- .smallest[.hi-purple[Degrees of freedom] have the same relation, i.e.] $\small \text{DFT} = \text{DFB} + \text{DFW}$.smallest[.]
-- .smallest[The one-way ANOVA relies on the .hi-turquoise[F statistic], which, when] $\small H_0$ .smallest[is true, has an F distribution with two degrees of freedom,] $\small \text{DFB}$ .smallest[and] $\small \text{DFW}$.smallest[. Therefore, it is also called the .hi-pink[F-test].]
-- .smallest[Any differences among the group means tend to make the F statistic larger, and thus, smaller p-value. So in this sense, .purple[the F-test is always one-sided.]]
-- .smallest[From the ANOVA table, we can clearly see how .turquoise[the value of the F statistic and the p-value depend on the sample sizes, the variation of the data within the groups, and the differences between the means.]]
+.smallest[⚠️ Notice that the alternative says that the null hypothesis is false, which can be true because all the means are different or simply because one of them differs from the rest. So this is a more complex situation than comparing just two populations. .pink[If we reject the null hypothesis, we need to perform some further analysis to draw conclusions about which population means differ from which others and by how much.]]
 
 ---
 
 # The one-way ANOVA: Example
 
 .panelset[
-.panel[.panel-name[Problem]
-.smallest[Lamb's-quarter is a common weed that interferes with the growth of corn. A researcher collected 3 samples of corn yields (bushels per acre) from 3 plots, each of which are weeded such that there are 1, 3, 9 weeds per squared meter. She wants to show that more weeds lead to less corn yields with the following data:]
+.panel[.panel-name[Prob]
+.smallest[Lamb's-quarter is a common weed that interferes with the growth of corn. A researcher collected 3 samples of corn yields (bushels per acre) from 3 plots, each of which are weeded such that there are 1, 3, 9 units of weed per squared meter. She wants to show that more weed lead to less corn yields with the following data:]
 \begin{align}
 & \small \text{Group 1 (1 weed/squared meter): } 163.7 \;\; 162.6 \;\; 155.4 \;\; 158.8 \;\; 156.1 \\
-& \small \text{Group 2 (3 weeds/squared meter): } 154 \;\; 152.7 \;\; 160.9 \;\; 157.5 \;\; 154.4 \\
-& \small \text{Group 3 (9 weeds/squared meter): } 149.9 \;\; 148.4 \;\; 139.5 \;\; 149.1 \;\; 145.2
+& \small \text{Group 2 (3 weed/squared meter): } 154 \;\; 152.7 \;\; 160.9 \;\; 157.5 \;\; 154.4 \\
+& \small \text{Group 3 (9 weed/squared meter): } 149.9 \;\; 148.4 \;\; 139.5 \;\; 149.1 \;\; 145.2
 \end{align}
-]
-.panel[.panel-name[Boxplot Code]
-
-```{r, eval = F}
-corn1 = c(163.7, 162.6, 155.4, 158.8, 156.1) 
-corn2 = c(154, 152.7, 160.9, 157.5, 154.4)
-corn3 = c(149.9, 148.4, 139.5, 149.1, 145.2)
-
-boxplot(corn1, corn2, corn3, 
-        main = "Corn yields vs Weeds", 
-        xlab = c("Group 1", "Group 2", "Group 3"),
-        ylab = "Corn yields (bushels per acre)",
-        col = c("#F8766D", "#00BA38", "#619CFF"))
-points(1:3, c(mean(corn1), mean(corn2), mean(corn3)), 
-       pch = 16, col = 1)
-```
-
 ]
 .panel[.panel-name[Boxplot]
 
@@ -1062,8 +993,7 @@ corn2 = c(154, 152.7, 160.9, 157.5, 154.4)
 corn3 = c(149.9, 148.4, 139.5, 149.1, 145.2)
 
 boxplot(corn1, corn2, corn3, 
-        main = "Corn yields vs Weeds", 
-        xlab = c("Group 1", "Group 2", "Group 3"),
+        names = c("1 weed", "3 weed", "9 weed"),
         ylab = "Corn yields (bushels per acre)",
         col = c("#F8766D", "#00BA38", "#619CFF"), 
         cex.axis = 2, cex.lab = 2, cex.main = 2)
@@ -1072,17 +1002,33 @@ points(1:3, c(mean(corn1), mean(corn2), mean(corn3)),
 ```
 
 ]
+.panel[.panel-name[`R` Code]
+
+```{r, eval = F}
+corn1 = c(163.7, 162.6, 155.4, 158.8, 156.1) 
+corn2 = c(154, 152.7, 160.9, 157.5, 154.4)
+corn3 = c(149.9, 148.4, 139.5, 149.1, 145.2)
+
+boxplot(corn1, corn2, corn3, 
+        names = c("1 weed", "3 weed", "9 weed"),
+        ylab = "Corn yields (bushels per acre)",
+        col = c("#F8766D", "#00BA38", "#619CFF"))
+points(1:3, c(mean(corn1), mean(corn2), mean(corn3)), 
+       pch = 16, col = 1)
+```
+
+]
 .panel[.panel-name[ANOVA]
 1. .smallest[.purple[Define hypotheses:]] 
 \begin{align}
 &\small H_0: \mu_1 = \mu_2 = \mu_3 \\
-&\small H_a: \text{not all three population means are equal}
+&\small H_a: H_0 \text{ is false}
 \end{align}
 2. .smallest[.purple[Define]] $\small \color{#6A5ACD}{\alpha}$.smallest[: We consider] $\small \alpha = 5\%$.smallest[.]
 3. .smallest[.purple[Compute p-value]: p-value = ] $\small 0.0464\%$ .smallest[(see R code tab for details).]
 4. .smallest[.purple[Conclusion:] We have p-value <] $\small \alpha$ .smallest[so we can reject the null hypothesis and conclude that not all the means of corn yields are the same among these 3 groups.]
 ]
-.panel[.panel-name[`R` Code ]
+.panel[.panel-name[`R` Code]
 ```{r}
 corn1 = c(163.7, 162.6, 155.4, 158.8, 156.1) 
 corn2 = c(154, 152.7, 160.9, 157.5, 154.4)
@@ -1094,14 +1040,14 @@ res_aov = aov(corns ~ groups)
 summary(res_aov)
 ```
 ]
-.panel[.panel-name[Comparisons]
-```{r}
+.panel[.panel-name[Comp]
+```{r, eval = F}
 t.test(corn1, corn2, alternative = "greater")
 t.test(corn1, corn3, alternative = "greater")
 t.test(corn2, corn3, alternative = "greater")
 ```
 
-These results suggest, at the adjusted significance level of $5\%/3 \approx 1.67\%$, that more weeds lead to less corn yields.
+These results suggest, at the adjusted significance level of $5\%/3 \approx 1.67\%$, that more weed lead to less corn yields.
 ]
 
 ]
@@ -1112,11 +1058,11 @@ These results suggest, at the adjusted significance level of $5\%/3 \approx 1.67
 
 - .smallest[The .hi-pink[Kruskal-Wallis test] is a test that can replace the ANOVA F-test. The assumption about data production (i.e. independent random samples from each population) remains important, but .pink[we can relax the normality and the same variance assumptions.] Indeed, we only need to assume that the response has a continuous distribution in each population.]
 - .smallest[Just like the Wilcoxon tests for one and two samples, .purple[the Kruskal-Wallis test is particularly useful when there are outliers and/or when the normality condition cannot be satisfied.]]
-- .smallest[The idea of the Kruskal-Wallis test is to rank all the responses from all groups together and then apply the one-way ANOVA to the .hi-turquoise[ranks] rather than to the original observations. Therefore, it is a .hi-turquoise[nonparametric test].]
-- .smallest[In the simplest form, the Kruskal-Wallis test states the hypotheses in terms of .hi-pink[population median]. That is,]
+- .smallest[The idea of the Kruskal-Wallis test is to rank all the responses from all groups together and then apply the one-way ANOVA to the .turquoise[ranks] rather than to the original observations. Therefore, it is a .turquoise[nonparametric test].]
+- .smallest[In the simplest form, the Kruskal-Wallis test states the hypotheses in terms of .pink[population median]. That is,]
 \begin{align}
 & \small H_0: \text{all populations have the same median} \\
-& \small H_a: \text{not all population medians are equal}
+& \small H_a: H_0 \text{ is false}
 \end{align}
 
 ---
@@ -1124,30 +1070,13 @@ These results suggest, at the adjusted significance level of $5\%/3 \approx 1.67
 # Revisit the corn yields example
 
 .panelset[
-.panel[.panel-name[Problem]
-.smallest[Let's recall the previous corn yields example. The researcher wants to test if more weeds lead to less corn yields. Recall the data as follows:]
+.panel[.panel-name[Prob]
+.smallest[Let's recall the previous corn yields example. The researcher wants to test if more weed lead to less corn yields. Recall the data as follows:]
 \begin{align}
 & \small \text{Group 1 (1 weed/squared meter): } 163.7 \;\; 162.6 \;\; 155.4 \;\; 158.8 \;\; 156.1 \\
 & \small \text{Group 2 (3 weeds/squared meter): } 154 \;\; 152.7 \;\; 160.9 \;\; 157.5 \;\; 154.4 \\
 & \small \text{Group 3 (9 weeds/squared meter): } 149.9 \;\; 148.4 \;\; 139.5 \;\; 149.1 \;\; 145.2
 \end{align}
-]
-.panel[.panel-name[Boxplot Code]
-
-```{r, eval = F}
-corn1 = c(163.7, 162.6, 155.4, 158.8, 156.1) 
-corn2 = c(154, 152.7, 160.9, 157.5, 154.4)
-corn3 = c(149.9, 148.4, 139.5, 149.1, 145.2)
-
-boxplot(corn1, corn2, corn3, 
-        main = "Corn yields vs Weeds", 
-        xlab = c("Group 1", "Group 2", "Group 3"),
-        ylab = "Corn yields (bushels per acre)",
-        col = c("#F8766D", "#00BA38", "#619CFF"))
-points(1:3, c(mean(corn1), mean(corn2), mean(corn3)), 
-       pch = 16, col = 1)
-```
-
 ]
 .panel[.panel-name[Boxplot]
 
@@ -1158,8 +1087,7 @@ corn2 = c(154, 152.7, 160.9, 157.5, 154.4)
 corn3 = c(149.9, 148.4, 139.5, 149.1, 145.2)
 
 boxplot(corn1, corn2, corn3, 
-        main = "Corn yields vs Weeds", 
-        xlab = c("Group 1", "Group 2", "Group 3"),
+        names = c("1 weed", "3 weed", "9 weed"),
         ylab = "Corn yields (bushels per acre)",
         col = c("#F8766D", "#00BA38", "#619CFF"), 
         cex.axis = 2, cex.lab = 2, cex.main = 2)
@@ -1168,17 +1096,33 @@ points(1:3, c(mean(corn1), mean(corn2), mean(corn3)),
 ```
 
 ]
+.panel[.panel-name[`R` Code]
+
+```{r, eval = F}
+corn1 = c(163.7, 162.6, 155.4, 158.8, 156.1) 
+corn2 = c(154, 152.7, 160.9, 157.5, 154.4)
+corn3 = c(149.9, 148.4, 139.5, 149.1, 145.2)
+
+boxplot(corn1, corn2, corn3, 
+        names = c("Group 1", "Group 2", "Group 3"),
+        ylab = "Corn yields (bushels per acre)",
+        col = c("#F8766D", "#00BA38", "#619CFF"))
+points(1:3, c(mean(corn1), mean(corn2), mean(corn3)), 
+       pch = 16, col = 1)
+```
+
+]
 .panel[.panel-name[Kruskal-Wallis]
 1. .smallest[.purple[Define hypotheses:]] 
 \begin{align}
 &\small H_0: \text{median}_1 = \text{median}_2 = \text{median}_3 \\
-&\small H_a: \text{not all three population medians are equal}
+&\small H_a: H_0 \text{ is false}
 \end{align}
 2. .smallest[.purple[Define]] $\small \color{#6A5ACD}{\alpha}$.smallest[: We consider] $\small \alpha = 5\%$.smallest[.]
 3. .smallest[.purple[Compute p-value]: p-value = ] $\small 0.5248\%$ .smallest[(see R code tab for details).]
 4. .smallest[.purple[Conclusion:] We have p-value <] $\small \alpha$ .smallest[so we can reject the null hypothesis and conclude that not all the means of corn yields are the same among these 3 groups that are weeded differently.]
 ]
-.panel[.panel-name[`R` Code ]
+.panel[.panel-name[`R` Code]
 ```{r}
 corn1 = c(163.7, 162.6, 155.4, 158.8, 156.1) 
 corn2 = c(154, 152.7, 160.9, 157.5, 154.4)
@@ -1189,13 +1133,13 @@ groups = c(rep("Group 1", 5), rep("Group 2", 5), rep("Group 3", 5))
 kruskal.test(corns ~ groups)
 ```
 ]
-.panel[.panel-name[Comparisons]
-```{r}
+.panel[.panel-name[Comp]
+```{r, eval = F}
 wilcox.test(corn1, corn2, alternative = "greater")
 wilcox.test(corn1, corn3, alternative = "greater")
 wilcox.test(corn2, corn3, alternative = "greater")
 ```
 
-These results suggest, at the adjusted significance level of $5\%/3 \approx 1.67\%$, that more weeds lead to less corn yields.
+These results suggest, at the adjusted significance level of $5\%/3 \approx 1.67\%$, that more weed lead to less corn yields.
 ]
 ]
