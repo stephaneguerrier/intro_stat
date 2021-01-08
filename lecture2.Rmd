@@ -489,7 +489,6 @@ t.test(x = data, mu = 0.95, alternative = "less")
 par(mai = c(1, 1.5, 1, 1))
 data = c(-2.36, -1.82, 0.46, 0.65, -2.14, -1.63, -25.5, 0.25, -4.34, 0.91)
 boxplot(data, col = "lightgrey", 
-        main = "Stock portfolio", 
         ylab = "Monthly rates of return (%)",
         cex.axis = 2, cex.lab = 2, cex.main = 3)
 points(1, mean(data), pch = 16, col = 1, cex = 2)
@@ -503,7 +502,7 @@ abline(h = 0.95, lwd = 1, lty = 2)
 ```{R, out.width = "100%", echo = F}
 par(mai = c(1,1.5,1,1))
 hist(data, breaks = 20, xlim = c(-28,3),  col = "grey",
-     cex.axis = 2, cex.lab = 2, cex.main = 3)
+     cex.axis = 2, cex.lab = 2, cex.main = 3, main = "")
 ```
 
 ]
@@ -646,8 +645,8 @@ t.test(x = early_eaters, y = late_eaters, alternative = "greater")
 # Wilcoxon rank sum test
 
 - .smallest[Similar to the Wilcoxon signed rank test as a robust <sup>.smallest[👋]</sup> alternative to the one-sample t-test, we can use the .hi-pink[Wilcoxon rank sum test] (also called the Mann-Whitney test) when the normality condition is not satisfied to use two-sample t-test.]
-- .smallest[The Wilcoxon rank sum test depends on the .hi-purple[Wilcoxon rank sum statistic], which is the .purple[sum of the ranks of one sample]. As it only uses the ranks of the observations, it is a .hi-turquoise[nonparametric test].]
-- .smallest[In the simplest form, the Wilcoxon rank sum test states the hypotheses in terms of .hi-pink[population median]. However, more precisely, it actually tests whether the two distributions are the same, i.e. 😵]
+- .smallest[The Wilcoxon rank sum test depends on the .purple[Wilcoxon rank sum statistic], which is the .purple[sum of the ranks of one sample]. As it only uses the ranks of the observations, it is a .turquoise[nonparametric test].]
+- .smallest[In the simplest form, the Wilcoxon rank sum test states the hypotheses in terms of .pink[population median]. However, more precisely, it actually tests whether the two distributions are the same, i.e. 😵]
 \begin{align}
 & \small H_0: \text{The two distributions are the same.} \\
 & \small H_a: \text{One distribution has values that are systematically larger (or smaller). }
