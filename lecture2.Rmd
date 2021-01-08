@@ -826,10 +826,11 @@ wilcox.test(x = boeing, y = lockheed, alternative = "greater")
 - The variability hypothesis has often been discussed in relation to cognitive ability, where it has been observed that human males are more likely than females to have either very high or very low intelligence. The .pink[sex difference in the variability of intelligence] has been discussed since at least Charles Darwin. The variability hypothesis has continued to spur controversy within academic circles. 
 
 
-```{R, green, out.width = "45%", echo = F}e_graphics("pics/NormalDist.png")
+```{R, out.width = "45%", echo = F}
+include_graphics("pics/NormalDist.png")
 ```
 
-.footnote[.smallest[👋 If you are interested in knowing more, check out [here](https://en.wikipedia.org/wiki/Variability_hypothesis#:~:text=The%20variability%20hypothesis%2C%20also%20known,in%20traits%20than%20females%20do.&text=Sex%2Ddifferences%20in%20variability%20are,physical%2C%20psychological%20and%20genetic%20ones.)!]
+.footnote[.smallest[👋 If you are interested in knowing more, check out [here](https://en.wikipedia.org/wiki/Variability_hypothesis#:~:text=The%20variability%20hypothesis%2C%20also%20known,in%20traits%20than%20females%20do.&text=Sex%2Ddifferences%20in%20variability%20are,physical%2C%20psychological%20and%20genetic%20ones.)!]]
 
 ---
 
