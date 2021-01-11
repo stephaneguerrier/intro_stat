@@ -167,7 +167,7 @@ xaringanExtra::use_clipboard()
 # Review
 
 - .smallest[.pink[Statistical inference] allows to infer the properties of a population based on an observed sample.]
-- .smallest[For example, .pink[proportion estimation]] $\color{#e64173}{\hat{p}}$ .smallest[is .purple[random] as it is sample dependent. Therefore, we need to access the .purple[uncertainty] of] $\hat{p}$ .smallest[to infer on] $p$.
+- .smallest[For example, .pink[proportion estimation]] $\color{#e64173}{\hat{p}}$ .smallest[is .purple[random] as it is sample dependent. Therefore, we need to assess the .purple[uncertainty] of] $\hat{p}$ .smallest[to infer on] $p$.
 - .smallest[One common approach to measure uncertainty is to use .pink[confidence intervals], which rely on .pink[Central Limit Theorem]. In the case of proportion estimation, we have] $$\small \hat{p} \overset{\cdot}{\sim} \mathcal{N}\Bigg(\color{#e64173}{p}, \color{#6A5ACD}{\frac{p(1-p)}{n}}\Bigg).$$
 - .smallest[Confidence intervals correspond to a range of values that include the population value with .purple[a certain level of confidence]. The] $1-\alpha$ .smallest[confidence interval for] $p$ .smallest[is given by] $\color{#e64173}{\hat{p}} \pm Z_{1-\alpha/2}\color{#6A5ACD}{\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}}$ .smallest[, and obviously, it is random.]
 - .smallest[In Statistics, a decision or prediction can never be made with certainty. There always exists .purple[a trade-off between the risk and the precision of the conclusion], and how much risk is acceptable depends on the context.]
@@ -226,7 +226,7 @@ $H_0: p = 0.5$ and $H_a: p > 0.5$.
 
 - If we reject $H_0$ when in fact $H_0$ is true, this is a .pink[type I error] (also called .pink[false positive]). If we accept $H_0$ when in fact $H_a$ is true, this is a .purple[type II error] (also called .purple[false negative]).
 - A test is of .pink[significance level] $\color{#e64173}{\alpha}$ when the probability to make a type I error is $\alpha$. Usually we consider $\alpha = 5\%$, however, this can vary depending on the context.
-- A test if of .purple[power] $\color{#6A5ACD}{\beta}$ when the probability to make a type II error is $1-\beta$. In other words, the power of a test is its probability to reject $H_0$ when $H_0$ is false.
+- A test is of .purple[power] $\color{#6A5ACD}{\beta}$ when the probability to make a type II error is $1-\beta.$ In other words, the power of a test is its probability to reject $H_0$ when $H_0$ is false.
 
 ---
 
