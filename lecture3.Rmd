@@ -1,0 +1,341 @@
+---
+title: "Introduction to Statistics"
+subtitle: "Part III: Introduction to Regression and Pitfalls for Statistical Analysis"
+author: "Stéphane Guerrier & Yuming Zhang"
+date: "22 January 2021"
+output:
+  xaringan::moon_reader:
+    css: ['default', 'metropolis', 'metropolis-fonts', 'my-css.css']
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+
+```{R, setup, include = F}
+# devtools::install_github("dill/emoGG")
+library(pacman)
+p_load(
+  broom, tidyverse,
+  latex2exp, ggplot2, ggthemes, ggforce, viridis, extrafont, gridExtra,
+  kableExtra, snakecase, janitor,
+  data.table, dplyr, estimatr,
+  lubridate, knitr, parallel,
+  lfe,
+  here, magrittr
+)
+# Define pink color
+red_pink <- "#e64173"
+turquoise <- "#20B2AA"
+orange <- "#FFA500"
+red <- "#fb6107"
+blue <- "#2b59c3"
+green <- "#8bb174"
+grey_light <- "grey70"
+grey_mid <- "grey50"
+grey_dark <- "grey20"
+purple <- "#6A5ACD"
+slate <- "#314f4f"
+# Dark slate grey: #314f4f
+# Knitr options
+opts_chunk$set(
+  comment = "#>",
+  fig.align = "center",
+  fig.height = 7,
+  fig.width = 10.5,
+  warning = F,
+  message = F
+)
+opts_chunk$set(dev = "svg")
+options(device = function(file, width, height) {
+  svg(tempfile(), width = width, height = height)
+})
+options(crayon.enabled = F)
+options(knitr.table.format = "html")
+# A blank theme for ggplot
+theme_empty <- theme_bw() + theme(
+  line = element_blank(),
+  rect = element_blank(),
+  strip.text = element_blank(),
+  axis.text = element_blank(),
+  plot.title = element_blank(),
+  axis.title = element_blank(),
+  plot.margin = structure(c(0, 0, -0.5, -1), unit = "lines", valid.unit = 3L, class = "unit"),
+  legend.position = "none"
+)
+theme_simple <- theme_bw() + theme(
+  line = element_blank(),
+  panel.grid = element_blank(),
+  rect = element_blank(),
+  strip.text = element_blank(),
+  axis.text.x = element_text(size = 18, family = "STIXGeneral"),
+  axis.text.y = element_blank(),
+  axis.ticks = element_blank(),
+  plot.title = element_blank(),
+  axis.title = element_blank(),
+  # plot.margin = structure(c(0, 0, -1, -1), unit = "lines", valid.unit = 3L, class = "unit"),
+  legend.position = "none"
+)
+theme_axes_math <- theme_void() + theme(
+  text = element_text(family = "MathJax_Math"),
+  axis.title = element_text(size = 22),
+  axis.title.x = element_text(hjust = .95, margin = margin(0.15, 0, 0, 0, unit = "lines")),
+  axis.title.y = element_text(vjust = .95, margin = margin(0, 0.15, 0, 0, unit = "lines")),
+  axis.line = element_line(
+    color = "grey70",
+    size = 0.25,
+    arrow = arrow(angle = 30, length = unit(0.15, "inches")
+  )),
+  plot.margin = structure(c(1, 0, 1, 0), unit = "lines", valid.unit = 3L, class = "unit"),
+  legend.position = "none"
+)
+theme_axes_serif <- theme_void() + theme(
+  text = element_text(family = "MathJax_Main"),
+  axis.title = element_text(size = 22),
+  axis.title.x = element_text(hjust = .95, margin = margin(0.15, 0, 0, 0, unit = "lines")),
+  axis.title.y = element_text(vjust = .95, margin = margin(0, 0.15, 0, 0, unit = "lines")),
+  axis.line = element_line(
+    color = "grey70",
+    size = 0.25,
+    arrow = arrow(angle = 30, length = unit(0.15, "inches")
+  )),
+  plot.margin = structure(c(1, 0, 1, 0), unit = "lines", valid.unit = 3L, class = "unit"),
+  legend.position = "none"
+)
+theme_axes <- theme_void() + theme(
+  text = element_text(family = "Fira Sans Book"),
+  axis.title = element_text(size = 18),
+  axis.title.x = element_text(hjust = .95, margin = margin(0.15, 0, 0, 0, unit = "lines")),
+  axis.title.y = element_text(vjust = .95, margin = margin(0, 0.15, 0, 0, unit = "lines")),
+  axis.line = element_line(
+    color = grey_light,
+    size = 0.25,
+    arrow = arrow(angle = 30, length = unit(0.15, "inches")
+  )),
+  plot.margin = structure(c(1, 0, 1, 0), unit = "lines", valid.unit = 3L, class = "unit"),
+  legend.position = "none"
+)
+theme_set(theme_gray(base_size = 20))
+# Column names for regression results
+reg_columns <- c("Term", "Est.", "S.E.", "t stat.", "p-Value")
+# Function for formatting p values
+format_pvi <- function(pv) {
+  return(ifelse(
+    pv < 0.0001,
+    "<0.0001",
+    round(pv, 4) %>% format(scientific = F)
+  ))
+}
+format_pv <- function(pvs) lapply(X = pvs, FUN = format_pvi) %>% unlist()
+# Tidy regression results table
+tidy_table <- function(x, terms, highlight_row = 1, highlight_color = "black", highlight_bold = T, digits = c(NA, 3, 3, 2, 5), title = NULL) {
+  x %>%
+    tidy() %>%
+    select(1:5) %>%
+    mutate(
+      term = terms,
+      p.value = p.value %>% format_pv()
+    ) %>%
+    kable(
+      col.names = reg_columns,
+      escape = F,
+      digits = digits,
+      caption = title
+    ) %>%
+    kable_styling(font_size = 20) %>%
+    row_spec(1:nrow(tidy(x)), background = "white") %>%
+    row_spec(highlight_row, bold = highlight_bold, color = highlight_color)
+}
+```
+
+```{css, echo = F, eval = F}
+@media print {
+  .has-continuation {
+    display: block !important;
+  }
+}
+```
+
+```{r xaringan-tile-view, echo=FALSE}
+xaringanExtra::use_tile_view()
+xaringanExtra::use_panelset()
+xaringanExtra::use_clipboard()
+```
+
+# Example: Reading ability assessment
+
+.panelset[
+.panel[.panel-name[Problem]
+.smallest[An educator believes that .pink[new directed reading activities in the classroom can help elementary school students (6-12 years old) improve their reading ability.] She arranged for a certain amount of students to take part in these activities .hi-pink[(treatment group)], meanwhile she arranged another group of students to follow the same curriculum without these activities .hi-purple[(control group)]. At the end of every academic year, all students are given a Degree of Reading Power (DRP) test, which assesses their reading ability. She collected the scores of the DRP test of 20 students from each group. The data is as follows:]
+```{r}
+treatment_score = c(33, 38, 41, 43, 46, 48, 49, 49, 49, 52,
+                    39, 42, 50, 60, 69, 64, 65, 62, 67, 76)
+control_score = c(35, 43, 35, 47, 50, 46, 56, 63, 55, 63, 
+                  58, 78, 60, 79, 72, 65, 69, 68, 72, 75)
+```
+]
+.panel[.panel-name[Boxplot Code]
+```{r, eval = F}
+boxplot(treatment_score, control_score, 
+        names = c("Treatment", "Control"), 
+        ylab = "Score of the DRP test",
+        col = c("#F8766D", "#00BFC4"))
+points(1:2, c(mean(treatment_score), mean(control_score)), 
+       pch = 16, col = 1)
+```
+]
+.panel[.panel-name[Boxplot]
+```{r, echo = F}
+par(mai = c(1.5, 1.5, 0.5, 1))
+boxplot(treatment_score, control_score, 
+        names = c("Treatment", "Control"), 
+        ylab = "Score of the DRP test",
+        col = c("#F8766D", "#00BFC4"),
+        cex.axis = 2, cex.lab = 2)
+points(1:2, c(mean(treatment_score), mean(control_score)), 
+       pch = 16, col = 1, cex = 2)
+```
+]
+.panel[.panel-name[Test]
+1. .purple[Define hypotheses:] $H_0: \mu_t = \mu_c$ and $H_a: \mu_t > \mu_c$.
+2. .purple[Define] $\color{#6A5ACD}{\alpha}$: We consider $\alpha = 5\%$.
+3. .purple[Compute p-value]: p-value = $96.27\%$ (see R code tab for details).
+4. .purple[Conclusion:] We have p-value > $\alpha$ and we cannot reject the null hypothesis at the significance level of 5%. We don't have enough evidence to conclude that the new directed reading activities can help elementary school students improve their reading ability.
+]
+.panel[.panel-name[`R` Code ]
+```{r}
+t.test(treatment_score, control_score, alternative = "greater")
+```
+]
+]
+
+---
+
+# Is our analysis comprehensive?
+
+The educator points out that she has considered these new directed reading activities for only 3 years. So only students of 6-8 years old have participated in these activities. In other words, in the sample she collected, the students in the treatment group is only of age 6 to 8, whereas the students in the control group vary from 6 to 12 years old. .pink[Is age a potential explanation to the difference we observe among the students' reading ability?]
+
+To make sure that the analysis is reliable, she includes the age information of the students as follows:
+```{r}
+treatment_age = c(6, 6, 6, 6, 6, 6, 6, 6, 6, 6,
+                  7, 7, 7, 7, 7, 7, 7, 8, 8, 8)
+control_age = c(6, 6, 7, 7, 8, 8, 8, 8, 8, 9, 9, 
+                10, 10, 10, 10, 11, 11, 12, 12, 12)
+```
+
+---
+
+# Is age an explanatory variable?
+
+```{r, echo = F}
+# linear regression
+treatment_mod = lm(treatment_score ~ treatment_age)
+control_mod = lm(control_score ~ control_age)
+
+# plot
+par(mai = c(2, 2, 1, 1))
+plot(treatment_age, treatment_score, pch = 16, col = "#F8766D", cex = 2,
+     xlim = c(6,12), ylim = c(10, 100), 
+     xlab = "Age (in years)", ylab = "Score of the DRP test",
+     cex.axis = 2, cex.lab = 2)
+points(control_age, control_score, pch = 17, col = "#00BFC4", cex = 2)
+
+lines(6:12, treatment_mod$coefficients[1] + treatment_mod$coefficients[2]*(6:12),
+      lwd = 1.5, col = "#F8766D")
+lines(6:12, control_mod$coefficients[1] + control_mod$coefficients[2]*(6:12), 
+      lwd = 1.5, col = "#00BFC4")
+
+legend("bottomright",
+       legend = c("Treatment", "Control"),
+       col = c("#F8766D", "#00BFC4"),
+       bty = "n",
+       lty = c(1, 1),
+       lwd = c(1.5, 1.5),
+       pch = c(16, 17),
+       pt.cex = c(2, 2),
+       cex = 2)
+```
+
+---
+
+# Regression models
+
+- .smallest[.hi-pink[Regression models] study the effects of some explanatory variables (also called covariates or regressors)] $\small X_1, \ldots, X_p$ .smallest[on a response variable] $\small Y$ .smallest[of primary interest.]  
+- .smallest[The relationship between the response variable] $\small Y$ .smallest[and the covariates is not deterministic. Instead, it shows some random errors. In other words, the response] $\small Y$ .smallest[is random and .purple[its mean value is modelled as a function of the covariates.]] 
+- .smallest[In .hi-pink[linear regression models], the mean value of] $\small Y$ .smallest[is a linear combination of the covariates.] 
+$$Y = \beta_0 + \beta_1 X_1 + \ldots + \beta_p X_p + \epsilon, \quad \epsilon \sim \mathcal{N}(0, \sigma^2).$$
+- .smallest[.purple[The random errors is assumed to be independently and identically normally distributed with mean 0 and variance]] $\small \color{#6A5ACD}{\sigma^2}$ .smallest[.purple[.]]
+- .smallest[The parameters of interest are] $\small \beta_0, \beta_1, \ldots, \beta_p$<sup>.smallest[👋]</sup>.smallest[. They are estimated using the least squares approach.]
+
+.footnote[.smallest[👋 Here we consider a simple situation where the variance is known. In practice, however, the variance is typically unknown so it needs to be estimated as well.]]
+
+---
+
+# Example: Reading ability assessment
+
+In the reading ability example, we can formulate a linear regression model as follows:
+$$\color{#e64173}{Y} = \beta_0 + \beta_1 \color{#6A5ACD}{X_1} + \beta_2 \color{#6A5ACD}{X_2} + \epsilon, \quad \epsilon \sim \mathcal{N}(0, \sigma^2).$$
+- $\color{#e64173}{Y}$: the score of the DRP test.
+- $\color{#6A5ACD}{X_1}$: indicator of participation of the new directed reading activities (i.e. $X_1 = 1$ if participate and $X_1 = 0$ if not participate).
+- $\color{#6A5ACD}{X_2}$: age of the student. 
+
+---
+
+# Example: Reading ability assessment
+
+.panelset[
+.panel[.panel-name[R Code]
+```{r, eval = F}
+# combine all available data together
+reading_data = data.frame(score = c(treatment_score, control_score),
+                          treatment = c(rep(1,20), rep(0, 20)),
+                          age = c(treatment_age, control_age))
+
+# fit a linear regression model
+mod = lm(score ~ treatment + age, data = reading_data)
+summary(mod)
+```
+]
+.panel[.panel-name[Output]
+```{r, echo = F}
+# combine all available data together
+reading_data = data.frame(score = c(treatment_score, control_score),
+                          treatment = c(rep(1,20), rep(0, 20)),
+                          age = c(treatment_age, control_age))
+
+# fit a linear regression model
+mod = lm(score ~ treatment + age, data = reading_data)
+summary(mod)
+```
+]
+]
+
+---
+
+# Interpretation of coefficients
+
+We can first obtain the estimated coefficients. Specifically,
+- $\hat{\beta}_0 = -1.345$ represents the estimated baseline average score of the DRP test.
+- $\hat{\beta}_1 = 9.0179$ means that .pink[for a student of the same age], participating the new directed reading activities can increase his/her average score of the DRP test by 9.0179. 🤔
+- $\hat{\beta}_2 = 6.6808$ means that .pink[when a student receives the same treatment] (either participate or not in the activities), his/her average score increases by 6.6808 as he/she becomes 1 year older. 
+
+Regression coefficients represent the mean change in the response variable .purple[for one unit of change] in the predictor variable .purple[while holding other covariates in the model constant.]
+
+---
+
+# Interpretation of coefficient p-values
+
+- The coefficient p-value is associated to the test of $H_0: \beta_i = 0$ and $H_a: \beta_i \neq 0$. 
+- .pink[a covariate with small p-value (typically smaller than 5%) is considered to be a significant (meaningful) addition to the model], as changes in the values of such covariate can lead to changes in the response variable. 
+- On the other hand, a large p-value (typically larger than 5%) suggests that the corresponding covariate is not significantly associated with changes in the response. 
+- In this example, the coefficient p-value associated to the treatment covariate is 1.29% (smaller than 5%). Moreover, the estimated coefficient is 9.0179. These suggest that taking into account the effect of age, the treatment actually significantly improves the reading ability of elementary school students, at the significance level of 5%. 
+
+---
+
+# Interpretation of R-squared
+
+- The .hi-pink[coefficient of determination], denoted as $R^2$ and often referred to as R-squared, is the proportion of the variance in the response variable that is predictable from the covariates.  
+- $\color{#6A5ACD}{R^2}$ .purple[gives certain information about the goodness of fit of a model.] It measures how well the regression predictions approximate the real data points. An $R^2$ of 1 indicates that the regression predictions perfectly fit the data.
+- However, $R^2$ .purple[always] increases with increases in the number of covariates in the model, whether the additional covariates are significant or not. Therefore, $R^2$ alone cannot be used as a meaningful comparison of models with different covariates.
+- The .hi-pink[adjusted] $\color{#e64173}{R^2}$ is a modification of $R^2$ that is used to account for the phenomenon that $R^2$ automatically increases when extra covariates (possibly insignificant) are added into the model. 
