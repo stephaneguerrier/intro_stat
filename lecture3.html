@@ -96,7 +96,7 @@ t.test(treatment_score, control_score, alternative = "greater")
 
 # Is our analysis comprehensive?
 
-The educator points out that she has considered these new directed reading activities for only 3 years. So only students of 6-8 years old have participated in these activities. In other words, in the sample she collected, the students in the treatment group is only of age 6 to 8, whereas the students in the control group vary from 6 to 12 years old. .pink[Is age a potential explanation to the difference we observe among the students' reading ability?]
+The educator points out that she has considered these new directed reading activities for only 3 years. So only students of 6-8 years old have participated in these activities. In other words, in the sample she collected, the students in the treatment group are only of age 6 to 8, whereas the students in the control group vary from 6 to 12 years old. .pink[Is age a potential explanation to the difference we observe among the students' reading ability?]
 
 To make sure that the analysis is reliable, she includes the age information of the students as follows:
 
@@ -121,7 +121,7 @@ control_age = c(6, 6, 7, 7, 8, 8, 8, 8, 8, 9, 9,
 - .smallest[The relationship between the response variable] `\(\small Y\)` .smallest[and the covariates is not deterministic. Instead, it shows some random errors. In other words, the response] `\(\small Y\)` .smallest[is random and .purple[its mean value is modelled as a function of the covariates.]] 
 - .smallest[In .hi-pink[linear regression models], the mean value of] `\(\small Y\)` .smallest[is a linear combination of the covariates.] 
 `$$Y = \beta_0 + \beta_1 X_1 + \ldots + \beta_p X_p + \epsilon, \quad \epsilon \sim \mathcal{N}(0, \sigma^2).$$`
-- .smallest[.purple[The random errors is assumed to be independently and identically normally distributed with mean 0 and variance]] `\(\small \color{#6A5ACD}{\sigma^2}\)` .smallest[.purple[.]]
+- .smallest[.purple[The random errors are assumed to be independently and identically normally distributed with mean 0 and variance]] `\(\small \color{#6A5ACD}{\sigma^2}\)` .smallest[.purple[.]]
 - .smallest[The parameters of interest are] `\(\small \beta_0, \beta_1, \ldots, \beta_p\)`&lt;sup&gt;.smallest[👋]&lt;/sup&gt;.smallest[. They are estimated using the least squares approach.]
 
 .footnote[.smallest[👋 Here we consider a simple situation where the variance is known. In practice, however, the variance is typically unknown so it needs to be estimated as well.]]
@@ -132,7 +132,7 @@ control_age = c(6, 6, 7, 7, 8, 8, 8, 8, 8, 9, 9,
 
 In the reading ability example, we can formulate a linear regression model as follows:
 `$$\color{#e64173}{Y} = \beta_0 + \beta_1 \color{#6A5ACD}{X_1} + \beta_2 \color{#6A5ACD}{X_2} + \epsilon, \quad \epsilon \sim \mathcal{N}(0, \sigma^2).$$`
-- `\(\color{#e64173}{Y}\)`: the score of the DRP test.
+- `\(\color{#e64173}{Y}\)`: score of the DRP test.
 - `\(\color{#6A5ACD}{X_1}\)`: indicator of participation of the new directed reading activities (i.e. `\(X_1 = 1\)` if participate and `\(X_1 = 0\)` if not participate).
 - `\(\color{#6A5ACD}{X_2}\)`: age of the student. 
 
@@ -184,7 +184,7 @@ summary(mod)
 
 # Interpretation of coefficients
 
-We can first obtain the estimated coefficients. Specifically,
+We can obtain the estimated coefficients. Specifically,
 - `\(\hat{\beta}_0 = -1.345\)` represents the estimated baseline average score of the DRP test.
 - `\(\hat{\beta}_1 = 9.0179\)` means that .pink[for a student of the same age], participating the new directed reading activities can increase his/her average score of the DRP test by 9.0179. 🤔
 - `\(\hat{\beta}_2 = 6.6808\)` means that .pink[when a student receives the same treatment] (either participate or not in the activities), his/her average score increases by 6.6808 as he/she becomes 1 year older. 
@@ -195,10 +195,11 @@ Regression coefficients represent the mean change in the response variable .purp
 
 # Interpretation of coefficient p-values
 
-- The coefficient p-value is associated to the test of `\(H_0: \beta_i = 0\)` and `\(H_a: \beta_i \neq 0\)`. 
-- .pink[a covariate with small p-value (typically smaller than 5%) is considered to be a significant (meaningful) addition to the model], as changes in the values of such covariate can lead to changes in the response variable. 
+- We notice that for each coefficient `\(\beta_i\)`, there is a corresponding p-value.
+- This coefficient p-value is associated to the test of `\(H_0: \beta_i = 0\)` and `\(H_a: \beta_i \neq 0\)`. 
+- .pink[A covariate with a small p-value (typically smaller than 5%) is considered to be a significant (meaningful) addition to the model], as changes in the values of such covariate can lead to changes in the response variable. 
 - On the other hand, a large p-value (typically larger than 5%) suggests that the corresponding covariate is not significantly associated with changes in the response. 
-- In this example, the coefficient p-value associated to the treatment covariate is 1.29% (smaller than 5%). Moreover, the estimated coefficient is 9.0179. These suggest that taking into account the effect of age, the treatment actually significantly improves the reading ability of elementary school students, at the significance level of 5%. 
+- In this example, the coefficient p-value associated to the treatment covariate is 1.29% (smaller than 5%). Moreover, the estimated coefficient is 9.0179. .purple[These suggest that taking into account the effect of age, the treatment actually significantly improves the reading ability of elementary school students, at the significance level of 5%.] 
 
 ---
 
@@ -206,8 +207,182 @@ Regression coefficients represent the mean change in the response variable .purp
 
 - The .hi-pink[coefficient of determination], denoted as `\(R^2\)` and often referred to as R-squared, is the proportion of the variance in the response variable that is predictable from the covariates.  
 - `\(\color{#6A5ACD}{R^2}\)` .purple[gives certain information about the goodness of fit of a model.] It measures how well the regression predictions approximate the real data points. An `\(R^2\)` of 1 indicates that the regression predictions perfectly fit the data.
-- However, `\(R^2\)` .purple[always] increases with increases in the number of covariates in the model, whether the additional covariates are significant or not. Therefore, `\(R^2\)` alone cannot be used as a meaningful comparison of models with different covariates.
-- The .hi-pink[adjusted] `\(\color{#e64173}{R^2}\)` is a modification of `\(R^2\)` that is used to account for the phenomenon that `\(R^2\)` automatically increases when extra covariates (possibly insignificant) are added into the model.
+- However, adding new covariates to the current model .purple[always] increases `\(R^2\)`, whether the additional covariates are significant or not. Therefore, `\(R^2\)` alone cannot be used as a meaningful comparison of models with different covariates.
+- The .hi-pink[adjusted] `\(\color{#e64173}{R^2}\)` is a modification of `\(R^2\)` that is used to account for the phenomenon that `\(R^2\)` automatically increases when extra covariates (possibly insignificant) are added into the model. 
+
+---
+
+# Exercise: Is gender also significant?
+
+.panelset[
+.panel[.panel-name[Problem]
+.pink[The educator thinks that the reading ability may also vary between male and female students.] She further provided the gender information of students, which can be imported as follows:
+
+```r
+# gender information: 1 = female, 0 = male
+treatment_gender = c(1, 1, 0, 1, 0, 0, 0, 1, 0, 1,
+                     1, 0, 0, 1, 1, 1, 1, 0, 0, 1)
+control_gender = c(0, 1, 0, 1, 0, 1, 0, 1, 0, 1,
+                   1, 1, 0, 0, 0, 1, 1, 0, 1, 0)
+
+# combine all available data together
+reading_data = data.frame(score = c(treatment_score, control_score),
+                          treatment = c(rep(1,20), rep(0, 20)),
+                          age = c(treatment_age, control_age),
+                          gender = c(treatment_gender, control_gender))
+```
+]
+.panel[.panel-name[R Code]
+
+```r
+# fit a linear regression model with added "gender" covariate
+mod = lm(score ~ treatment + age + gender, data = reading_data)
+summary(mod)
+```
+]
+.panel[.panel-name[Output]
+
+```
+#&gt; 
+#&gt; Call:
+#&gt; lm(formula = score ~ treatment + age + gender, data = reading_data)
+#&gt; 
+#&gt; Residuals:
+#&gt;      Min       1Q   Median       3Q      Max 
+#&gt; -16.5888  -5.4885   0.2049   4.6035  14.8095 
+#&gt; 
+#&gt; Coefficients:
+#&gt;             Estimate Std. Error t value Pr(&gt;|t|)    
+#&gt; (Intercept)  -2.6649     8.6916  -0.307   0.7609    
+#&gt; treatment     8.9019     3.4542   2.577   0.0142 *  
+#&gt; age           6.6855     0.9214   7.256 1.52e-08 ***
+#&gt; gender        2.5530     2.6183   0.975   0.3360    
+#&gt; ---
+#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#&gt; 
+#&gt; Residual standard error: 8.259 on 36 degrees of freedom
+#&gt; Multiple R-squared:  0.6306,	Adjusted R-squared:  0.5998 
+#&gt; F-statistic: 20.48 on 3 and 36 DF,  p-value: 6.474e-08
+```
+]
+]
+
+---
+
+# How to make predictions?
+
+.panelset[
+.panel[.panel-name[Problem]
+Given the promising improvement on students' reading ability with these new directed reading activities, the educator plans to continue involving her students to participate in these activities. She is interested in predicting .pink[how a student, who follows curriculum with these activities, will perform in the DRP test at the end of his/her elementary school studies (i.e. at 12 years old)?]
+]
+.panel[.panel-name[Computation]
+To predict the value of the response variable for a future observation with the value `\(x_i^*\)` of the explanatory variables, we use
+`$$\hat{y}^* = \hat{\beta}_0 + \hat{\beta}_1 x_1^* + \ldots + \hat{\beta}_p x_p^*.$$`
+In this case, recall that with the model `\(Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \epsilon\)`, where `\(X_1\)` and `\(X_2\)` denote the "treatment" and "age" covariates respectively, we have `\(\hat{\beta}_0 = -1.345\)`, `\(\hat{\beta}_1 = 9.0179\)` and `\(\hat{\beta}_2 = 6.6808\)`. So the predicted score of the DRP test for a 12 year-old student with participation in these activities can be computed as
+`$$-1.345 + 9.0179 \cdot 1 + 6.6808 \cdot 12 \approx 87.84.$$`
+]
+.panel[.panel-name[R Code]
+
+```r
+mod = lm(score ~ treatment + age, data = reading_data)
+new_data = data.frame(treatment = 1, age = 12)
+predict(mod, new_data)
+```
+
+```
+#&gt;        1 
+#&gt; 87.84213
+```
+]
+]
+
+---
+
+# Limitations of linear regression models
+
+- .smaller[.pink[Linear regression assumes a linear relationship] between the response and the covariates. However this is sometimes incorrect. For example, the relationship between reading ability and age is curved, i.e. the reading ability tends to rise until adulthood, flatten out in later adulthood, and decline for the elders.]
+- .smaller[.pink[Linear regression is applicable when the response variable is continuous and approximately normally distributed.] So it is not suitable when, for example, we need to analyze binary data or count data. In this case, a more general class of model called the .purple[generalized linear model] can be used.]
+- .smaller[.pink[Linear regression only considers independent data.] So it is not suitable, for example, for time dependent data or clustered data. For these cases, we may use .purple[time series analysis] or .purple[mixed effect model] respectively.]
+
+---
+
+# Limitations of linear regression models
+
+add the comic here
+
+---
+
+# Pitfalls for statistical analysis
+
+.smallest[.hi-pink[P-Hacking] refers to the misuse of data analysis to find patterns in data that can be presented as statistically significant. .turquoise[This is done by performing many statistical tests on the data and only reporting those that come back with significant results]&lt;sup&gt;.smallest[👋]&lt;/sup&gt;. .hi-purple[Example]: a correlation between the number of letters in [Scripps National Spelling Bee's](https://en.wikipedia.org/wiki/Scripps_National_Spelling_Bee) winning word and the number of people in the United States killed by venomous spiders.]
+
+&lt;img src="pics/phacking.png" width="82%" style="display: block; margin: auto;" /&gt;
+
+.smallest[Source: [Wikipedia on Data dredging ](https://en.wikipedia.org/wiki/Data_dredging)]. 👋 .smallest[If you want to know more, have a look [here](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1124898/).]
+
+---
+
+# P-Hacking 
+
+&lt;div align="center"&gt;
+&lt;iframe width="784" height="441" src="https://www.youtube.com/embed/0Rnq1NpHdmw?start=209&amp;end=242" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+
+.tiny[Source: Scientific Studies: Last Week Tonight with John Oliver (HBO)]
+
+👋 .smallest[If you want to know more, have a look [here](https://fivethirtyeight.com/features/you-cant-trust-what-you-read-about-nutrition/).]
+
+---
+
+# How to P-Hack? 🤔
+
+.smaller[Are republicans are good or bad for the American Ecy? .hi-purple[Both!!] (see [link](https://projects.fivethirtyeight.com/p-hacking/))]
+
+&lt;img src="pics/republican.png" width="72%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# This bring us to "HARKing"
+
+.pull-left[.smallsest[.hi-pink[HARKing] is an acronym coined by Norbert Kerr for the .purple[questionable research practice of "Hypothesizing After the Results are Known"]. It can be defined as presenting .hi-turquoise[a post hoc] hypothesis in the introduction of a research report as if it were an .hi-turquoise[a priori] hypothesis.
+
+.hi-pink[How to do it?] 🤔
+
+- Test if one jelly bean color is linked to acne
+- Pretend this was our original hypothesis
+- Et voilà!
+
+👋  If you want to know more, have a look [here](https://en.wikipedia.org/wiki/HARKing) and the references therein.]]
+
+
+.pull-right[
+&lt;br&gt;
+&lt;img src="pics/green.png" width="90%" style="display: block; margin: auto;" /&gt;
+.tiny[Source: [xkcd](https://xkcd.com/882/)]
+]
+
+---
+
+# The costs of HACKing (and P-Hacking)
+
+HARKing is (arguably) playing an important role in the .hi-purple[replication crisis in science]!  
+
+&lt;br&gt;
+&lt;img src="pics/replic.jpg" width="80%" style="display: block; margin: auto;" /&gt;
+
+.tiny[Source: [Open Science Collaboration. "Estimating the reproducibility of psychological science." Science 349.6251 (2015)](https://science.sciencemag.org/content/sci/349/6251/aac4716.full.pdf?casa_token=2i_9tsA7a-QAAAAA:B-N4J8bk1hBRboZAmPKuythdhFcdhKKNOtBATZX1PD69qhV-cl1zZG3zcd25LkhnKMpRrmO9TJAxo3f8).]
+
+👋  .smallest[If you want to know more, have a look [here](https://en.wikipedia.org/wiki/Replication_crisis) and the references therein.]
+
+---
+
+# ⚠️ Take home message
+
+- Any data analysis made on a sample of data is subject to .purple[randomness].
+- Understanding the random processes underlying any data analysis, includinunderlyingg statistics such as confidence intervals and p-values, requires basic knowledge in probability and statistics, or .pink[statistical literacy].
+- With data, there is never 100% certainty, but rather a .pink[conclusion associated to a (estimated) risk] that the conclusion might be wrong. 
+- .pink[One has to live with this fact, and any scientific activity that might conclude with 100% certainty on the basis of data, is simply a fallacy].
+- However, properly controlling for the statistical risk and properly rstating the conclusions that can be drawn from a data analysis, can really bring new knowledge, especially in all the sciences that are based on observations.
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
