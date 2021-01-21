@@ -41,7 +41,7 @@ class: center, middle, inverse, title-slide
 
 .panelset[
 .panel[.panel-name[Problem]
-.smallest[An educator believes that new directed reading activities in the classroom can help elementary school students (6-12 years old) improve their reading ability. She arranged for some students to take part in these activities .hi-pink[(treatment group)], meanwhile she arranged another group of students to follow the same curriculum without these activities .hi-purple[(control group)]. At the end of every academic year, all students are given a Degree of Reading Power (DRP) test, which assesses their reading ability. She collected the scores of the DRP test of 20 students from each group as follows:]
+.smallest[An educator believes that new directed reading activities in the classroom can help elementary school students (6-12 years old) improve their reading ability. She arranged a pilot study where some students (chosen at random) of age 6 start to take part in these activities .hi-pink[(treatment group)], meanwhile other students continue with the classical curriculum .hi-purple[(control group)]. After three years, the educator wishes to evaluate the effectiveness of these activities so all students are given a Degree of Reading Power (DRP) test, which assesses their reading ability with scores given below: ]
 
 ```r
 treatment_score = c(43, 48, 41, 53, 56, 58, 49, 54, 55, 52,
@@ -69,7 +69,9 @@ points(1:2, c(mean(treatment_score), mean(control_score)),
 1. .purple[Define hypotheses:] `\(H_0: \mu_t = \mu_c\)` and `\(H_a: \mu_t &gt; \mu_c\)`.
 2. .purple[Define] `\(\color{#6A5ACD}{\alpha}\)`: We consider `\(\alpha = 5\%\)`.
 3. .purple[Compute p-value]: p-value = `\(95.78\%\)` (see R code tab for details).
-4. .purple[Conclusion:] We have p-value &gt; `\(\alpha\)` so we cannot reject the null hypothesis at the significance level of 5%. Moreover, notice that the p-value for the test with opposite hypotheses is actually `\(1-95.78\%=4.22\% &lt; \alpha\)`. So we conclude, at the significance level of 5%, that the classical curriculum without these new directed reading activities actually improve students' reading ability more compared to the curriculum with these activities. 🤔
+4. .purple[Conclusion:] We have p-value &gt; `\(\alpha\)` so we cannot reject the null hypothesis at the significance level of 5%. 
+
+.hi-pink[Remark:] Notice that the p-value for the test with opposite hypotheses is actually `\(1-95.78\%=4.22\% &lt; \alpha\)`. So we conclude, at the significance level of 5%, that the classical curriculum without these new directed reading activities actually improve students' reading ability more compared to the curriculum with these activities. 🤔
 ]
 .panel[.panel-name[`R` Code ]
 
@@ -97,7 +99,7 @@ t.test(treatment_score, control_score, alternative = "greater")
 
 # Is our analysis comprehensive?
 
-The educator points out that she has considered these new directed reading activities for only 3 years. So only students of 6-8 years old have participated in these activities. In other words, in the sample she collected, the students in the treatment group are only of age 6 to 8, whereas the students in the control group vary from 6 to 12 years old. .pink[Is age a potential explanation to the difference we observe among the students' reading ability?]
+The educator points out that she has considered these new directed reading activities for only three years. So only students of 6-8 years old have participated in these activities. In other words, in the sample she collected, the students in the treatment group are only of age 6 to 8, whereas the students in the control group vary from 6 to 12 years old. .pink[Is age a potential explanation to the difference we observe among the students' reading ability?]
 
 To make sure that the analysis is reliable, she includes the age information of the students as follows:
 
@@ -110,7 +112,7 @@ control_age = c(6, 6, 7, 7, 8, 8, 8, 8, 8, 9, 9,
 
 ---
 
-# Is age an explanatory variable?
+# Should age be taken into account?
 
 &lt;img src="lecture3_files/figure-html/unnamed-chunk-7-1.svg" style="display: block; margin: auto;" /&gt;
 
@@ -120,7 +122,7 @@ control_age = c(6, 6, 7, 7, 8, 8, 8, 8, 8, 9, 9,
 
 - .smallest[.hi-pink[Regression models] study the effects of some explanatory variables (also called covariates or regressors)] `\(\small X_1, \ldots, X_p\)` .smallest[on a response variable] `\(\small Y\)` .smallest[of primary interest.]  
 - .smallest[The relationship between the response variable] `\(\small Y\)` .smallest[and the covariates is not deterministic. Instead, it shows some random errors. In other words, the response] `\(\small Y\)` .smallest[is random and .purple[its mean value is modelled as a function of the covariates.]] 
-- .smallest[In .hi-pink[linear regression models], the mean value of] `\(\small Y\)` .smallest[is a linear combination of the covariates.] 
+- .smallest[In .hi-pink[linear regression models], the mean value of] `\(\small Y\)` .smallest[is a linear combination of the covariates:] 
 `$$Y = \beta_0 + \beta_1 X_1 + \ldots + \beta_p X_p + \epsilon, \quad \epsilon \sim \mathcal{N}(0, \sigma^2).$$`
 - .smallest[.purple[The random errors are assumed to be independently and identically normally distributed with mean 0 and variance]] `\(\small \color{#6A5ACD}{\sigma^2}\)` .smallest[.purple[.]]
 - .smallest[The parameters of interest are] `\(\small \beta_0, \beta_1, \ldots, \beta_p\)`&lt;sup&gt;.smallest[👋]&lt;/sup&gt;.smallest[. They are estimated using the least squares approach.]
@@ -132,10 +134,12 @@ control_age = c(6, 6, 7, 7, 8, 8, 8, 8, 8, 9, 9,
 # Example: Reading ability assessment
 
 In the reading ability example, we can formulate a linear regression model as follows:
-`$$\color{#e64173}{Y} = \beta_0 + \beta_1 \color{#6A5ACD}{X_1} + \beta_2 \color{#6A5ACD}{X_2} + \epsilon, \quad \epsilon \sim \mathcal{N}(0, \sigma^2).$$`
-- `\(\color{#e64173}{Y}\)`: score of the DRP test.
-- `\(\color{#6A5ACD}{X_1}\)`: indicator of participation of the new directed reading activities (i.e. `\(X_1 = 1\)` if participate and `\(X_1 = 0\)` if not participate).
-- `\(\color{#6A5ACD}{X_2}\)`: age of the student. 
+`$$\color{#e64173}{\text{Score}_i} = \beta_0 + \beta_1 \color{#6A5ACD}{\text{Group}_i} + \beta_2 \color{#20B2AA}{\text{Age}_i} + \epsilon_i, \quad \epsilon_i \sim \mathcal{N}(0, \sigma^2).$$`
+- `\(\color{#e64173}{\text{Score}_i}\)`: score of the DRP test of the `\(i\)`-th student.
+- `\(\color{#6A5ACD}{\text{Group}_i}\)`: indicator of participation of the new directed reading activities for the `\(i\)`-th student (i.e. `\(\color{#6A5ACD}{\text{Group}_i} = 1\)` if participate and `\(\color{#6A5ACD}{\text{Group}_i} = 0\)` if not participate).
+- `\(\color{#20B2AA}{\text{Age}_i}\)`: age of the `\(i\)`-th student. 
+
+With this model the two groups can be compared as the age effect is taken into account. The goal of the educator is now to assess if `\(\beta_1\)` is .pink[significantly larger than 0] (why??? 🤔).
 
 ---
 
@@ -147,11 +151,11 @@ In the reading ability example, we can formulate a linear regression model as fo
 ```r
 # combine all available data together
 reading_data = data.frame(score = c(treatment_score, control_score),
-                          treatment = c(rep(1,20), rep(0, 20)),
+                          group = c(rep(1,20), rep(0, 20)),
                           age = c(treatment_age, control_age))
 
 # fit a linear regression model
-mod = lm(score ~ treatment + age, data = reading_data)
+mod = lm(score ~ group + age, data = reading_data)
 summary(mod)
 ```
 ]
@@ -160,7 +164,7 @@ summary(mod)
 ```
 #&gt; 
 #&gt; Call:
-#&gt; lm(formula = score ~ treatment + age, data = reading_data)
+#&gt; lm(formula = score ~ group + age, data = reading_data)
 #&gt; 
 #&gt; Residuals:
 #&gt;     Min      1Q  Median      3Q     Max 
@@ -169,7 +173,7 @@ summary(mod)
 #&gt; Coefficients:
 #&gt;             Estimate Std. Error t value Pr(&gt;|t|)    
 #&gt; (Intercept)   1.6263     6.0548   0.269 0.789728    
-#&gt; treatment     9.7352     2.4345   3.999 0.000293 ***
+#&gt; group         9.7352     2.4345   3.999 0.000293 ***
 #&gt; age           6.5246     0.6498  10.041  4.1e-12 ***
 #&gt; ---
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
@@ -209,8 +213,8 @@ legend("bottomright",
 
 We can obtain the estimated coefficients. Specifically,
 - `\(\hat{\beta}_0 = 1.6263\)` represents the estimated baseline average score of the DRP test.
-- `\(\hat{\beta}_1 = 9.7352\)` means that .pink[for a student of the same age], participating the new directed reading activities can increase his/her average score of the DRP test by 9.7352 🤔
-- `\(\hat{\beta}_2 = 6.5246\)` means that .pink[when a student receives the same treatment] (either participate or not in the activities), his/her average score increases by 6.5246 as he/she becomes 1 year older. 
+- `\(\hat{\beta}_1 = 9.7352\)` means that .pink[for a student of the same age], participating the new directed reading activities is estimated to increase their average score of the DRP test by 9.7352.
+- `\(\hat{\beta}_2 = 6.5246\)` means that .pink[when a student receives the same treatment] (either participate or not in the activities), their average score increases by 6.5246 as they become 1 year older. 
 
 Regression coefficients represent the mean change in the response variable .purple[for one unit of change] in the predictor variable .purple[while holding other covariates in the model constant.]
 
@@ -222,7 +226,20 @@ Regression coefficients represent the mean change in the response variable .purp
 - This coefficient p-value is associated to the test of `\(H_0: \beta_i = 0\)` and `\(H_a: \beta_i \neq 0\)`. 
 - .pink[A covariate with a small p-value (typically smaller than 5%) is considered to be a significant (meaningful) addition to the model], as changes in the values of such covariate can lead to changes in the response variable. 
 - On the other hand, a large p-value (typically larger than 5%) suggests that the corresponding covariate is not significantly associated with changes in the response. 
-- In this example, the coefficient p-value associated to the treatment covariate is 0.0293% (smaller than 5%). Moreover, the estimated coefficient is 9.7352. .purple[These suggest that taking into account the effect of age, the treatment actually significantly improves the reading ability of elementary school students, at the significance level of 5%.] 
+- In this example, the coefficient p-value associated to the "group" covariate is 0.0293% (smaller than 5%). .purple[This suggests that taking into account the effect of age, the reading abilities of the students receiving the treatment is significantly .hi.purple[different] from the control group, at the significance level of 5%.] But this is not what we want! 😤 
+
+---
+
+# Interpretation of coefficient p-values
+
+.smaller[In the linear regression output, the coefficient p-value (which we denote as] `\(\small p\)`.smaller[) corresponds to a two-sided test. We can use this result to compute the p-value of a one-sided test using the following relations:]
+
+|               | `\(\small H_a: \beta_i&gt;0\)`   | `\(\small H_a: \beta_i&lt;0\)`  |
+| ------------- |:-------------:| :-----:|
+| `\(\small \hat{\beta_i}&gt;0\)`     | `\(\small p/2\)` | `\(\small 1-p/2\)` |
+| `\(\small \hat{\beta_i}&lt;0\)`      | `\(\small 1-p/2\)`      |   `\(\small p/2\)` |
+
+.smaller[In our example,] `\(\small \beta_1 = 9.7352\)` .smaller[and] `\(\small p=0.0293\%\)`.smaller[. So the p-value of the test with hypotheses] `\(\small H_0: \beta_1=0\)` .smaller[and] `\(\small H_a: \beta_1&gt;0\)` .smaller[is] `\(\small 0.0293\% /2 \approx 0.015\% &lt; \alpha\)`.smaller[. .pink[So we can conclude that these new directed reading activities can significantly improve students' reading ability compared to classical curriculum.] 😍]
 
 ---
 
@@ -231,7 +248,7 @@ Regression coefficients represent the mean change in the response variable .purp
 - The .hi-pink[coefficient of determination], denoted as `\(R^2\)` and often referred to as R-squared, is the proportion of the variance in the response variable that is predictable from the covariates.  
 - `\(\color{#6A5ACD}{R^2}\)` .purple[gives certain information about the goodness of fit of a model.] It measures how well the regression predictions approximate the real data points. An `\(R^2\)` of 1 indicates that the regression predictions perfectly fit the data.
 - However, adding new covariates to the current model .purple[always] increases `\(R^2\)`, whether the additional covariates are significant or not. Therefore, `\(R^2\)` alone cannot be used as a meaningful comparison of models with different covariates.
-- The .hi-pink[adjusted] `\(\color{#e64173}{R^2}\)` is a modification of `\(R^2\)` that is used to account for the phenomenon that `\(R^2\)` automatically increases when extra covariates (possibly insignificant) are added into the model. 
+- The .hi-pink[adjusted] `\(\color{#e64173}{R^2}\)` is a modification of `\(R^2\)` that aims to limit this issue. 
 
 ---
 
@@ -250,7 +267,7 @@ control_gender = c(0, 1, 0, 1, 0, 1, 0, 1, 0, 1,
 
 # combine all available data together
 reading_data = data.frame(score = c(treatment_score, control_score),
-                          treatment = c(rep(1,20), rep(0, 20)),
+                          group = c(rep(1,20), rep(0, 20)),
                           age = c(treatment_age, control_age),
                           gender = c(treatment_gender, control_gender))
 ```
@@ -259,7 +276,7 @@ reading_data = data.frame(score = c(treatment_score, control_score),
 
 ```r
 # fit a linear regression model with added "gender" covariate
-mod = lm(score ~ treatment + age + gender, data = reading_data)
+mod = lm(score ~ group + age + gender, data = reading_data)
 summary(mod)
 ```
 ]
@@ -268,7 +285,7 @@ summary(mod)
 ```
 #&gt; 
 #&gt; Call:
-#&gt; lm(formula = score ~ treatment + age + gender, data = reading_data)
+#&gt; lm(formula = score ~ group + age + gender, data = reading_data)
 #&gt; 
 #&gt; Residuals:
 #&gt;     Min      1Q  Median      3Q     Max 
@@ -277,7 +294,7 @@ summary(mod)
 #&gt; Coefficients:
 #&gt;             Estimate Std. Error t value Pr(&gt;|t|)    
 #&gt; (Intercept)  0.02966    5.97459   0.005 0.996067    
-#&gt; treatment    9.59493    2.37438   4.041 0.000267 ***
+#&gt; group        9.59493    2.37438   4.041 0.000267 ***
 #&gt; age          6.53035    0.63336  10.311 2.73e-12 ***
 #&gt; gender       3.08840    1.79985   1.716 0.094772 .  
 #&gt; ---
@@ -294,27 +311,58 @@ summary(mod)
 
 # How to make predictions?
 
+.smallest[Given the promising improvement on students' reading ability with these new directed reading activities, the educator plans to continue involving her students to participate in these activities. She is interested in predicting .pink[how a student, who follows curriculum with these activities, will perform in the DRP test at the end of their elementary school studies (i.e. at 12 years old)?]]
+
+.smallest[In general, to predict the value of the response variable for a future observation with the value] `\(\small x_i^*\)` .smallest[of the explanatory variables, we use]
+`$$\small \hat{y}^* = \hat{\beta}_0 + \hat{\beta}_1 x_1^* + \ldots + \hat{\beta}_p x_p^*.$$`
+
+.smallest[In this case, recall that with the model] `\(\small \color{#e64173}{\text{Score}} = \beta_0 + \beta_1 \color{#6A5ACD}{\text{Group}} + \beta_2 \color{#20B2AA}{\text{Age}} + \epsilon\)`, .smallest[we have] `\(\small \hat{\beta}_0 = 1.6263\)`, `\(\small \hat{\beta}_1 = 9.7352\)` .smallest[and] `\(\small \hat{\beta}_2 = 6.5246\)`.smallest[. So the predicted score of the DRP test for a 12 year-old student with participation in these activities can be computed as]
+`$$\small 1.6263 + 9.7352 \cdot \color{#6A5ACD}{1} + 6.5246 \cdot \color{#20B2AA}{12} \approx \color{#e64173}{89.66}.$$`
+
+---
+
+# Uncertainty of predictions
+
+- Similar to point estimation, prediction is also .hi-turquoise[random] as it relies on estimation `\(\hat{\beta}_i\)` that is computed on a random sample.
+- Moreover, there exists a variability of the future response around the mean due to the unavoidable random errors of the model. 
+- To measure the uncertainty of the prediction, we use the .hi-pink[prediction intervals].
+- Prediction intervals correspond to .purple[a range of values that are likely to include the true value of a future observation.] It includes a margin of error to indicate its accuracy. The level of accuracy is a probability expressed as a percentage (%).
+- A 95% prediction interval means that the probability of using this model to produce an interval that contains the true value of the future observation is 95%. 
+
+---
+
+# Prediction intervals
+
 .panelset[
 .panel[.panel-name[Problem]
-Given the promising improvement on students' reading ability with these new directed reading activities, the educator plans to continue involving her students to participate in these activities. She is interested in predicting .pink[how a student, who follows curriculum with these activities, will perform in the DRP test at the end of his/her elementary school studies (i.e. at 12 years old)?]
-]
-.panel[.panel-name[Computation]
-To predict the value of the response variable for a future observation with the value `\(x_i^*\)` of the explanatory variables, we use
-`$$\hat{y}^* = \hat{\beta}_0 + \hat{\beta}_1 x_1^* + \ldots + \hat{\beta}_p x_p^*.$$`
-In this case, recall that with the model `\(Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \epsilon\)`, where `\(X_1\)` and `\(X_2\)` denote the "treatment" and "age" covariates respectively, we have `\(\hat{\beta}_0 = 1.6263\)`, `\(\hat{\beta}_1 = 9.7352\)` and `\(\hat{\beta}_2 = 6.5246\)`. So the predicted score of the DRP test for a 12 year-old student with participation in these activities can be computed as
-`$$1.6263 + 9.7352 \cdot 1 + 6.5246 \cdot 12 \approx 89.66.$$`
+The educator is interested in comparing how a student will perform in the DRP test at the end of the elementary school studies (i.e. at 12 years old), with and without these new directed reading activities, with probability of 95%. 
+
+We predict, with the probability of 95%, that for 12 year-old students who particiate in these activities, their scores of the DRP test may fall in the range of .pink[(75.66, 103.65)]. On the other hand, for those who do not participate in these activities, their scores may fall in the range of .purple[(67.24, 92.60)]. (See R code tab for details.)
 ]
 .panel[.panel-name[R Code]
 
 ```r
-mod = lm(score ~ treatment + age, data = reading_data)
-new_data = data.frame(treatment = 1, age = 12)
-predict(mod, new_data)
+# with treatment
+mod = lm(score ~ group + age, data = reading_data)
+new_data = data.frame(group = 1, age = 12)
+predict(mod, new_data, interval = "predict")
 ```
 
 ```
-#&gt;       1 
-#&gt; 89.6565
+#&gt;       fit      lwr      upr
+#&gt; 1 89.6565 75.66159 103.6514
+```
+
+```r
+# without treatment
+mod = lm(score ~ group + age, data = reading_data)
+new_data = data.frame(group = 0, age = 12)
+predict(mod, new_data, interval = "predict")
+```
+
+```
+#&gt;        fit      lwr      upr
+#&gt; 1 79.92128 67.23976 92.60281
 ```
 ]
 ]
@@ -323,15 +371,18 @@ predict(mod, new_data)
 
 # Limitations of linear regression models
 
-- .smaller[.pink[Linear regression assumes a linear relationship] between the response and the covariates. However this is sometimes incorrect. For example, the relationship between reading ability and age is curved, i.e. the reading ability tends to rise until adulthood, flatten out in later adulthood, and decline for the elders.]
-- .smaller[.pink[Linear regression is applicable when the response variable is continuous and approximately normally distributed.] So it is not suitable when, for example, we need to analyze binary data or count data. In this case, a more general class of model called the .purple[generalized linear model] can be used.]
-- .smaller[.pink[Linear regression only considers independent data.] So it is not suitable, for example, for time dependent data or clustered data. For these cases, we may use .purple[time series analysis] or .purple[mixed effect model] respectively.]
+- .smaller[Linear regression .pink[assumes a linear relationship] between the response and the covariates. However this is sometimes incorrect.]
+- .smaller[Linear regression .pink[is applicable when the response variable is continuous and approximately normally distributed.] So it is not suitable when, for example, we need to analyze binary data or count data. In this case, a more general class of model called the .purple[generalized linear model] can be used.]
+- .smaller[Linear regression .pink[only considers independent data.] So it is not suitable, for example, for time dependent data or clustered data. For these cases, we may use .purple[time series analysis] or .purple[mixed effect model] respectively.]
+- .smaller[Linear regression .pink[should not be used to extrapolate], i.e. to estimate beyond the original observation range. For example, if we consider a 100 year-old person in this reading ability example, we would predict that the corresponding score of the DRP test would be 663.82 and 654.08, respectively, with and without these activities. Does it really make sense? 😯]
 
 ---
 
 # Limitations of linear regression models
 
-add the comic here
+&lt;img src="pics/extrapolating.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+👋 .smallest[If you want to know more have a look [here](https://www.explainxkcd.com/wiki/index.php/605:_Extrapolating).]
 
 ---
 
