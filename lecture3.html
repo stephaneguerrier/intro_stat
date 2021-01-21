@@ -23,7 +23,7 @@
 class: center, middle, inverse, title-slide
 
 # Introduction to Statistics
-## Part III: Introduction to Regression and Pitfalls for Statistical Analysis
+## Part III: Introduction to Regression and Pitfalls of Statistical Analysis
 ### Stéphane Guerrier &amp; Yuming Zhang
 ### 22 January 2021
 
@@ -41,14 +41,18 @@ class: center, middle, inverse, title-slide
 
 .panelset[
 .panel[.panel-name[Problem]
-.smallest[An educator believes that .pink[new directed reading activities in the classroom can help elementary school students (6-12 years old) improve their reading ability.] She arranged for a certain amount of students to take part in these activities .hi-pink[(treatment group)], meanwhile she arranged another group of students to follow the same curriculum without these activities .hi-purple[(control group)]. At the end of every academic year, all students are given a Degree of Reading Power (DRP) test, which assesses their reading ability. She collected the scores of the DRP test of 20 students from each group. The data is as follows:]
+.smallest[An educator believes that new directed reading activities in the classroom can help elementary school students (6-12 years old) improve their reading ability. She arranged for some students to take part in these activities .hi-pink[(treatment group)], meanwhile she arranged another group of students to follow the same curriculum without these activities .hi-purple[(control group)]. At the end of every academic year, all students are given a Degree of Reading Power (DRP) test, which assesses their reading ability. She collected the scores of the DRP test of 20 students from each group as follows:]
 
 ```r
-treatment_score = c(33, 38, 41, 43, 46, 48, 49, 49, 49, 52,
-                    39, 42, 50, 60, 69, 64, 65, 62, 67, 76)
-control_score = c(35, 43, 35, 47, 50, 46, 56, 63, 55, 63, 
-                  58, 78, 60, 79, 72, 65, 69, 68, 72, 75)
+treatment_score = c(43, 48, 41, 53, 56, 58, 49, 54, 55, 52,
+                    49, 42, 50, 60, 62, 64, 65, 58, 67, 69)
+control_score = c(35, 43, 45, 50, 50, 46, 56, 63, 55, 63, 
+                  58, 74, 60, 70, 72, 75, 69, 79, 82, 75)
 ```
+.smallest[.pink[Can we conclude that these new directed reading activities can help elementary school students improve their reading ability?]]
+]
+.panel[.panel-name[Boxplot]
+&lt;img src="lecture3_files/figure-html/unnamed-chunk-3-1.svg" style="display: block; margin: auto;" /&gt;
 ]
 .panel[.panel-name[Boxplot Code]
 
@@ -61,14 +65,11 @@ points(1:2, c(mean(treatment_score), mean(control_score)),
        pch = 16, col = 1)
 ```
 ]
-.panel[.panel-name[Boxplot]
-&lt;img src="lecture3_files/figure-html/unnamed-chunk-4-1.svg" style="display: block; margin: auto;" /&gt;
-]
 .panel[.panel-name[Test]
 1. .purple[Define hypotheses:] `\(H_0: \mu_t = \mu_c\)` and `\(H_a: \mu_t &gt; \mu_c\)`.
 2. .purple[Define] `\(\color{#6A5ACD}{\alpha}\)`: We consider `\(\alpha = 5\%\)`.
-3. .purple[Compute p-value]: p-value = `\(96.27\%\)` (see R code tab for details).
-4. .purple[Conclusion:] We have p-value &gt; `\(\alpha\)` and we cannot reject the null hypothesis at the significance level of 5%. We don't have enough evidence to conclude that the new directed reading activities can help elementary school students improve their reading ability.
+3. .purple[Compute p-value]: p-value = `\(95.78\%\)` (see R code tab for details).
+4. .purple[Conclusion:] We have p-value &gt; `\(\alpha\)` so we cannot reject the null hypothesis at the significance level of 5%. Moreover, notice that the p-value for the test with opposite hypotheses is actually `\(1-95.78\%=4.22\% &lt; \alpha\)`. So we conclude, at the significance level of 5%, that the classical curriculum without these new directed reading activities actually improve students' reading ability more compared to the curriculum with these activities. 🤔
 ]
 .panel[.panel-name[`R` Code ]
 
@@ -81,13 +82,13 @@ t.test(treatment_score, control_score, alternative = "greater")
 #&gt; 	Welch Two Sample t-test
 #&gt; 
 #&gt; data:  treatment_score and control_score
-#&gt; t = -1.8335, df = 37.434, p-value = 0.9627
+#&gt; t = -1.7817, df = 31.56, p-value = 0.9578
 #&gt; alternative hypothesis: true difference in means is greater than 0
 #&gt; 95 percent confidence interval:
-#&gt;  -14.11119       Inf
+#&gt;  -12.19428       Inf
 #&gt; sample estimates:
 #&gt; mean of x mean of y 
-#&gt;     52.10     59.45
+#&gt;     54.75     61.00
 ```
 ]
 ]
@@ -162,21 +163,43 @@ summary(mod)
 #&gt; lm(formula = score ~ treatment + age, data = reading_data)
 #&gt; 
 #&gt; Residuals:
-#&gt;      Min       1Q   Median       3Q      Max 
-#&gt; -15.4383  -5.6223   0.5617   4.5857  14.8810 
+#&gt;     Min      1Q  Median      3Q     Max 
+#&gt; -15.034  -4.528   1.841   3.741   9.177 
 #&gt; 
 #&gt; Coefficients:
 #&gt;             Estimate Std. Error t value Pr(&gt;|t|)    
-#&gt; (Intercept)  -1.3450     8.5798  -0.157   0.8763    
-#&gt; treatment     9.0179     3.4498   2.614   0.0129 *  
-#&gt; age           6.6808     0.9208   7.256  1.3e-08 ***
+#&gt; (Intercept)   1.6263     6.0548   0.269 0.789728    
+#&gt; treatment     9.7352     2.4345   3.999 0.000293 ***
+#&gt; age           6.5246     0.6498  10.041  4.1e-12 ***
 #&gt; ---
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #&gt; 
-#&gt; Residual standard error: 8.254 on 37 degrees of freedom
-#&gt; Multiple R-squared:  0.6208,	Adjusted R-squared:  0.6003 
-#&gt; F-statistic: 30.29 on 2 and 37 DF,  p-value: 1.618e-08
+#&gt; Residual standard error: 5.825 on 37 degrees of freedom
+#&gt; Multiple R-squared:  0.7522,	Adjusted R-squared:  0.7388 
+#&gt; F-statistic: 56.17 on 2 and 37 DF,  p-value: 6.159e-12
 ```
+]
+.panel[.panel-name[Graph Code]
+
+```r
+par(mai = c(2, 2, 1, 1))
+plot(treatment_age, treatment_score, pch = 16, col = "#F8766D",
+     xlim = c(6,12), ylim = c(10, 100), 
+     xlab = "Age (in years)", ylab = "Score of the DRP test")
+points(control_age, control_score, pch = 17, col = "#00BFC4")
+
+lines(6:12, coef(mod)[1]+coef(mod)[2]*1+coef(mod)[3]*(6:12), col = "#F8766D")
+lines(6:12, coef(mod)[1]+coef(mod)[2]*0+coef(mod)[3]*(6:12), col = "#00BFC4")
+
+legend("bottomright",
+       legend = c("Treatment", "Control"),
+       col = c("#F8766D", "#00BFC4"),
+       bty = "n",
+       pch = c(16, 17))
+```
+]
+.panel[.panel-name[Graph]
+&lt;img src="lecture3_files/figure-html/unnamed-chunk-11-1.svg" style="display: block; margin: auto;" /&gt;
 ]
 ]
 
@@ -185,9 +208,9 @@ summary(mod)
 # Interpretation of coefficients
 
 We can obtain the estimated coefficients. Specifically,
-- `\(\hat{\beta}_0 = -1.345\)` represents the estimated baseline average score of the DRP test.
-- `\(\hat{\beta}_1 = 9.0179\)` means that .pink[for a student of the same age], participating the new directed reading activities can increase his/her average score of the DRP test by 9.0179. 🤔
-- `\(\hat{\beta}_2 = 6.6808\)` means that .pink[when a student receives the same treatment] (either participate or not in the activities), his/her average score increases by 6.6808 as he/she becomes 1 year older. 
+- `\(\hat{\beta}_0 = 1.6263\)` represents the estimated baseline average score of the DRP test.
+- `\(\hat{\beta}_1 = 9.7352\)` means that .pink[for a student of the same age], participating the new directed reading activities can increase his/her average score of the DRP test by 9.7352 🤔
+- `\(\hat{\beta}_2 = 6.5246\)` means that .pink[when a student receives the same treatment] (either participate or not in the activities), his/her average score increases by 6.5246 as he/she becomes 1 year older. 
 
 Regression coefficients represent the mean change in the response variable .purple[for one unit of change] in the predictor variable .purple[while holding other covariates in the model constant.]
 
@@ -199,7 +222,7 @@ Regression coefficients represent the mean change in the response variable .purp
 - This coefficient p-value is associated to the test of `\(H_0: \beta_i = 0\)` and `\(H_a: \beta_i \neq 0\)`. 
 - .pink[A covariate with a small p-value (typically smaller than 5%) is considered to be a significant (meaningful) addition to the model], as changes in the values of such covariate can lead to changes in the response variable. 
 - On the other hand, a large p-value (typically larger than 5%) suggests that the corresponding covariate is not significantly associated with changes in the response. 
-- In this example, the coefficient p-value associated to the treatment covariate is 1.29% (smaller than 5%). Moreover, the estimated coefficient is 9.0179. .purple[These suggest that taking into account the effect of age, the treatment actually significantly improves the reading ability of elementary school students, at the significance level of 5%.] 
+- In this example, the coefficient p-value associated to the treatment covariate is 0.0293% (smaller than 5%). Moreover, the estimated coefficient is 9.7352. .purple[These suggest that taking into account the effect of age, the treatment actually significantly improves the reading ability of elementary school students, at the significance level of 5%.] 
 
 ---
 
@@ -248,21 +271,21 @@ summary(mod)
 #&gt; lm(formula = score ~ treatment + age + gender, data = reading_data)
 #&gt; 
 #&gt; Residuals:
-#&gt;      Min       1Q   Median       3Q      Max 
-#&gt; -16.5888  -5.4885   0.2049   4.6035  14.8095 
+#&gt;     Min      1Q  Median      3Q     Max 
+#&gt; -13.337  -3.892   0.653   4.200   9.193 
 #&gt; 
 #&gt; Coefficients:
 #&gt;             Estimate Std. Error t value Pr(&gt;|t|)    
-#&gt; (Intercept)  -2.6649     8.6916  -0.307   0.7609    
-#&gt; treatment     8.9019     3.4542   2.577   0.0142 *  
-#&gt; age           6.6855     0.9214   7.256 1.52e-08 ***
-#&gt; gender        2.5530     2.6183   0.975   0.3360    
+#&gt; (Intercept)  0.02966    5.97459   0.005 0.996067    
+#&gt; treatment    9.59493    2.37438   4.041 0.000267 ***
+#&gt; age          6.53035    0.63336  10.311 2.73e-12 ***
+#&gt; gender       3.08840    1.79985   1.716 0.094772 .  
 #&gt; ---
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #&gt; 
-#&gt; Residual standard error: 8.259 on 36 degrees of freedom
-#&gt; Multiple R-squared:  0.6306,	Adjusted R-squared:  0.5998 
-#&gt; F-statistic: 20.48 on 3 and 36 DF,  p-value: 6.474e-08
+#&gt; Residual standard error: 5.677 on 36 degrees of freedom
+#&gt; Multiple R-squared:  0.771,	Adjusted R-squared:  0.7519 
+#&gt; F-statistic:  40.4 on 3 and 36 DF,  p-value: 1.3e-11
 ```
 ]
 ]
@@ -278,8 +301,8 @@ Given the promising improvement on students' reading ability with these new dire
 .panel[.panel-name[Computation]
 To predict the value of the response variable for a future observation with the value `\(x_i^*\)` of the explanatory variables, we use
 `$$\hat{y}^* = \hat{\beta}_0 + \hat{\beta}_1 x_1^* + \ldots + \hat{\beta}_p x_p^*.$$`
-In this case, recall that with the model `\(Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \epsilon\)`, where `\(X_1\)` and `\(X_2\)` denote the "treatment" and "age" covariates respectively, we have `\(\hat{\beta}_0 = -1.345\)`, `\(\hat{\beta}_1 = 9.0179\)` and `\(\hat{\beta}_2 = 6.6808\)`. So the predicted score of the DRP test for a 12 year-old student with participation in these activities can be computed as
-`$$-1.345 + 9.0179 \cdot 1 + 6.6808 \cdot 12 \approx 87.84.$$`
+In this case, recall that with the model `\(Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \epsilon\)`, where `\(X_1\)` and `\(X_2\)` denote the "treatment" and "age" covariates respectively, we have `\(\hat{\beta}_0 = 1.6263\)`, `\(\hat{\beta}_1 = 9.7352\)` and `\(\hat{\beta}_2 = 6.5246\)`. So the predicted score of the DRP test for a 12 year-old student with participation in these activities can be computed as
+`$$1.6263 + 9.7352 \cdot 1 + 6.5246 \cdot 12 \approx 89.66.$$`
 ]
 .panel[.panel-name[R Code]
 
@@ -290,8 +313,8 @@ predict(mod, new_data)
 ```
 
 ```
-#&gt;        1 
-#&gt; 87.84213
+#&gt;       1 
+#&gt; 89.6565
 ```
 ]
 ]
@@ -312,7 +335,7 @@ add the comic here
 
 ---
 
-# Pitfalls for statistical analysis
+# Pitfalls of statistical analysis
 
 .smallest[.hi-pink[P-Hacking] refers to the misuse of data analysis to find patterns in data that can be presented as statistically significant. .turquoise[This is done by performing many statistical tests on the data and only reporting those that come back with significant results]&lt;sup&gt;.smallest[👋]&lt;/sup&gt;. .hi-purple[Example]: a correlation between the number of letters in [Scripps National Spelling Bee's](https://en.wikipedia.org/wiki/Scripps_National_Spelling_Bee) winning word and the number of people in the United States killed by venomous spiders.]
 
@@ -325,7 +348,7 @@ add the comic here
 # P-Hacking 
 
 &lt;div align="center"&gt;
-&lt;iframe width="784" height="441" src="https://www.youtube.com/embed/0Rnq1NpHdmw?start=209&amp;end=242" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
+&lt;iframe width="784" height="441" src="http://nsfwyoutube.com/watchmore?v=0Rnq1NpHdmw" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
 &lt;/div&gt;
 
 .tiny[Source: Scientific Studies: Last Week Tonight with John Oliver (HBO)]
@@ -347,7 +370,6 @@ add the comic here
 .pull-left[.smallsest[.hi-pink[HARKing] is an acronym coined by Norbert Kerr for the .purple[questionable research practice of "Hypothesizing After the Results are Known"]. It can be defined as presenting .hi-turquoise[a post hoc] hypothesis in the introduction of a research report as if it were an .hi-turquoise[a priori] hypothesis.
 
 .hi-pink[How to do it?] 🤔
-
 - Test if one jelly bean color is linked to acne
 - Pretend this was our original hypothesis
 - Et voilà!

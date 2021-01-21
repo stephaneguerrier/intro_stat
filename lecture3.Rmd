@@ -1,6 +1,6 @@
 ---
 title: "Introduction to Statistics"
-subtitle: "Part III: Introduction to Regression and Pitfalls for Statistical Analysis"
+subtitle: "Part III: Introduction to Regression and Pitfalls of Statistical Analysis"
 author: "Stéphane Guerrier & Yuming Zhang"
 date: "22 January 2021"
 output:
@@ -167,23 +167,14 @@ xaringanExtra::use_clipboard()
 
 .panelset[
 .panel[.panel-name[Problem]
-.smallest[An educator believes that .pink[new directed reading activities in the classroom can help elementary school students (6-12 years old) improve their reading ability.] She arranged for a certain amount of students to take part in these activities .hi-pink[(treatment group)], meanwhile she arranged another group of students to follow the same curriculum without these activities .hi-purple[(control group)]. At the end of every academic year, all students are given a Degree of Reading Power (DRP) test, which assesses their reading ability. She collected the scores of the DRP test of 20 students from each group. The data is as follows:]
+.smallest[An educator believes that new directed reading activities in the classroom can help elementary school students (6-12 years old) improve their reading ability. She arranged for some students to take part in these activities .hi-pink[(treatment group)], meanwhile she arranged another group of students to follow the same curriculum without these activities .hi-purple[(control group)]. At the end of every academic year, all students are given a Degree of Reading Power (DRP) test, which assesses their reading ability. She collected the scores of the DRP test of 20 students from each group as follows:]
 ```{r}
-treatment_score = c(33, 38, 41, 43, 46, 48, 49, 49, 49, 52,
-                    39, 42, 50, 60, 69, 64, 65, 62, 67, 76)
-control_score = c(35, 43, 35, 47, 50, 46, 56, 63, 55, 63, 
-                  58, 78, 60, 79, 72, 65, 69, 68, 72, 75)
+treatment_score = c(43, 48, 41, 53, 56, 58, 49, 54, 55, 52,
+                    49, 42, 50, 60, 62, 64, 65, 58, 67, 69)
+control_score = c(35, 43, 45, 50, 50, 46, 56, 63, 55, 63, 
+                  58, 74, 60, 70, 72, 75, 69, 79, 82, 75)
 ```
-]
-.panel[.panel-name[Boxplot Code]
-```{r, eval = F}
-boxplot(treatment_score, control_score, 
-        names = c("Treatment", "Control"), 
-        ylab = "Score of the DRP test",
-        col = c("#F8766D", "#00BFC4"))
-points(1:2, c(mean(treatment_score), mean(control_score)), 
-       pch = 16, col = 1)
-```
+.smallest[.pink[Can we conclude that these new directed reading activities can help elementary school students improve their reading ability?]]
 ]
 .panel[.panel-name[Boxplot]
 ```{r, echo = F}
@@ -197,11 +188,21 @@ points(1:2, c(mean(treatment_score), mean(control_score)),
        pch = 16, col = 1, cex = 2)
 ```
 ]
+.panel[.panel-name[Boxplot Code]
+```{r, eval = F}
+boxplot(treatment_score, control_score, 
+        names = c("Treatment", "Control"), 
+        ylab = "Score of the DRP test",
+        col = c("#F8766D", "#00BFC4"))
+points(1:2, c(mean(treatment_score), mean(control_score)), 
+       pch = 16, col = 1)
+```
+]
 .panel[.panel-name[Test]
 1. .purple[Define hypotheses:] $H_0: \mu_t = \mu_c$ and $H_a: \mu_t > \mu_c$.
 2. .purple[Define] $\color{#6A5ACD}{\alpha}$: We consider $\alpha = 5\%$.
-3. .purple[Compute p-value]: p-value = $96.27\%$ (see R code tab for details).
-4. .purple[Conclusion:] We have p-value > $\alpha$ and we cannot reject the null hypothesis at the significance level of 5%. We don't have enough evidence to conclude that the new directed reading activities can help elementary school students improve their reading ability.
+3. .purple[Compute p-value]: p-value = $95.78\%$ (see R code tab for details).
+4. .purple[Conclusion:] We have p-value > $\alpha$ so we cannot reject the null hypothesis at the significance level of 5%. Moreover, notice that the p-value for the test with opposite hypotheses is actually $1-95.78\%=4.22\% < \alpha$. So we conclude, at the significance level of 5%, that the classical curriculum without these new directed reading activities actually improve students' reading ability more compared to the curriculum with these activities. 🤔
 ]
 .panel[.panel-name[`R` Code ]
 ```{r}
@@ -229,10 +230,6 @@ control_age = c(6, 6, 7, 7, 8, 8, 8, 8, 8, 9, 9,
 # Is age an explanatory variable?
 
 ```{r, echo = F}
-# linear regression
-treatment_mod = lm(treatment_score ~ treatment_age)
-control_mod = lm(control_score ~ control_age)
-
 # plot
 par(mai = c(2, 2, 1, 1))
 plot(treatment_age, treatment_score, pch = 16, col = "#F8766D", cex = 2,
@@ -241,17 +238,17 @@ plot(treatment_age, treatment_score, pch = 16, col = "#F8766D", cex = 2,
      cex.axis = 2, cex.lab = 2)
 points(control_age, control_score, pch = 17, col = "#00BFC4", cex = 2)
 
-lines(6:12, treatment_mod$coefficients[1] + treatment_mod$coefficients[2]*(6:12),
-      lwd = 1.5, col = "#F8766D")
-lines(6:12, control_mod$coefficients[1] + control_mod$coefficients[2]*(6:12), 
-      lwd = 1.5, col = "#00BFC4")
+# lines(6:12, treatment_mod$coefficients[1] + treatment_mod$coefficients[2]*(6:12),
+#       lwd = 1.5, col = "#F8766D")
+# lines(6:12, control_mod$coefficients[1] + control_mod$coefficients[2]*(6:12), 
+#       lwd = 1.5, col = "#00BFC4")
 
 legend("bottomright",
        legend = c("Treatment", "Control"),
        col = c("#F8766D", "#00BFC4"),
        bty = "n",
-       lty = c(1, 1),
-       lwd = c(1.5, 1.5),
+       # lty = c(1, 1),
+       # lwd = c(1.5, 1.5),
        pch = c(16, 17),
        pt.cex = c(2, 2),
        cex = 2)
@@ -309,6 +306,50 @@ mod = lm(score ~ treatment + age, data = reading_data)
 summary(mod)
 ```
 ]
+.panel[.panel-name[Graph Code]
+```{r, eval = F}
+par(mai = c(2, 2, 1, 1))
+plot(treatment_age, treatment_score, pch = 16, col = "#F8766D",
+     xlim = c(6,12), ylim = c(10, 100), 
+     xlab = "Age (in years)", ylab = "Score of the DRP test")
+points(control_age, control_score, pch = 17, col = "#00BFC4")
+
+lines(6:12, coef(mod)[1]+coef(mod)[2]*1+coef(mod)[3]*(6:12), col = "#F8766D")
+lines(6:12, coef(mod)[1]+coef(mod)[2]*0+coef(mod)[3]*(6:12), col = "#00BFC4")
+
+legend("bottomright",
+       legend = c("Treatment", "Control"),
+       col = c("#F8766D", "#00BFC4"),
+       bty = "n",
+       pch = c(16, 17))
+```
+]
+.panel[.panel-name[Graph]
+```{r, echo = F}
+# plot
+par(mai = c(2, 2, 1, 1))
+plot(treatment_age, treatment_score, pch = 16, col = "#F8766D", cex = 2,
+     xlim = c(6,12), ylim = c(10, 100), 
+     xlab = "Age (in years)", ylab = "Score of the DRP test",
+     cex.axis = 2, cex.lab = 2)
+points(control_age, control_score, pch = 17, col = "#00BFC4", cex = 2)
+
+lines(6:12, coef(mod)[1]+coef(mod)[2]*1+coef(mod)[3]*(6:12), 
+      lwd = 1.5, col = "#F8766D")
+lines(6:12, coef(mod)[1]+coef(mod)[2]*0+coef(mod)[3]*(6:12), 
+      lwd = 1.5, col = "#00BFC4")
+
+legend("bottomright",
+       legend = c("Treatment", "Control"),
+       col = c("#F8766D", "#00BFC4"),
+       bty = "n",
+       lty = c(1, 1),
+       lwd = c(1.5, 1.5),
+       pch = c(16, 17),
+       pt.cex = c(2, 2),
+       cex = 2)
+```
+]
 ]
 
 ---
@@ -316,9 +357,9 @@ summary(mod)
 # Interpretation of coefficients
 
 We can obtain the estimated coefficients. Specifically,
-- $\hat{\beta}_0 = -1.345$ represents the estimated baseline average score of the DRP test.
-- $\hat{\beta}_1 = 9.0179$ means that .pink[for a student of the same age], participating the new directed reading activities can increase his/her average score of the DRP test by 9.0179. 🤔
-- $\hat{\beta}_2 = 6.6808$ means that .pink[when a student receives the same treatment] (either participate or not in the activities), his/her average score increases by 6.6808 as he/she becomes 1 year older. 
+- $\hat{\beta}_0 = 1.6263$ represents the estimated baseline average score of the DRP test.
+- $\hat{\beta}_1 = 9.7352$ means that .pink[for a student of the same age], participating the new directed reading activities can increase his/her average score of the DRP test by 9.7352 🤔
+- $\hat{\beta}_2 = 6.5246$ means that .pink[when a student receives the same treatment] (either participate or not in the activities), his/her average score increases by 6.5246 as he/she becomes 1 year older. 
 
 Regression coefficients represent the mean change in the response variable .purple[for one unit of change] in the predictor variable .purple[while holding other covariates in the model constant.]
 
@@ -330,7 +371,7 @@ Regression coefficients represent the mean change in the response variable .purp
 - This coefficient p-value is associated to the test of $H_0: \beta_i = 0$ and $H_a: \beta_i \neq 0$. 
 - .pink[A covariate with a small p-value (typically smaller than 5%) is considered to be a significant (meaningful) addition to the model], as changes in the values of such covariate can lead to changes in the response variable. 
 - On the other hand, a large p-value (typically larger than 5%) suggests that the corresponding covariate is not significantly associated with changes in the response. 
-- In this example, the coefficient p-value associated to the treatment covariate is 1.29% (smaller than 5%). Moreover, the estimated coefficient is 9.0179. .purple[These suggest that taking into account the effect of age, the treatment actually significantly improves the reading ability of elementary school students, at the significance level of 5%.] 
+- In this example, the coefficient p-value associated to the treatment covariate is 0.0293% (smaller than 5%). Moreover, the estimated coefficient is 9.7352. .purple[These suggest that taking into account the effect of age, the treatment actually significantly improves the reading ability of elementary school students, at the significance level of 5%.] 
 
 ---
 
@@ -389,8 +430,8 @@ Given the promising improvement on students' reading ability with these new dire
 .panel[.panel-name[Computation]
 To predict the value of the response variable for a future observation with the value $x_i^*$ of the explanatory variables, we use
 $$\hat{y}^* = \hat{\beta}_0 + \hat{\beta}_1 x_1^* + \ldots + \hat{\beta}_p x_p^*.$$
-In this case, recall that with the model $Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \epsilon$, where $X_1$ and $X_2$ denote the "treatment" and "age" covariates respectively, we have $\hat{\beta}_0 = -1.345$, $\hat{\beta}_1 = 9.0179$ and $\hat{\beta}_2 = 6.6808$. So the predicted score of the DRP test for a 12 year-old student with participation in these activities can be computed as
-$$-1.345 + 9.0179 \cdot 1 + 6.6808 \cdot 12 \approx 87.84.$$
+In this case, recall that with the model $Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \epsilon$, where $X_1$ and $X_2$ denote the "treatment" and "age" covariates respectively, we have $\hat{\beta}_0 = 1.6263$, $\hat{\beta}_1 = 9.7352$ and $\hat{\beta}_2 = 6.5246$. So the predicted score of the DRP test for a 12 year-old student with participation in these activities can be computed as
+$$1.6263 + 9.7352 \cdot 1 + 6.5246 \cdot 12 \approx 89.66.$$
 ]
 .panel[.panel-name[R Code]
 ```{r}
@@ -417,7 +458,7 @@ add the comic here
 
 ---
 
-# Pitfalls for statistical analysis
+# Pitfalls of statistical analysis
 
 .smallest[.hi-pink[P-Hacking] refers to the misuse of data analysis to find patterns in data that can be presented as statistically significant. .turquoise[This is done by performing many statistical tests on the data and only reporting those that come back with significant results]<sup>.smallest[👋]</sup>. .hi-purple[Example]: a correlation between the number of letters in [Scripps National Spelling Bee's](https://en.wikipedia.org/wiki/Scripps_National_Spelling_Bee) winning word and the number of people in the United States killed by venomous spiders.]
 
@@ -432,7 +473,7 @@ include_graphics("pics/phacking.png")
 # P-Hacking 
 
 <div align="center">
-<iframe width="784" height="441" src="https://www.youtube.com/embed/0Rnq1NpHdmw?start=209&end=242" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="784" height="441" src="http://nsfwyoutube.com/watchmore?v=0Rnq1NpHdmw" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
 .tiny[Source: Scientific Studies: Last Week Tonight with John Oliver (HBO)]
@@ -456,7 +497,6 @@ include_graphics("pics/republican.png")
 .pull-left[.smallsest[.hi-pink[HARKing] is an acronym coined by Norbert Kerr for the .purple[questionable research practice of "Hypothesizing After the Results are Known"]. It can be defined as presenting .hi-turquoise[a post hoc] hypothesis in the introduction of a research report as if it were an .hi-turquoise[a priori] hypothesis.
 
 .hi-pink[How to do it?] 🤔
-
 - Test if one jelly bean color is linked to acne
 - Pretend this was our original hypothesis
 - Et voilà!
