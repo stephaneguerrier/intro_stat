@@ -169,10 +169,10 @@ xaringanExtra::use_clipboard()
 .panel[.panel-name[Problem]
 .smallest[An educator believes that new directed reading activities in the classroom can help elementary school students (6-12 years old) improve their reading ability. She arranged a pilot study where some students (chosen at random) of age 6 start to take part in these activities .hi-pink[(treatment group)], meanwhile other students continue with the classical curriculum .hi-purple[(control group)]. After three years, the educator wishes to evaluate the effectiveness of these activities so all students are given a Degree of Reading Power (DRP) test, which assesses their reading ability with scores given below: ]
 ```{r}
-treatment_score = c(43, 48, 41, 53, 42, 55, 49, 47, 60, 45,
-                    49, 42, 50, 60, 61, 59, 63, 58, 66, 69)
+treatment_score = c(43, 48, 41, 51, 46, 58, 49, 54, 45, 52,
+                    49, 42, 50, 52, 62, 54, 65, 58, 52, 69)
 control_score = c(35, 43, 45, 50, 50, 46, 56, 63, 55, 63, 
-                  58, 74, 60, 70, 72, 75, 69, 79, 82, 75)
+                  58, 74, 60, 70, 72, 75, 69, 70, 73, 71)
 ```
 .smallest[.pink[Can we conclude that these new directed reading activities can help elementary school students improve their reading ability?]]
 ]
@@ -201,10 +201,10 @@ points(1:2, c(mean(treatment_score), mean(control_score)),
 .panel[.panel-name[Test]
 1. .purple[Define hypotheses:] $H_0: \mu_t = \mu_c$ and $H_a: \mu_t > \mu_c$.
 2. .purple[Define] $\color{#6A5ACD}{\alpha}$: We consider $\alpha = 5\%$.
-3. .purple[Compute p-value]: p-value = $95.78\%$ (see R code tab for details).
+3. .purple[Compute p-value]: p-value = $99.11\%$ (see R code tab for details).
 4. .purple[Conclusion:] We have p-value > $\alpha$ so we cannot reject the null hypothesis at the significance level of 5%. 
 
-.hi-pink[Remark:] Notice that the p-value for the test with opposite hypotheses is actually $1-95.78\%=4.22\% < \alpha$. So we conclude, at the significance level of 5%, that the classical curriculum without these new directed reading activities actually improve students' reading ability more compared to the curriculum with these activities. 🤔
+.hi-pink[Remark:] Notice that the p-value for the test with opposite hypotheses is actually $1-99.11\%=0.89\% < \alpha$. So we conclude, at the significance level of 5%, that the classical curriculum without these new directed reading activities actually improves students' reading ability more compared to the curriculum with these activities. 🤔
 ]
 .panel[.panel-name[`R` Code ]
 ```{r}
@@ -221,10 +221,11 @@ The educator points out that she has considered these new directed reading activ
 
 To make sure that the analysis is reliable, she includes the age information of the students as follows:
 ```{r}
-treatment_age = c(6.01, 6.06, 6.22, 6.28, 6.60, 6.63, 6.67, 6.71, 6.73, 6.76,
+treatment_age = c(6.60, 6.11, 6.02, 6.06, 6.01, 6.33, 6.17, 6.21, 6.63, 6.06,
                   7.10, 7.17, 7.20, 7.34, 7.54, 7.80, 7.86, 8.27, 8.58, 8.89)
-control_age   = c(6.42, 6.46, 7.54, 7.88, 8.51, 8.60, 8.75, 8.81, 8.92, 9.10,
-                  9.69, 10.09, 10.75, 10.81, 10.87, 11.74, 11.98, 12.40, 12.51, 12.81)
+control_age   = c(6.42, 6.02, 7.23, 7.51, 8.01, 8.12, 8.09, 8.22, 8.37, 9.10,
+                  9.29, 10.09, 10.35, 10.21, 10.17, 11.54, 11.28, 12, 12.11, 
+                  12.24)
 ```
 
 ---
@@ -235,22 +236,15 @@ control_age   = c(6.42, 6.46, 7.54, 7.88, 8.51, 8.60, 8.75, 8.81, 8.92, 9.10,
 # plot
 par(mai = c(2, 2, 1, 1))
 plot(treatment_age, treatment_score, pch = 16, col = "#F8766D", cex = 1.5,
-     xlim = c(6,12), ylim = c(30, 80), 
+     xlim = c(6, 12.5), ylim = c(30, 85), 
      xlab = "Age (in years)", ylab = "Score of the DRP test",
      cex.axis = 2, cex.lab = 2)
 points(control_age, control_score, pch = 17, col = "#00BFC4", cex = 1.5)
-
-# lines(6:12, treatment_mod$coefficients[1] + treatment_mod$coefficients[2]*(6:12),
-#       lwd = 1.5, col = "#F8766D")
-# lines(6:12, control_mod$coefficients[1] + control_mod$coefficients[2]*(6:12), 
-#       lwd = 1.5, col = "#00BFC4")
 
 legend("bottomright",
        legend = c("Treatment", "Control"),
        col = c("#F8766D", "#00BFC4"),
        bty = "n",
-       # lty = c(1, 1),
-       # lwd = c(1.5, 1.5),
        pch = c(16, 17),
        pt.cex = c(1.5, 1.5),
        cex = 2)
@@ -276,7 +270,7 @@ $$Y = \beta_0 + \beta_1 X_1 + \ldots + \beta_p X_p + \epsilon, \quad \epsilon \s
 In the reading ability example, we can formulate a linear regression model as follows:
 $$\color{#e64173}{\text{Score}_i} = \beta_0 + \beta_1 \color{#6A5ACD}{\text{Group}_i} + \beta_2 \color{#20B2AA}{\text{Age}_i} + \epsilon_i, \quad \epsilon_i \sim \mathcal{N}(0, \sigma^2).$$
 - $\color{#e64173}{\text{Score}_i}$: score of the DRP test of the $i$-th student.
-- $\color{#6A5ACD}{\text{Group}_i}$: indicator of participation of the new directed reading activities for the $i$-th student (i.e. $\color{#6A5ACD}{\text{Group}_i} = 1$ if participate and $\color{#6A5ACD}{\text{Group}_i} = 0$ if not participate).
+- $\color{#6A5ACD}{\text{Group}_i}$: indicator of participation in the new directed reading activities for the $i$-th student (i.e. $\color{#6A5ACD}{\text{Group}_i} = 1$ if participate and $\color{#6A5ACD}{\text{Group}_i} = 0$ if not participate).
 - $\color{#20B2AA}{\text{Age}_i}$: age of the $i$-th student. 
 
 With this model the two groups can be compared as the age effect is taken into account. The goal of the educator is now to assess if $\beta_1$ is .pink[significantly larger than 0] (why??? 🤔).
@@ -314,7 +308,7 @@ summary(mod)
 ```{r, eval = F}
 par(mai = c(2, 2, 1, 1))
 plot(treatment_age, treatment_score, pch = 16, col = "#F8766D",
-     xlim = c(6,12), ylim = c(30, 80), 
+     xlim = c(6, 12.5), ylim = c(30, 85), 
      xlab = "Age (in years)", ylab = "Score of the DRP test")
 points(control_age, control_score, pch = 17, col = "#00BFC4")
 
@@ -333,7 +327,7 @@ legend("bottomright",
 # plot
 par(mai = c(2, 2, 1, 1))
 plot(treatment_age, treatment_score, pch = 16, col = "#F8766D", cex = 1.5,
-     xlim = c(6,12), ylim = c(30, 80), 
+     xlim = c(6, 12.5), ylim = c(30, 85), 
      xlab = "Age (in years)", ylab = "Score of the DRP test",
      cex.axis = 2, cex.lab = 2)
 points(control_age, control_score, pch = 17, col = "#00BFC4", cex = 1.5)
@@ -361,9 +355,9 @@ legend("bottomright",
 # Interpretation of coefficients
 
 We can obtain the estimated coefficients. Specifically,
-- $\hat{\beta}_0 = -2.6355$ represents the estimated baseline average score of the DRP test.
-- $\hat{\beta}_1 = 10.8228$ means that .pink[for a student of the same age], participating the new directed reading activities is estimated to increase their average score of the DRP test by 10.8228.
-- $\hat{\beta}_2 = 6.5388$ means that .pink[when a student receives the same treatment] (either participate or not in the activities), their average score increases by 6.5388 as they become 1 year older. 
+- $\hat{\beta}_0 = 8.611$ represents the estimated baseline average score of the DRP test.
+- $\hat{\beta}_1 = 4.875$ means that .pink[for a student of the same age], participating in the new directed reading activities is estimated to increase their average score of the DRP test by 4.875.
+- $\hat{\beta}_2 = 5.504$ means that .pink[when a student receives the same treatment] (either participate or not in the activities), their average score increases by 5.504 as they become 1 year older. 
 
 Regression coefficients represent the mean change in the response variable .purple[for one unit of change] in the predictor variable .purple[while holding other covariates in the model constant.]
 
@@ -374,8 +368,8 @@ Regression coefficients represent the mean change in the response variable .purp
 - We notice that for each coefficient $\beta_i$, there is a corresponding p-value.
 - This coefficient p-value is associated to the test of $H_0: \beta_i = 0$ and $H_a: \beta_i \neq 0$. 
 - .pink[A covariate with a small p-value (typically smaller than 5%) is considered to be a significant (meaningful) addition to the model], as changes in the values of such covariate can lead to changes in the response variable. 
-- On the other hand, a large p-value (typically larger than 5%) suggests that the corresponding covariate is not significantly associated with changes in the response. 
-- In this example, the coefficient p-value associated to the "group" covariate is 0.0293% (smaller than 5%). .purple[This suggests that taking into account the effect of age, the reading abilities of the students receiving the treatment is significantly .hi.purple[different] from the control group, at the significance level of 5%.] But this is not what we want! 😤 
+- On the other hand, a large p-value (typically larger than 5%) suggests that the corresponding covariate is not significantly associated with changes in the response.
+- In this example, the coefficient p-value associated to the "group" covariate is 4.19% (smaller than 5%). .purple[This suggests that taking into account the effect of age, the reading abilities of the students receiving the treatment are significantly .hi.purple[different] from the control group, at the significance level of 5%.] But this is not what we want! 😤 
 
 ---
 
@@ -388,7 +382,7 @@ Regression coefficients represent the mean change in the response variable .purp
 | $\small \hat{\beta_i}>0$     | $\small p/2$ | $\small 1-p/2$ |
 | $\small \hat{\beta_i}<0$      | $\small 1-p/2$      |   $\small p/2$ |
 
-.smaller[In our example,] $\small \beta_1 = 9.7352$ .smaller[and] $\small p=0.0293\%$.smaller[. So the p-value of the test with hypotheses] $\small H_0: \beta_1=0$ .smaller[and] $\small H_a: \beta_1>0$ .smaller[is] $\small 0.0293\% /2 \approx 0.015\% < \alpha$.smaller[. .pink[So we can conclude that these new directed reading activities can significantly improve students' reading ability compared to classical curriculum.] 😍]
+.smaller[In our example,] $\small \beta_1 = 4.875$ .smaller[and] $\small p=4.19\%$.smaller[. So the p-value of the test with hypotheses] $\small H_0: \beta_1=0$ .smaller[and] $\small H_a: \beta_1>0$ .smaller[is] $\small 4.19\% /2 = 2.095\% < \alpha$.smaller[. .pink[So we can conclude that these new directed reading activities can significantly improve students' reading ability compared to classical curriculum.] 😍]
 
 ---
 
@@ -408,10 +402,10 @@ Regression coefficients represent the mean change in the response variable .purp
 .pink[The educator thinks that the reading ability may also vary between male and female students.] She further provided the gender information of students, which can be imported as follows:
 ```{r}
 # gender information: 1 = female, 0 = male
-treatment_gender = c(1, 1, 0, 1, 0, 0, 0, 1, 0, 1,
-                     1, 0, 0, 1, 1, 1, 1, 0, 0, 1)
-control_gender = c(0, 1, 0, 1, 0, 1, 0, 1, 0, 1,
-                   1, 1, 0, 0, 0, 1, 1, 0, 1, 0)
+treatment_gender = c(1, 0, 1, 1, 0, 0, 0, 1, 0, 1,
+                     1, 0, 0, 1, 0, 1, 1, 0, 0, 1)
+control_gender = c(0, 1, 0, 1, 0, 1, 1, 1, 0, 1,
+                   1, 1, 0, 0, 0, 1, 0, 0, 1, 0)
 
 # combine all available data together
 reading_data = data.frame(score = c(treatment_score, control_score),
@@ -445,8 +439,8 @@ summary(mod)
 .smallest[In general, to predict the value of the response variable for a future observation with the value] $\small x_i^*$ .smallest[of the explanatory variables, we use]
 $$\small \hat{y}^* = \hat{\beta}_0 + \hat{\beta}_1 x_1^* + \ldots + \hat{\beta}_p x_p^*.$$
 
-.smallest[In this case, recall that with the model] $\small \color{#e64173}{\text{Score}} = \beta_0 + \beta_1 \color{#6A5ACD}{\text{Group}} + \beta_2 \color{#20B2AA}{\text{Age}} + \epsilon$, .smallest[we have] $\small \hat{\beta}_0 = 1.6263$, $\small \hat{\beta}_1 = 9.7352$ .smallest[and] $\small \hat{\beta}_2 = 6.5246$.smallest[. So the predicted score of the DRP test for a 12 year-old student with participation in these activities can be computed as]
-$$\small 1.6263 + 9.7352 \cdot \color{#6A5ACD}{1} + 6.5246 \cdot \color{#20B2AA}{12} \approx \color{#e64173}{89.66}.$$
+.smallest[In this case, recall that with the model] $\small \color{#e64173}{\text{Score}} = \beta_0 + \beta_1 \color{#6A5ACD}{\text{Group}} + \beta_2 \color{#20B2AA}{\text{Age}} + \epsilon$, .smallest[we have] $\small \hat{\beta}_0 = 8.611$, $\small \hat{\beta}_1 = 4.875$ .smallest[and] $\small \hat{\beta}_2 = 5.504$.smallest[. So the predicted score of the DRP test for a 12 year-old student with participation in these activities can be computed as]
+$$\small 8.611 + 4.875 \cdot \color{#6A5ACD}{1} + 5.504 \cdot \color{#20B2AA}{12} \approx \color{#e64173}{79.53}.$$
 
 ---
 
@@ -466,7 +460,7 @@ $$\small 1.6263 + 9.7352 \cdot \color{#6A5ACD}{1} + 6.5246 \cdot \color{#20B2AA}
 .panel[.panel-name[Problem]
 The educator is interested in comparing how a student will perform in the DRP test at the end of the elementary school studies (i.e. at 12 years old), with and without these new directed reading activities, with probability of 95%. 
 
-We predict, with the probability of 95%, that for 12 year-old students who particiate in these activities, their scores of the DRP test may fall in the range of .pink[(75.66, 103.65)]. On the other hand, for those who do not participate in these activities, their scores may fall in the range of .purple[(67.24, 92.60)]. (See R code tab for details.)
+We predict, with the probability of 95%, that for 12 year-old students who particiate in these activities, their scores of the DRP test may fall in the range of .pink[(66.09, 92.98)]. On the other hand, for those who do not participate in these activities, their scores may fall in the range of .purple[(62.30, 87.02)]. (See R code tab for details.)
 ]
 .panel[.panel-name[R Code]
 ```{r}
@@ -491,7 +485,7 @@ predict(mod, new_data, interval = "predict")
 - .smaller[Linear regression .pink[assumes a linear relationship] between the response and the covariates. However this is sometimes incorrect.]
 - .smaller[Linear regression .pink[is applicable when the response variable is continuous and approximately normally distributed.] So it is not suitable when, for example, we need to analyze binary data or count data. In this case, a more general class of model called the .purple[generalized linear model] can be used.]
 - .smaller[Linear regression .pink[only considers independent data.] So it is not suitable, for example, for time dependent data or clustered data. For these cases, we may use .purple[time series analysis] or .purple[mixed effect model] respectively.]
-- .smaller[Linear regression .pink[should not be used to extrapolate], i.e. to estimate beyond the original observation range. For example, if we consider a 100 year-old person in this reading ability example, we would predict that the corresponding score of the DRP test would be 663.82 and 654.08, respectively, with and without these activities. Does it really make sense? 😯]
+- .smaller[Linear regression .pink[should not be used to extrapolate], i.e. to estimate beyond the original observation range. For example, if we consider a 100 year-old person in this reading ability example, we would predict that the corresponding scores of the DRP test would be 563.89 and 559.01, respectively, with and without these activities. Does it really make sense? 😯]
 
 ---
 
@@ -517,21 +511,9 @@ include_graphics("pics/phacking.png")
 
 ---
 
-# P-Hacking 
-
-<div align="center">
-<iframe width="784" height="441" src="http://nsfwyoutube.com/watchmore?v=0Rnq1NpHdmw?start=399" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div>
-
-.tiny[Source: Scientific Studies: Last Week Tonight with John Oliver (HBO)]
-
-👋 .smallest[If you want to know more, have a look [here](https://fivethirtyeight.com/features/you-cant-trust-what-you-read-about-nutrition/).]
-
----
-
 # How to P-Hack? 🤔
 
-.smaller[Are republicans are good or bad for the American Ecy? .hi-purple[Both!!] (see [link](https://projects.fivethirtyeight.com/p-hacking/))]
+.smaller[Are republicans good or bad for the American Economy? .hi-purple[Both!!] (see [link](https://projects.fivethirtyeight.com/p-hacking/))]
 
 ```{R, rep, out.width = "72%", echo = F}
 include_graphics("pics/republican.png")
@@ -544,8 +526,8 @@ include_graphics("pics/republican.png")
 .pull-left[.smallsest[.hi-pink[HARKing] is an acronym coined by Norbert Kerr for the .purple[questionable research practice of "Hypothesizing After the Results are Known"]. It can be defined as presenting .hi-turquoise[a post hoc] hypothesis in the introduction of a research report as if it were an .hi-turquoise[a priori] hypothesis.
 
 .hi-pink[How to do it?] 🤔
-- Test if one jelly bean color is linked to acne
-- Pretend this was our original hypothesis
+- Test if one jelly bean color is linked to acne.
+- Pretend this was our original hypothesis.
 - Et voilà!
 
 👋  If you want to know more, have a look [here](https://en.wikipedia.org/wiki/HARKing) and the references therein.]]
@@ -579,7 +561,7 @@ include_graphics("pics/replic.jpg")
 # ⚠️ Take home message
 
 - Any data analysis made on a sample of data is subject to .purple[randomness].
-- Understanding the random processes underlying any data analysis, includinunderlyingg statistics such as confidence intervals and p-values, requires basic knowledge in probability and statistics, or .pink[statistical literacy].
+- Understanding the random processes underlying any data analysis, including underlying statistics such as confidence intervals and p-values, requires basic knowledge in probability and statistics, or .pink[statistical literacy].
 - With data, there is never 100% certainty, but rather a .pink[conclusion associated to a (estimated) risk] that the conclusion might be wrong. 
-- .pink[One has to live with this fact, and any scientific activity that might conclude with 100% certainty on the basis of data, is simply a fallacy].
-- However, properly controlling for the statistical risk and properly rstating the conclusions that can be drawn from a data analysis, can really bring new knowledge, especially in all the sciences that are based on observations.
+- .purple[One has to live with this fact, and any scientific activity that might conclude with 100% certainty on the basis of data, is simply a fallacy].
+- However, properly controlling for the statistical risk and properly stating the conclusions that can be drawn from a data analysis, can really bring new knowledge, especially in all the sciences that are based on observations.
