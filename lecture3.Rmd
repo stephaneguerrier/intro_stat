@@ -169,8 +169,8 @@ xaringanExtra::use_clipboard()
 .panel[.panel-name[Problem]
 .smallest[An educator believes that new directed reading activities in the classroom can help elementary school students (6-12 years old) improve their reading ability. She arranged a pilot study where some students (chosen at random) of age 6 start to take part in these activities .hi-pink[(treatment group)], meanwhile other students continue with the classical curriculum .hi-purple[(control group)]. After three years, the educator wishes to evaluate the effectiveness of these activities so all students are given a Degree of Reading Power (DRP) test, which assesses their reading ability with scores given below: ]
 ```{r}
-treatment_score = c(43, 48, 41, 53, 56, 58, 49, 54, 55, 52,
-                    49, 42, 50, 60, 62, 64, 65, 58, 67, 69)
+treatment_score = c(43, 48, 41, 53, 42, 55, 49, 47, 60, 45,
+                    49, 42, 50, 60, 61, 59, 63, 58, 66, 69)
 control_score = c(35, 43, 45, 50, 50, 46, 56, 63, 55, 63, 
                   58, 74, 60, 70, 72, 75, 69, 79, 82, 75)
 ```
@@ -221,10 +221,10 @@ The educator points out that she has considered these new directed reading activ
 
 To make sure that the analysis is reliable, she includes the age information of the students as follows:
 ```{r}
-treatment_age = c(6, 6, 6, 6, 6, 6, 6, 6, 6, 6,
-                  7, 7, 7, 7, 7, 7, 7, 8, 8, 8)
-control_age = c(6, 6, 7, 7, 8, 8, 8, 8, 8, 9, 9, 
-                10, 10, 10, 10, 11, 11, 12, 12, 12)
+treatment_age = c(6.01, 6.06, 6.22, 6.28, 6.60, 6.63, 6.67, 6.71, 6.73, 6.76,
+                  7.10, 7.17, 7.20, 7.34, 7.54, 7.80, 7.86, 8.27, 8.58, 8.89)
+control_age   = c(6.42, 6.46, 7.54, 7.88, 8.51, 8.60, 8.75, 8.81, 8.92, 9.10,
+                  9.69, 10.09, 10.75, 10.81, 10.87, 11.74, 11.98, 12.40, 12.51, 12.81)
 ```
 
 ---
@@ -235,7 +235,7 @@ control_age = c(6, 6, 7, 7, 8, 8, 8, 8, 8, 9, 9,
 # plot
 par(mai = c(2, 2, 1, 1))
 plot(treatment_age, treatment_score, pch = 16, col = "#F8766D", cex = 1.5,
-     xlim = c(6,12), ylim = c(10, 100), 
+     xlim = c(6,12), ylim = c(30, 80), 
      xlab = "Age (in years)", ylab = "Score of the DRP test",
      cex.axis = 2, cex.lab = 2)
 points(control_age, control_score, pch = 17, col = "#00BFC4", cex = 1.5)
@@ -314,7 +314,7 @@ summary(mod)
 ```{r, eval = F}
 par(mai = c(2, 2, 1, 1))
 plot(treatment_age, treatment_score, pch = 16, col = "#F8766D",
-     xlim = c(6,12), ylim = c(10, 100), 
+     xlim = c(6,12), ylim = c(30, 80), 
      xlab = "Age (in years)", ylab = "Score of the DRP test")
 points(control_age, control_score, pch = 17, col = "#00BFC4")
 
@@ -333,7 +333,7 @@ legend("bottomright",
 # plot
 par(mai = c(2, 2, 1, 1))
 plot(treatment_age, treatment_score, pch = 16, col = "#F8766D", cex = 1.5,
-     xlim = c(6,12), ylim = c(10, 100), 
+     xlim = c(6,12), ylim = c(30, 80), 
      xlab = "Age (in years)", ylab = "Score of the DRP test",
      cex.axis = 2, cex.lab = 2)
 points(control_age, control_score, pch = 17, col = "#00BFC4", cex = 1.5)
@@ -361,9 +361,9 @@ legend("bottomright",
 # Interpretation of coefficients
 
 We can obtain the estimated coefficients. Specifically,
-- $\hat{\beta}_0 = 1.6263$ represents the estimated baseline average score of the DRP test.
-- $\hat{\beta}_1 = 9.7352$ means that .pink[for a student of the same age], participating the new directed reading activities is estimated to increase their average score of the DRP test by 9.7352.
-- $\hat{\beta}_2 = 6.5246$ means that .pink[when a student receives the same treatment] (either participate or not in the activities), their average score increases by 6.5246 as they become 1 year older. 
+- $\hat{\beta}_0 = -2.6355$ represents the estimated baseline average score of the DRP test.
+- $\hat{\beta}_1 = 10.8228$ means that .pink[for a student of the same age], participating the new directed reading activities is estimated to increase their average score of the DRP test by 10.8228.
+- $\hat{\beta}_2 = 6.5388$ means that .pink[when a student receives the same treatment] (either participate or not in the activities), their average score increases by 6.5388 as they become 1 year older. 
 
 Regression coefficients represent the mean change in the response variable .purple[for one unit of change] in the predictor variable .purple[while holding other covariates in the model constant.]
 
@@ -520,7 +520,7 @@ include_graphics("pics/phacking.png")
 # P-Hacking 
 
 <div align="center">
-<iframe width="784" height="441" src="http://nsfwyoutube.com/watchmore?v=0Rnq1NpHdmw" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="784" height="441" src="http://nsfwyoutube.com/watchmore?v=0Rnq1NpHdmw?start=399" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
 .tiny[Source: Scientific Studies: Last Week Tonight with John Oliver (HBO)]
